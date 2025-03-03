@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="kepek/icon.png">
-    <link rel="stylesheet" href="{{ asset('css\bootstrap-5.3.3\css\bootstrap.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('kepek/icon.png') }}">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-5.3.3/css/bootstrap.css') }}">
     <title>Comproller - Bérszámfejtés</title>
     <link rel="stylesheet" href="{{ asset('css/berszamfejtes.css') }}">
     <link rel="stylesheet" href="{{ asset('css/nav.css') }}">

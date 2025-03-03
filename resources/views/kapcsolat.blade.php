@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="kepek/icon.png">
+    <link rel="icon" type="image/x-icon" href="{{ asset('kepek/icon.png') }}">
     <title>Comproller - Kapcsolat</title>
-    <link rel="stylesheet" href="{{ asset('css\bootstrap-5.3.3\css\bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-5.3.3/css/bootstrap.css') }}">
 </head>
 <body>
     @include('navbarandfooter/nav')
