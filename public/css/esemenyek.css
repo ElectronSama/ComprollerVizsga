@@ -1,0 +1,183 @@
+body 
+{
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+#kozepre 
+{
+    width: 95%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 
+{
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+#naptar_kerete 
+{
+    background-color: white;
+    border: 2px solid #2c3e50;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+#naptar_navigacio 
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#naptar_cim 
+{
+    font-size: 1.5em;
+    color: #2c3e50;
+    text-align: center;
+}
+
+.nav_gomb 
+{
+    background-color: #e1ecf4;
+    border: 1px solid #7aa7c7;
+    border-radius: 3px;
+    color: #39739d;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.nav_gomb:hover 
+{
+    background-color: #b3d3ea;
+}
+
+#naptar_container
+{
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7 oszlopos rács, 1 törtes mérettel. (700px)*/
+    gap: 10px;
+}
+
+.naptar_nap 
+{
+    border: 1px solid #e0e0e0;
+    min-height: 80px;
+    padding: 10px;
+    text-align: center;
+    position: relative;
+    transition: background-color 0.3s ease;
+    border-radius: 4px;
+    margin: 25px;
+}
+
+.naptar_nap:hover 
+{
+    background-color: #e8f4f8;
+    cursor: pointer;
+}
+
+.naptar_nap .aktiv_nap 
+{
+    background-color: #e8f4f8;
+    border-color: #2c3e50;
+}
+
+.esemeny 
+{
+    background-color: #2c3e50;
+    color: white;
+    padding: 5px;
+    margin: 3px 0;
+    border-radius: 3px;
+    font-size: 0.8em;
+    overflow: hidden; /* Szöveg levágás... */
+    text-overflow: ellipsis; /* Levágás helyettesítése. */
+    white-space: nowrap; /* A szöveg egysorba marad. */
+}
+
+#esemeny_lista 
+{
+    margin-top: 30px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+#esemeny_lista table 
+{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#esemeny_lista thead 
+{
+    background-color: #2c3e50;
+    color: white;
+}
+
+#esemeny_lista th, #esemeny_lista td 
+{
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.gomb_skin 
+{
+    background-color: #e1ecf4;
+    border: 1px solid #7aa7c7;
+    border-radius: 3px;
+    color: #39739d;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.gomb_skin:hover 
+{
+    background-color: #b3d3ea;
+}
+
+#esemeny_modal 
+{
+    display: none;
+    position: fixed; /* Rögzitett pozíció. */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1000; /* Magas z-index, hogy minden más elem felett legyen. */
+}
+
+.modal_tartalom 
+{
+    background-color: white;
+    width: 90%;
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.het_napjai 
+{
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    background-color: #2c3e50;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    font-weight: bold;
+}
