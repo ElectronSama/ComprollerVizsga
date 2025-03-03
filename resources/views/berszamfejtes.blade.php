@@ -9,10 +9,10 @@
     <link rel="stylesheet" href="{{ asset('css/berszamfejtes.css') }}">
     <link rel="stylesheet" href="{{ asset('css/nav.css') }}">
     <style>
-        .berszamfejtes_tarolo {
-    max-width: 1200px;
-    margin: 20px auto;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    .berszamfejtes_tarolo {
+max-width: 1200px;
+margin: 20px auto;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .diagram {
