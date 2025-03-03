@@ -6,7 +6,8 @@
     <link rel="icon" type="image/x-icon" href="kepek/icon.png">
     <link rel="stylesheet" href="{{ asset('css\bootstrap-5.3.3\css\bootstrap.css') }}">
     <title>Comproller - Bérszámfejtés</title>
-    <link rel="stylesheet" href="css/berszamfejtes.css">
+    <link rel="stylesheet" href="{{ asset('css/berszamfejtes.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/nav.css') }}">
     <style>
         .berszamfejtes_tarolo {
     max-width: 1200px;

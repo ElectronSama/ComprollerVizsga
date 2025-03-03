@@ -1,0 +1,64 @@
+* 
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Mérethez igazitás... */
+}
+
+body 
+{
+    font-family: Arial, sans-serif;
+    min-height: 100vh; /* Minimum méret böngészőhöz igazítva. */
+}
+
+nav 
+{
+    background-color: lightblue;
+    color: black;
+    font-weight: bold;
+    padding: 10px 20px;
+}
+
+.navbar-brand img 
+{
+    width: 50px;
+    height: 50px;
+    object-fit: cover; /* Igazitás méretbe ha muszáj. */
+}
+
+.navbar-toggler 
+{
+    border: none;
+    background: none;
+}
+
+.navbar-toggler:focus 
+{
+    outline: none;
+    box-shadow: none;
+}
+
+.navbar-nav .nav-link 
+{
+    color: black;
+    text-decoration: none;
+    padding: 10px 20px;
+    background-color: white;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 5px 0;
+}
+
+.navbar-nav .nav-link:hover 
+{
+    background-color: #777d7c;
+    transform: translateY(-2px); /* Felmozudlás ha a felhasználó rámegy. */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+main /* Minden. (Főoldal tartalma(. */
+{
+    flex: 1; /* Reszponzivitás. */
+    padding: 20px;
+}
