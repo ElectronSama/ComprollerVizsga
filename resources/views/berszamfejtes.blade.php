@@ -258,29 +258,19 @@
                                 <th scope="col">ID</th>
                                 <th scope="col">Vezetéknév</th>
                                 <th scope="col">Keresztnév</th>
-                                <th scope="col">Időpont</th>
-                                <th scope="col">Bónusz nélküli óra</th>
-                                <th scope="col">Bónusszal óra</th>
-                                <th scope="col">Összes órabér</th>
+                                <th scope="col">Érkezés</th>
+                                <th scope="col">Távozás</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <th scope="row">1</th>
-                                <td>Lakatos</td>
-                                <td>Krisztián</td>
-                                <td>2025.02.25</td>
-                                <td>40</td>
-                                <td>12</td>
-                                <td>85,000 Ft</td>
+                                <th></th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                             </tr>
                         </tbody>
-                        <tfoot>
-                            <tr style="font-weight: bold; background-color: #f2f2f2;">
-                                <td colspan="6" class="text-end">Összesen:</td>
-                                <td>145,000 Ft</td>
-                            </tr>
-                        </tfoot>
                     </table>
                 </div>
                 <div class="modal-footer">
@@ -290,9 +280,41 @@
             </div>
         </div>
     </div>
-
     <script src="css\bootstrap-5.3.3\js\bootstrap.js"></script>
-    
     @include('navbarandfooter/footer')
+
+    <script>
+        document.querySelectorAll(".btn-primary").forEach(button => {
+        button.addEventListener("click", function() {
+                const dolgozoId = this.closest("tr").querySelector("td:first-child").textContent;
+                fetch(`/api/dolgozo/${dolgozoId}/csekkolas`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const modalBody = document.querySelector("#berszam_modal .modal-body tbody");
+                        modalBody.innerHTML = "";
+                        data.forEach(csekk => {
+                            modalBody.innerHTML += `
+                                <tr>
+                                    <th scope="row">${csekk.DolgozoID}</th>
+                                    <td>${csekk.Vezeteknev}</td>
+                                    <td>${csekk.Keresztnev}</td>
+                                    <td>${csekk.Datum_Be}</td>
+                                    <td>${csekk.Datum_Ki}</td>
+                                </tr>
+                            `;
+                        });
+                    })
+                    .catch(error => {
+                        console.error("Hiba történt az adatok betöltésekor:", error);
+                        const modalBody = document.querySelector("#berszam_modal .modal-body tbody");
+                        modalBody.innerHTML = `
+                            <tr>
+                                <td colspan="5" class="text-danger">Nem sikerült betölteni az adatokat.</td>
+                            </tr>
+                        `;
+                    });
+            });
+        });
+    </script>
 </body>
 </html>

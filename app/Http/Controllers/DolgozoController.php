@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Dolgozo;
+use Illuminate\Support\Facades\DB;
+
 
 class DolgozoController extends Controller
 {
@@ -83,4 +85,15 @@ class DolgozoController extends Controller
         }
         return view('berszamfejtes', compact('dolgozok'));
     }
+    public function getDolgozoCsekkolas($id)
+{
+    // Adatok lekérdezése az adott dolgozóhoz
+    $csekkolasok = DB::table('csekkolasok')
+        ->where('DolgozoID', $id)
+        ->select('DolgozoID', 'Vezeteknev', 'Keresztnev', 'Datum_Be', 'Datum_Ki')
+        ->get();
+
+    return response()->json($csekkolasok);
+}
+
 }

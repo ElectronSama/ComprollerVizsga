@@ -28,6 +28,7 @@ Route::view('/register', 'regisztracio');
 Route::get('/api/chart-data', [ChartController::class, 'getChartData']);
 Route::get('/get-job-titles', [WorkController::class, 'getJobTitles']);
 Route::get('/payroll-calculation/kereses', [DolgozoController::class, 'search'])->name('dolgozok.kereses');
+Route::get('/api/dolgozo/{id}/csekkolas', [DolgozoController::class, 'getDolgozoCsekkolas']);
 
 
 // Nyilvántartás lista //
