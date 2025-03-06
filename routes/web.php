@@ -95,6 +95,9 @@ Route::post('/registry', function (Request $request) {
     $validatedData['Megjegyzes'] = $validatedData['Megjegyzes'] ?? '';
     $validatedData['Qrcode'] = $validatedData['Qrcode'] ?? '';
 
+    $validatedData['created_at'] = Carbon::now();
+    $validatedData['updated_at'] = Carbon::now();
+
     DB::table('nyilvantartas')->insert($validatedData);
 
     return redirect()->route('registry.index')->with('success', 'Dolgozó sikeresen hozzáadva.');
