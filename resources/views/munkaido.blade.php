@@ -8,8 +8,45 @@
     <link rel="stylesheet" href="{{ asset('css/bootstrap-5.3.3/css/bootstrap.css') }}">
     <title>Comproller - Munkaidő</title>
 </head>
+<style>
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+    }
+
+    th, td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: lightblue;
+        color: white;
+    }
+
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+
+</style>
 <body>
     @include('navbarandfooter/nav')
+    <?php // Belsős csatlakozás adatbázishoz.
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "comproller";
+
+        $conn = new mysqli($servername, $username, $password, $dbname);
+
+        if ($conn->connect_error) 
+        {
+            die("Kapcsolódási hiba: " . $conn->connect_error);
+        }
+    ?>
     <div class="content">
         <ul class="nav nav-tabs m-5" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
@@ -81,19 +118,19 @@
                                             <div class="card-body">
                                                 <div class="mb-3">
                                                     <label for="date" class="form-label fw-bold">Dátum:</label>
-                                                    <input type="date" class="form-control" id="date" name="idopont_input" style="border: 1px solid lightblue;">
+                                                    <input type="date" class="form-control" id="date" name="idopont_input" style="border: 1px solid lightblue;" onchange="ellenorzes()" required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="date" class="form-label fw-bold">Vég Dátum:</label>
-                                                    <input type="date" class="form-control" id="date2" name="idopont_input2" style="border: 1px solid lightblue;" oninput="datum()">
+                                                    <input type="date" class="form-control" id="date2" name="idopont_input2" style="border: 1px solid lightblue;" onchange="ellenorzes()" oninput="datum()" required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="time" class="form-label fw-bold">Idő:</label>
-                                                    <input type="time" class="form-control" id="time" name="idopont_ido" style="border: 1px solid lightblue;">
+                                                    <input type="time" class="form-control" id="time" name="idopont_ido" style="border: 1px solid lightblue;" onchange="ellenorzes()" required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="time" class="form-label fw-bold">Vég Idő:</label>
-                                                    <input type="time" class="form-control" id="time2" name="idopont_ido2" style="border: 1px solid lightblue;">
+                                                    <input type="time" class="form-control" id="time2" name="idopont_ido2" style="border: 1px solid lightblue;" onchange="ellenorzes()" required>
                                                 </div>
                                                 <div class="mb-3" hidden>
                                                     <label for="hours" class="form-label fw-bold">Munkanap hossza:</label>
@@ -150,7 +187,8 @@
                                             <input type="text" class="form-control" id="name" name="muszak_input" placeholder="Írd be a nevet" style="border: 1px solid lightblue;">
                                         </div>
                                         <div class="d-grid gap-2 col-md-6 mx-auto">
-                                            <button type="button" id="add-button" class="btn btn-lg" style="background-color: lightblue; color: white; font-weight: bold; letter-spacing: 1px; border-radius: 50px; transition: all 0.3s;">Hozzáadás a táblázathoz</button>
+                                            <button type="button" id="add-button" class="btn btn-lg" style="background-color: lightblue; color: white; font-weight: bold; 
+                                            letter-spacing: 1px; border-radius: 50px; transition: all 0.3s;">Hozzáadás a táblázathoz</button>
                                         </div>
                                         <div id="error-message" class="alert alert-danger mt-3 d-none"></div>
                                     </div>
@@ -184,6 +222,7 @@
                     </div>
                 </div>
             </div>
+            <!-- INNEN KEZDŐDIK A LEKÉRDEZÉS! -->
             <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
                 <div class="container mt-3">
                     <div class="card">
@@ -193,7 +232,7 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <form action="php/mfeltoltes.php" method="POST" target="_blank" id="a_form">
+                            <div>
                                 <div class="row justify-content-center">
                                     <div class="col-md-5">
                                         <div class="card mb-4" style="border: 2px solid lightblue; border-radius: 10px;">
@@ -201,63 +240,43 @@
                                                 <h4 class="mb-0" style="letter-spacing: 1px;">Munkavállalói adatok</h4>
                                             </div>
                                             <div class="card-body">
-                                                <div class="mb-3">
-                                                    <label for="name" class="form-label fw-bold">ID:</label>
-                                                    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Keress..." style="border: 1px solid lightblue;">
-                                                    <datalist id="datalistOptions">
-                                                        <option value="1">
-                                                        <option value="2">
-                                                    </datalist>                                 
-                                                </div>
-                                                <div class="mb-3">
-                                                    <input type="text" class="form-control" id="name" name="muszak_input" placeholder="Vezetéknév" style="border: 1px solid lightblue;">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <input type="text" class="form-control" id="name" name="muszak_input" placeholder="Keresztnév" style="border: 1px solid lightblue;">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="date" class="form-label fw-bold">Dátum:</label>
-                                                    <input type="date" class="form-control" id="date" name="idopont_input" style="border: 1px solid lightblue;">
-                                                </div>
-                                                <div class="mb-3">
+                                                <form id="lekérdezésForm">
                                                     <div class="mb-3">
-                                                        <input type="date" class="form-control" id="date" name="idopont_input" style="border: 1px solid lightblue;">
+                                                        <label for="name" class="form-label fw-bold">Név:</label>
+                                                        <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Keress..." name="dolgozoid" style="border: 1px solid lightblue;" required>                              
                                                     </div>
-                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                    <label class="form-check-label" for="flexCheckDefault">
-                                                        Időszakos lekérdezés
-                                                    </label>                                           
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <div class="card mb-4" style="border: 2px solid lightblue; border-radius: 10px;">
-                                            <div class="card-header" style="background-color: lightblue; color: white;">
-                                                <h4 class="mb-0" style="letter-spacing: 1px;">Lekérdezés eredménye:</h4>
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="mb-3">
-                                                    <label for="name" class="form-label fw-bold">Összes óra:</label>
-                                                    <input type="text" class="form-control" id="name" name="muszak_input" placeholder="Írd be a nevet" style="border: 1px solid lightblue;">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="date" class="form-label fw-bold">Csekkolások száma:</label>
-                                                    <input type="text" class="form-control" id="name" name="muszak_input" placeholder="Írd be a nevet" style="border: 1px solid lightblue;">
-                                                </div>
+                                                    <div class="mb-3">
+                                                        <label for="date" class="form-label fw-bold">Dátum:</label>
+                                                        <input type="date" class="form-control" id="datum_kezd" name="datum_kezd" style="border: 1px solid lightblue;" oninput="datum1()">
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <div class="mb-3">
+                                                            <input type="date" class="form-control" id="datum_befejez" name="datum_befejez" style="border: 1px solid lightblue;" oninput="datum2()" disabled>
+                                                        </div>
+                                                        <input class="form-check-input" type="checkbox" id="flexCheckDefault" oninput="idoszakos()">
+                                                        <label class="form-check-label" for="flexCheckDefault">
+                                                            Időszakos lekérdezés
+                                                        </label>                                           
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row justify-content-center mb-4">
                                     <div class="col-md-10">
-                                        <div class="d-grid gap-2 col-md-6 mx-auto">
-                                            <button type="button" id="add-button" class="btn btn-lg" style="background-color: lightblue; color: white; font-weight: bold; letter-spacing: 1px; border-radius: 50px; transition: all 0.3s;">Lekérdezés</button>
+                                        <div>
+                                            <form action="php/matadas.php" method="POST" target="_blank" id="atadas_form">
+                                                <input type="text" id="dID" name="exampleDataList" hidden><br>
+                                                <input type="text" id="dkezd" name="dkezd" hidden><br>
+                                                <input type="text" id="dveg" name="dveg" hidden><br>
+                                                <input type="submit" id="phpgomb" class="btn btn-info" onclick="szures()" value="Listázás">
+                                            </form>
                                         </div>
                                         <div id="error-message" class="alert alert-danger mt-3 d-none"></div>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
 
                     </div>
@@ -268,132 +287,50 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
+                                <form action="php/listatorles.php" method="POST" target="_blank">
+                                    <input type="submit" class="btn btn-danger" value="Lista Törlése">
+                                </form>
                                 <table id="info-table" class="table table-striped table-bordered">
                                     <thead style="background-color: lightblue; color: white;">
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Vezetéknév</th>
-                                            <th>Keresztnév</th>
-                                            <th>Kezdés</th>
-                                            <th>Befejezés</th>
-                                            <th>Összes óra</th>
-                                            <th>Összes órabér</th>
-                                            <th>Bónusz</th>
+                                            <table>
+                                                <tbody>
+                                                    <?php
+                                            
+                                                        $sql = "SELECT DolgozoID, Nev, Datum_Be, Datum_Ki FROM ideiglenes";
+                                                        $result = $conn->query($sql);
+                                                
+                                                        if ($result->num_rows > 0) 
+                                                        {
+                                                            while ($row = $result->fetch_assoc()) 
+                                                            {
+                                                                echo '<tr>';
+                                                                echo '    <td data-label="DolgozoID">' . htmlspecialchars($row["DolgozoID"]) . '</td>';
+                                                                echo '    <td data-label="Név">' . htmlspecialchars($row["Nev"]) . '</td>';
+                                                                echo '    <td data-label="Dátum Be">' . htmlspecialchars($row["Datum_Be"]) . '</td>';
+                                                                echo '    <td data-label="Dátum Ki">' . htmlspecialchars($row["Datum_Ki"]) . '</td>';
+                                                                echo '</tr>';
+                                                            }
+                                                        } 
+                                                        else 
+                                                        {
+                                                            echo '<tr><td colspan="6">Nincsenek adatok.</td></tr>';
+                                                        }
+                                                
+                                                        $conn->close();
+                                                    ?>
+                                                </tbody>
+                                            </table>
+
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        
+
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
-                </div>
-                </div>
-            </div>
-            <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
-                <div class="container mt-3">
-                    <div class="card">
-                        <div class="card-header" style="background-color: lightblue; color: white;">
-                            <div class="mb-2">
-                                <h1 style="text-align: center">Lekérdezés</h1>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <form method="POST" target="_blank" id="a_form">
-                                <div class="row justify-content-center">
-                                    <div class="col-md-5">
-                                        <div class="card mb-4" style="border: 2px solid lightblue; border-radius: 10px;">
-                                            <div class="card-header" style="background-color: lightblue; color: white;">
-                                                <h4 class="mb-0" style="letter-spacing: 1px;">Munkavállalói adatok</h4>
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="mb-3">
-                                                    <label for="name" class="form-label fw-bold">ID:</label>
-                                                    <input class="form-control" list="datalistOptions" name="keresett_dolgozo" id="exampleDataList" placeholder="Keress..." style="border: 1px solid lightblue;">
-                                                    <datalist id="datalistOptions">
-                                                        <option value="1">
-                                                        <option value="2">
-                                                    </datalist>                                 
-                                                </div>
-                                                <div class="mb-3">
-                                                    <input type="text" class="form-control" id="name" name="vezeteknev_input" placeholder="Vezetéknév" style="border: 1px solid lightblue;">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <input type="text" class="form-control" id="name" name="keresztnev_input" placeholder="Keresztnév" style="border: 1px solid lightblue;">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="date" class="form-label fw-bold">Dátum:</label>
-                                                    <input type="date" class="form-control" id="date" name="lekeresido_input" style="border: 1px solid lightblue;">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <div class="mb-3">
-                                                        <input type="date" class="form-control" id="date" name="honapido_input" style="border: 1px solid lightblue;">
-                                                    </div>
-                                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                                    <label class="form-check-label" for="flexCheckDefault">
-                                                        Időszakos lekérdezés
-                                                    </label>                                           
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <div class="card mb-4" style="border: 2px solid lightblue; border-radius: 10px;">
-                                            <div class="card-header" style="background-color: lightblue; color: white;">
-                                                <h4 class="mb-0" style="letter-spacing: 1px;">Lekérdezés eredménye:</h4>
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="mb-3">
-                                                    <label for="name" class="form-label fw-bold">Összes óra:</label>
-                                                    <input type="text" class="form-control" id="name" name="ossz_input" placeholder="Írd be a nevet" style="border: 1px solid lightblue;">
-                                                </div>
-                                                <div class="mb-3">
-                                                    <label for="date" class="form-label fw-bold">Csekkolások száma:</label>
-                                                    <input type="text" class="form-control" id="name" name="csekk_input" placeholder="Írd be a nevet" style="border: 1px solid lightblue;">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row justify-content-center mb-4">
-                                    <div class="col-md-10">
-                                        <div class="d-grid gap-2 col-md-6 mx-auto">
-                                            <button type="button" id="add-button" class="btn btn-lg" style="background-color: lightblue; color: white; font-weight: bold; letter-spacing: 1px; border-radius: 50px; transition: all 0.3s;">Lekérdezés</button>
-                                        </div>
-                                        <div id="error-message" class="alert alert-danger mt-3 d-none"></div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="card mt-4">
-                        <div class="card-header" style="background-color: lightblue; color: white;">
-                            <h4 class="mb-0" style="letter-spacing: 1px;">Rögzített adatok</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="info-table" class="table table-striped table-bordered">
-                                    <thead style="background-color: lightblue; color: white;">
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Vezetéknév</th>
-                                            <th>Keresztnév</th>
-                                            <th>Kezdés</th>
-                                            <th>Befejezés</th>
-                                            <th>Összes óra</th>
-                                            <th>Összes órabér</th>
-                                            <th>Bónusz</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 </div>
             </div>
         </div>
