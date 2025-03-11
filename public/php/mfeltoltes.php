@@ -1,101 +1,86 @@
 <?php
-header("Content-Type: application/json"); // JSON tipus beállitása.
 
-if ($_SERVER["REQUEST_METHOD"] === "POST") 
-{
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "comproller";
+    header("Content-Type: application/json"); // JSON tipus beállitása.
 
-    $conn = new mysqli($servername, $username, $password, $dbname);
+    $servernev = "localhost";
+    $felhasznalo = "root";
+    $jelszo = "";
+    $adatbazis = "comproller";
 
-    if ($conn->connect_error) 
+    $kapcsolat = new mysqli($servernev, $felhasznalo, $jelszo, $adatbazis);
+
+    if ($kapcsolat->connect_error) 
     {
         echo json_encode(["success" => false, "error" => "Kapcsolódási hiba"]);
         exit();
     }
 
-    $response = [];
+    $valasz = [];
 
-    if (isset($_POST['vezeteknev']) && isset($_POST['keresztnev'])) // Állitva van e...
+    $vezeteknev = $_POST['vezeteknev']; // Üres részek levágása.
+    $keresztnev = $_POST['keresztnev'];
+
+    $sql = "SELECT Alapber FROM nyilvantartas WHERE Vezeteknev = ? AND Keresztnev = ?";
+    $stmt = $kapcsolat->prepare($sql);
+    $stmt->bind_param("ss", $vezeteknev, $keresztnev);
+    $stmt->execute();
+    $eredmeny = $stmt->get_result(); // Adatok kikeresése...
+
+    if ($sor = $eredmeny->fetch_assoc()) 
     {
-        $vezeteknev = htmlspecialchars(trim($_POST['vezeteknev'])); // Üres részek levágása.
-        $keresztnev = htmlspecialchars(trim($_POST['keresztnev']));
-
-        $sql = "SELECT Alapber FROM nyilvantartas WHERE Vezeteknev = ? AND Keresztnev = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ss", $vezeteknev, $keresztnev);
-        $stmt->execute();
-        $result = $stmt->get_result(); // Adatok kikeresése...
-
-        if ($row = $result->fetch_assoc()) 
-        {
-            $response["alapber"] = $row["Alapber"]; // Válaszok beállitása.
-        } 
-        else 
-        {
-            $response["alapber_error"] = "Nincs ilyen dolgozó";
-            $stmt->close();
-            $conn->close();
-            echo json_encode($response);
-            exit();
-        }
-
+        $valasz["alapber"] = $sor["Alapber"]; // Válaszok beállitása.
+    } 
+    else 
+    {
+        $valasz["alapber_error"] = "Nincs ilyen dolgozó";
         $stmt->close();
+        $kapcsolat->close();
+        echo json_encode($valasz);
+        exit();
     }
 
-    if (isset($_POST['idopont_input']) && isset($_POST['muszak_input'])) 
+    $stmt->close(); 
+
+    $idopont_input = $_POST['idopont_input'];
+    $idopont_input2 = $_POST['idopont_input2'];
+    $idopont_ido = $_POST['idopont_ido'];
+    $idopont_ido2 = $_POST['idopont_ido2'];
+    $leiras_input = $_POST['leiras_input'];
+    $muszak_input = $_POST['muszak_input'];
+
+    if ($idopont_ido === "") 
     {
-        $idopont_input = htmlspecialchars(trim($_POST['idopont_input']));
-        $idopont_input2 = htmlspecialchars(trim($_POST['idopont_input2']));
-        $idopont_ido = htmlspecialchars(trim($_POST['idopont_ido']));
-        $idopont_ido2 = htmlspecialchars(trim($_POST['idopont_ido2']));
-        $leiras_input = htmlspecialchars(trim($_POST['leiras_input']));
-        $muszak_input = htmlspecialchars(trim($_POST['muszak_input']));
-
-        if ($idopont_input === "" || $muszak_input === "") 
-        {
-            $response["insert_error"] = "Hiányzó mezők";
-        } 
-        else 
-        {
-            if ($idopont_ido === "") 
-            {
-                $idopont_ido = "00:00";
-            }
-
-            $idopont = $idopont_input . " " . $idopont_ido . ":00";
-            $idopont2 = $idopont_input2 . " " . $idopont_ido2 . ":00";
-
-            $nevek = explode(" ", $muszak_input, 2); // Részválasztás.
-
-            $vezeteknev = $nevek[0];
-            $keresztnev = $nevek[1];
-
-            $sql = "INSERT INTO csekkolasok (Vezeteknev, Keresztnev, Datum_Be, Datum_Ki) VALUES (?, ?, ?, ?)"; // Adatok feltöltése csekkolásba.
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("ssss", $vezeteknev, $keresztnev, $idopont, $idopont2);
-
-            if ($stmt->execute()) // Válasz visszadása.
-            {
-                $response["insert_success"] = true;
-            } 
-            else 
-            {
-                $response["insert_error"] = "Hiba az esemény hozzáadása során";
-            }
-            
-            $stmt->close();
-        }
+        $idopont_ido = "00:00";
     }
 
-    echo json_encode($response); // JSON-á konvertálás...
+    $idopont = $idopont_input . " ";
+    $idopont2 = $idopont_input2 . " ";
 
-    $conn->close();
-} 
-else 
-{
-    echo json_encode(["success" => false, "error" => "Hozzáférés megtagadva"]);
-}
+    $ora1 = $idopont_ido;
+    $ora2 = $idopont_ido2;
+
+    $nevek = explode(" ", $muszak_input, 2); // Részválasztás.
+
+    $vezeteknev = $nevek[0];
+    $keresztnev = $nevek[1];
+
+    $sql = "INSERT INTO csekkolasok (Vezeteknev, Keresztnev, Datum_Be, Datum_Ki, Kezdido, Vegido) VALUES (?, ?, ?, ?, ?, ?)"; // Adatok feltöltése csekkolásba.
+    $stmt = $kapcsolat->prepare($sql);
+    $stmt->bind_param("ssssss", $vezeteknev, $keresztnev, $idopont, $idopont2, $ora1, $ora2);
+
+    if ($stmt->execute()) // Válasz visszadása.
+    {
+        $valasz["insert_success"] = true;
+    } 
+    else 
+    {
+        $valasz["insert_error"] = "Hiba az esemény hozzáadása során";
+    }
+    
+    $stmt->close();
+
+    echo json_encode($valasz); // JSON-á konvertálás...
+
+    $kapcsolat->close();
+
 ?>
