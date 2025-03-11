@@ -1,3 +1,151 @@
+let a_form = document.getElementById("a_form");
+a_form.reset();
+
+let hozzadas_gomb = document.getElementById("add-button");
+let mezo = document.getElementById("name");
+
+hozzadas_gomb.disabled = true;
+mezo.disabled = true;
+
+function ellenorzes()
+{
+
+    let date = document.getElementById("date");
+    let date2 = document.getElementById("date2");
+    let time = document.getElementById("time");
+    let time2 = document.getElementById("time2");
+    let hozzadas_gomb = document.getElementById("add-button");
+    let mezo = document.getElementById("name");
+
+    if (date.value == "" || date2.value == "" || time.value == "" || time2.value == "")
+    {
+
+        hozzadas_gomb.disabled = true;
+        mezo.disabled = true;
+
+    }
+    else
+    {
+
+        hozzadas_gomb.disabled = false;
+        mezo.disabled = false;
+
+    }
+
+}
+
+function szures()
+{
+
+    let keress = document.getElementById("exampleDataList").value;
+    let datum_kezd = document.getElementById("datum_kezd").value;
+    let datum_befejez = document.getElementById("datum_befejez").value;
+
+    if (keress != "" && datum_kezd != "")
+    {
+
+        let mezo1 = document.getElementById("dID");
+        let mezo2 = document.getElementById("dkezd");
+
+        mezo1.value = keress;
+        mezo2.value = datum_kezd;
+
+        if (datum_befejez != "")
+        {
+
+            let mezo3 = document.getElementById("dveg");
+
+            mezo3.value = datum_befejez;
+
+        }
+
+        setTimeout(vissza,2000);
+
+    }
+
+}
+
+function vissza()
+{
+
+    
+    let atadas_form = document.getElementById("atadas_form");
+
+    atadas_form.reset();
+
+}
+
+function idoszakos()
+{
+
+    let kocka = document.getElementById("flexCheckDefault");
+    let mezo = document.getElementById("datum_befejez");
+
+    if(kocka.checked === true)
+    {
+
+        mezo.disabled = false;
+
+    }
+    else if (kocka.checked === false)
+    {
+
+        mezo.disabled = true;
+
+    }
+
+}
+
+function datum1() 
+{
+    let ma = new Date();
+    ma.setHours(0, 0, 0, 0);
+
+    let Szuletesi_datum = document.getElementById("datum_kezd");
+    let szuletes_input = Szuletesi_datum.value;
+
+    if (!szuletes_input) 
+    {
+        alert("Kérlek, adj meg egy dátumot!");
+        return;
+    }
+
+    let uj_datum = new Date(szuletes_input);
+    uj_datum.setHours(0, 0, 0, 0); /* Idő lefixálása hogy ne okozzon gondokat. */
+
+    if (uj_datum > ma) 
+    {
+        alert("Az érték nem lehet a jövőben!");
+        Szuletesi_datum.value = "";
+    }
+
+}
+
+function datum2() 
+{
+    let ma = new Date();
+    ma.setHours(0, 0, 0, 0);
+
+    let Szuletesi_datum = document.getElementById("datum_befejez");
+    let szuletes_input = Szuletesi_datum.value;
+
+    if (!szuletes_input) 
+    {
+        alert("Kérlek, adj meg egy dátumot!");
+        return;
+    }
+
+    let uj_datum = new Date(szuletes_input);
+    uj_datum.setHours(0, 0, 0, 0); /* Idő lefixálása hogy ne okozzon gondokat. */
+
+    if (uj_datum > ma) 
+    {
+        alert("Az érték nem lehet a jövőben!");
+        Szuletesi_datum.value = "";
+    }
+
+}
+
 function datum() 
 {
     let ma = new Date();
