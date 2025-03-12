@@ -41,7 +41,6 @@
 
 .modal-content 
 {
-    background-color: #fff;
     padding: 30px;
     border-radius: 10px;
     width: 200px;
@@ -53,6 +52,7 @@
     justify-content: center;
     box-sizing: border-box;
     overflow: auto; /* Görgetés megjelenitésének automalizálása. */
+    background: radial-gradient(circle, white 50%, lightblue 100%);
 }
 
 .close-button 
