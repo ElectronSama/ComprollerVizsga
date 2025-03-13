@@ -20,6 +20,55 @@
 
 }
 
+.modal 
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal.hidden 
+{
+    display: none !important;
+}
+
+.modal-content 
+{
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    width: 200px;
+    max-width: 60%;
+    height: auto;
+    max-height: 95%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    overflow: auto; /* Görgetés megjelenitésének automalizálása. */
+}
+
+.close-button 
+{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.hidden 
+{
+    display: none;
+}
+
 #a_form
 {
 
@@ -180,7 +229,7 @@
 
 .gomb_skin 
 {
-    width: 10%;
+    width: 40%;
     background-color: #e1ecf4;
     border: 1px solid #7aa7c7;
     border-radius: 3px;
@@ -188,6 +237,8 @@
     padding: 6px 12px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+
+
 }
 
 .gomb_skin:hover 
@@ -234,4 +285,25 @@
 
     margin-bottom: 30px;
 
+}
+.modal-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* A mezők közötti távolság */
+}
+
+
+
+.input-container {
+    display: flex;
+    width: 100%;
+}
+
+.input-row {
+    flex: 1;
+    padding: 0 10px;
+}
+
+.input-pair {
+    margin-bottom: 10px;
 }
