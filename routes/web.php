@@ -164,10 +164,21 @@ Route::post('/camera', function (Request $request) {
 
     if ($existingEntry) {
         // Kilépés rögzítése
+        $timeIn = Carbon::parse($existingEntry->Datum_Be);
+        $timeOut = now();
+        $hours = $timeIn->diffInHours($timeOut);
+
         DB::table('csekkolasok')
             ->where('id', $existingEntry->id)
-            ->update(['Datum_Ki' => now()]);
-
+            ->update([
+                'Datum_Ki' => $timeOut,
+                'Ora' => $hours,
+                'Ber' => $hours * $dolgozo->Alapber,
+                'Bonusz' => (Carbon::parse($existingEntry->Datum_Be)->format('H:i:s') >= '18:00:00' && $hours >= 4) 
+                    ? (4*0.3)*($hours*$dolgozo->Alapber) 
+                    : 0,
+                'Vegosszeg' => ($hours * $dolgozo->Alapber) + ((Carbon::parse($existingEntry->Datum_Be)->format('H:i:s') >= '18:00:00' && $hours >= 4) ? ($hours * $dolgozo->Alapber * 0.3) : 0),
+            ]);
             return response()->json(['status' => 'Sikeres kilépés!']);
         } else {
             // Belépés rögzítése

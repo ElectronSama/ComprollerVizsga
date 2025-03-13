@@ -171,7 +171,6 @@
         <div class="diagram">
             <div class="diagram_fejlec">
                 <div class="diagram_cim">Bérszámfejtés</div>
-                <button class="kinyitas_gomb" onclick="toggleTable()">Kinyitás</button>
             </div>
             <form action="{{ route('dolgozok.kereses') }}" method="get">
                 <div class="kereses_resz col-8">
@@ -210,7 +209,10 @@
                                         </button>
                                     </td>
                                     <td>
-                                        <input type="text" value="" class="osszeg_mezo" disabled>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" disabled> 
+                                            <span class="input-group-text">HUF</span>
+                                        </div>
                                     </td>
                                     <td>
                                         <span class="statusz lezarva">Lezárva</span>
@@ -230,7 +232,10 @@
                                         </button>
                                     </td>
                                     <td>
-                                        <input type="text" value="" class="osszeg_mezo" disabled>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" disabled>
+                                            <span class="input-group-text">HUF</span>
+                                        </div>
                                     </td>
                                     <td>
                                         <span class="statusz lezarva">Lezárva</span>
@@ -260,6 +265,10 @@
                                 <th scope="col">Keresztnév</th>
                                 <th scope="col">Érkezés</th>
                                 <th scope="col">Távozás</th>
+                                <th scope="col">Ledolgozott óra</th>
+                                <th scope="col">Bér</th>
+                                <th scope="col">Bónusz</th>
+                                <th scope="col">Összeg</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -269,52 +278,30 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                             </tr>
                         </tbody>
                     </table>
+                    <form action="">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Egész havi összeg</span>
+                            <input type="text" class="form-control" placeholder="Összeg" aria-describedby="button-addon2" disabled>
+                            <span class="input-group-text">HUF</span>
+                        </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezár</button>
+                    <button type="button" class="btn btn-danger">Lezárás</button>
                     <button type="button" class="btn btn-primary">Exportálás PDF</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezár</button>
                 </div>
             </div>
         </div>
     </div>
     <script src="css\bootstrap-5.3.3\js\bootstrap.js"></script>
     @include('navbarandfooter/footer')
-
-    <script>
-        document.querySelectorAll(".btn-primary").forEach(button => {
-        button.addEventListener("click", function() {
-                const dolgozoId = this.closest("tr").querySelector("td:first-child").textContent;
-                fetch(`/api/dolgozo/${dolgozoId}/csekkolas`)
-                    .then(response => response.json())
-                    .then(data => {
-                        const modalBody = document.querySelector("#berszam_modal .modal-body tbody");
-                        modalBody.innerHTML = "";
-                        data.forEach(csekk => {
-                            modalBody.innerHTML += `
-                                <tr>
-                                    <th scope="row">${csekk.DolgozoID}</th>
-                                    <td>${csekk.Vezeteknev}</td>
-                                    <td>${csekk.Keresztnev}</td>
-                                    <td>${csekk.Datum_Be}</td>
-                                    <td>${csekk.Datum_Ki}</td>
-                                </tr>
-                            `;
-                        });
-                    })
-                    .catch(error => {
-                        console.error("Hiba történt az adatok betöltésekor:", error);
-                        const modalBody = document.querySelector("#berszam_modal .modal-body tbody");
-                        modalBody.innerHTML = `
-                            <tr>
-                                <td colspan="5" class="text-danger">Nem sikerült betölteni az adatokat.</td>
-                            </tr>
-                        `;
-                    });
-            });
-        });
-    </script>
 </body>
 </html>

@@ -12,7 +12,7 @@ class Csekkolas extends Model
     protected $table = 'csekkolasok';
     protected $primaryKey = 'DolgozoID';
     protected $fillable = [
-        'Vezeteknev', 'Keresztnev', 'Datum_Be', 'Datum_Ki'
+        'Vezeteknev', 'Keresztnev', 'Datum_Be', 'Datum_Ki', 'Bonusz', 'Ber', 'Vegosszeg'
     ];
     public $timestamps = true;
 }
