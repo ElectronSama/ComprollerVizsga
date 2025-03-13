@@ -1,5 +1,7 @@
 <?php
 
+use Carbon\Traits\Difference;
+use Illuminate\Bus\UpdatedBatchJobCounts;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DolgozoController;
 use Illuminate\Support\Facades\DB;
@@ -164,21 +166,22 @@ Route::post('/camera', function (Request $request) {
 
     if ($existingEntry) {
         // Kilépés rögzítése
-        $timeIn = Carbon::parse($existingEntry->Datum_Be);
-        $timeOut = now();
-        $hours = $timeIn->diffInHours($timeOut);
-
         DB::table('csekkolasok')
             ->where('id', $existingEntry->id)
             ->update([
-                'Datum_Ki' => $timeOut,
-                'Ora' => $hours,
-                'Ber' => $hours * $dolgozo->Alapber,
-                'Bonusz' => (Carbon::parse($existingEntry->Datum_Be)->format('H:i:s') >= '18:00:00' && $hours >= 4) 
-                    ? (4*0.3)*($hours*$dolgozo->Alapber) 
+                'Datum_Ki' => now(),
+                'Ora' => number_format((float)Carbon::parse($existingEntry->Datum_Be)->diffInHours(Carbon::parse(now())), 2),
+                'Ber' => $dolgozo->Alapber ? (int)((float)$dolgozo->Alapber * Carbon::parse($existingEntry->Datum_Be)->diffInHours(Carbon::parse(now()))) : 0,
+                'Bonusz' => ((Carbon::parse($existingEntry->Datum_Be)->format('H:i:s') >= '18:00:00' && Carbon::parse($existingEntry->Datum_Be)->diffInHours(Carbon::parse(now())) >= 4) || 
+                            (Carbon::parse($existingEntry->Datum_Be)->format('H:i:s') <= '06:00:00' && Carbon::parse($existingEntry->Datum_Be)->diffInHours(Carbon::parse(now())) >= 4))
+                    ? (int)($dolgozo->Alapber * Carbon::parse($existingEntry->Datum_Be)->diffInHours(Carbon::parse(now())) * 0.3) 
                     : 0,
-                'Vegosszeg' => ($hours * $dolgozo->Alapber) + ((Carbon::parse($existingEntry->Datum_Be)->format('H:i:s') >= '18:00:00' && $hours >= 4) ? ($hours * $dolgozo->Alapber * 0.3) : 0),
-            ]);
+                'Vegosszeg' => (int)($dolgozo->Alapber * Carbon::parse($existingEntry->Datum_Be)->diffInHours(Carbon::parse(now()))) + 
+                              (((Carbon::parse($existingEntry->Datum_Be)->format('H:i:s') >= '18:00:00' && Carbon::parse($existingEntry->Datum_Be)->diffInHours(Carbon::parse(now())) >= 4) || 
+                                (Carbon::parse($existingEntry->Datum_Be)->format('H:i:s') <= '06:00:00' && Carbon::parse($existingEntry->Datum_Be)->diffInHours(Carbon::parse(now())) >= 4))
+                                ? (int)($dolgozo->Alapber * Carbon::parse($existingEntry->Datum_Be)->diffInHours(Carbon::parse(now())) * 0.3) 
+                                : 0),
+        ]);
             return response()->json(['status' => 'Sikeres kilépés!']);
         } else {
             // Belépés rögzítése
@@ -192,6 +195,7 @@ Route::post('/camera', function (Request $request) {
             return response()->json(['status' => 'Sikeres belépés!']);
         }
         });
+
 
 
 // Manuális csekkolás (érkezés vagy távozás rögzítése)

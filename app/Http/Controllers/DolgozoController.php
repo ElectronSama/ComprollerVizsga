@@ -92,7 +92,6 @@ class DolgozoController extends Controller
             ->where('DolgozoID', $id)
             ->select('DolgozoID', 'Vezeteknev', 'Keresztnev', 'Datum_Be', 'Datum_Ki', 'Bonusz', 'Ber', 'Vegosszeg')
             ->get();
-
         return response()->json($csekkolasok);
     }
 }

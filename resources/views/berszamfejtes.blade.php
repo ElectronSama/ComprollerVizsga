@@ -301,6 +301,43 @@
             </div>
         </div>
     </div>
+    <script>
+         document.querySelectorAll(".btn-primary").forEach(button => {
+         button.addEventListener("click", function() {
+                 const dolgozoId = this.closest("tr").querySelector("td:first-child").textContent;
+                 fetch(`/api/dolgozo/${dolgozoId}/csekkolas`)
+                     .then(response => response.json())
+                     .then(data => {
+                         const modalBody = document.querySelector("#berszam_modal .modal-body tbody");
+                         modalBody.innerHTML = "";
+                         data.forEach(csekk => {
+                             modalBody.innerHTML += `
+                                 <tr>
+                                     <th scope="row">${csekk.DolgozoID}</th>
+                                     <td>${csekk.Vezeteknev}</td>
+                                     <td>${csekk.Keresztnev}</td>
+                                     <td>${csekk.Datum_Be}</td>
+                                     <td>${csekk.Datum_Ki}</td>
+                                     <td>${csekk.Ora}</td>
+                                     <td>${csekk.Ber}</td>
+                                     <td>${csekk.Bonusz}</td>
+                                     <td>${csekk.Vegosszeg}</td>
+                                 </tr>
+                             `;
+                         });
+                     })
+                     .catch(error => {
+                         console.error("Hiba történt az adatok betöltésekor:", error);
+                         const modalBody = document.querySelector("#berszam_modal .modal-body tbody");
+                         modalBody.innerHTML = `
+                             <tr>
+                                 <td colspan="5" class="text-danger">Nem sikerült betölteni az adatokat.</td>
+                             </tr>
+                         `;
+                     });
+             });
+         });
+     </script>
     <script src="css\bootstrap-5.3.3\js\bootstrap.js"></script>
     @include('navbarandfooter/footer')
 </body>
