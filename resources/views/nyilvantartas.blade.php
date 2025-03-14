@@ -30,7 +30,7 @@
                                 <th>Vezetéknév</th>
                                 <th>Keresztnév</th>
                                 <th>Munkakör</th>
-                                <th class="d-none d-sm-block">Eszközök</th>
+                                <th>Eszközök</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -40,7 +40,7 @@
                                     <td>{{ $Dolgozo->Vezeteknev }}</td>
                                     <td>{{ $Dolgozo->Keresztnev }}</td>
                                     <td>{{ $Dolgozo->Munkakor }}</td>
-                                    <td class="d-none d-sm-block">
+                                    <td>
                                         <input type="image" src="kepek/kuka.svg" class="btn btn-danger btn-sm col-1" id="egy_gomb" onclick="torles({{ $Dolgozo->DolgozoID }})"/>
                                         <input type="image" src="kepek/cerka.svg" class="btn btn-primary btn-sm col-1" id="egy_gomb" onclick="lekeres({{ $Dolgozo->DolgozoID }})"/>
                                     </td>
@@ -56,52 +56,52 @@
                         <input type="hidden" id="modal_id">
                         
                         <div class="input-container">
-                            <div class="input-row">
-                                <div class="input-pair">
+                            <div class="input-sor">
+                                <div class="input-par">
                                     <p><strong>Vezetéknév:</strong> <input type="text" id="modal_vezeteknev"></p>
                                     <p><strong>Keresztnév:</strong> <input type="text" id="modal_keresztnev"></p>
                                 </div>
                                 
-                                <div class="input-pair">
+                                <div class="input-par">
                                     <p><strong>Email:</strong> <input type="email" id="modal_email"></p>
                                     <p><strong>Telefonszám:</strong> <input type="text" id="modal_telefonszam"></p>
                                 </div>
                                 
-                                <div class="input-pair">
+                                <div class="input-par">
                                     <p><strong>Munkakör:</strong> <input type="text" id="modal_munkakor"></p>
                                     <p><strong>Alapbér:</strong> <input type="text" id="modal_alapber"></p>
                                 </div>
                                 
-                                <div class="input-pair">
+                                <div class="input-par">
                                     <p><strong>Születési dátum:</strong> <input type="text" id="modal_szuletesi"></p>
                                     <p><strong>Anyja neve:</strong> <input type="text" id="modal_anyja"></p>
                                 </div>
                                                                 
-                                <div class="input-pair">
+                                <div class="input-par">
                                     <p><strong>Tajszám:</strong> <input type="text" id="modal_tajszam"></p>
                                 </div>
                             </div>
                             
-                            <div class="input-row">
-                                <div class="input-pair">
+                            <div class="input-sor">
+                                <div class="input-par">
                                     <p><strong>Adószám:</strong> <input type="text" id="modal_adoszam"></p>
                                 </div>
-                                <div class="input-pair">
+                                <div class="input-par">
                                     <p><strong>Bankszámlaszám:</strong> <input type="text" id="modal_bankszamlaszam"></p>
                                     <p><strong>Qr kód:</strong> <input type="text" id="modal_qrcode" onclick="modal_qrcode()" onblur="qrcode_bezar()"></p>
                                 </div>
                                 
-                                <div class="input-pair">
+                                <div class="input-par">
                                     <p><strong>Cím:</strong> <input type="text" id="modal_cim"></p>
                                     <p><strong>Állampolgárság:</strong> <input type="text" id="modal_allam"></p>
                                 </div>
                                 
-                                <div class="input-pair">
+                                <div class="input-par">
                                     <p><strong>Személyigazolvány szám:</strong> <input type="text" id="modal_szemelyi"></p>
                                     <p><strong>Tartózkodási hely:</strong> <input type="text" id="modal_tartozkodas"></p>
                                 </div>
                                 
-                                <div class="input-pair">
+                                <div class="input-par">
                                     <p><strong>Megjegyzés:</strong> <input type="text" id="modal_megjegyzes"></p>
                                 </div>
                                 
@@ -109,7 +109,7 @@
 
                             </div>
                         </div>
-                        <div class="input-pair">
+                        <div class="input-par">
                             <div id="qrcode_id"></div>
                         </div>
                         
