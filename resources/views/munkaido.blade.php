@@ -188,7 +188,7 @@
                                         </div>
                                         <div class="d-grid gap-2 col-md-6 mx-auto">
                                             <button type="button" id="add-button" class="btn btn-lg" style="background-color: lightblue; color: white; font-weight: bold; 
-                                            letter-spacing: 1px; border-radius: 50px; transition: all 0.3s;">Hozzáadás a táblázathoz</button>
+                                            letter-spacing: 1px; border-radius: 50px; transition: all 0.3s;" onclick="lezar()">Hozzáadás a táblázathoz</button>
                                         </div>
                                         <div id="error-message" class="alert alert-danger mt-3 d-none"></div>
                                     </div>
@@ -207,10 +207,11 @@
                                     <thead style="background-color: lightblue; color: white;">
                                         <tr>
                                             <th>ID</th>
-                                            <th>Vezetéknév</th>
-                                            <th>Keresztnév</th>
+                                            <th>Név</th>
                                             <th>Kezdés</th>
                                             <th>Befejezés</th>
+                                            <th>Kezdő óra</th>
+                                            <th>Vég óra</th>
                                         </tr>
                                     </thead>
                                     <tbody>
