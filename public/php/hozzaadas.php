@@ -1,52 +1,35 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] === "POST") 
-{
-    if (isset($_POST['esemeny_leiras'], $_POST['datum'])) 
+
+    $esemeny_leiras = $_POST['esemeny_leiras'];
+    $datum = $_POST['datum'];
+
+    $szerver = "localhost";
+    $felhasznalo = "root";
+    $jelszo = "";
+    $adatbazis = "comproller";
+
+    $kapcsolodas = new mysqli($szerver, $felhasznalo, $jelszo, $adatbazis);
+
+    if ($kapcsolodas->connect_error) 
     {
-        $esemeny_leiras = htmlspecialchars(trim($_POST['esemeny_leiras']));
-        $datum = htmlspecialchars(trim($_POST['datum']));
-
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "comproller";
-
-        $conn = new mysqli($servername, $username, $password, $dbname);
-
-        if ($conn->connect_error) 
-        {
-            die("Kapcsolódási hiba: " . $conn->connect_error);
-        }
-
-        $sql = "INSERT INTO esemenyek (esemeny_neve, datum) VALUES (?, ?)";
-        $stmt = $conn->prepare($sql); // Biztonságos csatlakozás.
-        $stmt->bind_param("ss", $esemeny_leiras, $datum); // Tipus megadása.
-
-        if ($stmt->execute()) 
-        {
-            echo "Az esemény sikeresen hozzáadva.";
-        } 
-        else 
-        {
-            echo "Hiba az esemény hozzáadása során: " . $conn->error;
-        }
-
-        $stmt->close();
-        $conn->close();
-    } 
-    else 
-    {
-        echo "Hiányzó adatok.";
+        die("Kapcsolódási hiba: " . $kapcsolodas->connect_error);
     }
-} 
-else 
-{
-    echo "Hozzáférés megtagadva.";
-}
+
+    $sql = "INSERT INTO esemenyek (esemeny_neve, datum) VALUES ('$esemeny_leiras', '$datum')";
+
+    if ($kapcsolodas->query($sql) === TRUE) 
+    {
+        echo "Sikeres beszúrás!";
+    } 
+    else
+    {
+        echo "Hiba a beszúrás során: " . $kapcsolodas->error;
+    }
+
+    $kapcsolodas->close();
+
 ?>
 
 <script>
-
     window.close();
-
 </script>

@@ -12,16 +12,35 @@ if ($kapcsolat->connect_error)
 }
 
 $neve = $_POST['exampleDataList'];
-$dkezd = $_POST['dkezd'];
-$dveg = isset($_POST['dveg']) ? $_POST['dveg'] : "";
+$dkezd = $_POST['dkezd']; // Mezők lekérése.
+if (isset($_POST['dveg'])) // Vizsgálat hogy van e végidő.
+{  
+    $dveg = $_POST['dveg'];
+} 
+else 
+{
+    $dveg = "";
+}
 
 $adatok = [];
 
-$nev_reszek = explode(" ", $neve);
+$nev_reszek = explode(" ", $neve); // Név 2 részre szedése.
 $vezeteknev = $nev_reszek[0];
-$keresztnev = isset($nev_reszek[1]) ? $nev_reszek[1] : "";
 
-if ($dveg != "") 
+if (isset($nev_reszek[1]))
+{
+
+    $keresztnev = $nev_reszek[1];
+
+}
+else
+{
+
+    $keresztnev = "";
+
+}
+
+if ($dveg != "") // MYSQL lekérés igazítása időpontokhoz.
 {
     $sql = "SELECT Vezeteknev, Keresztnev, Datum_Be, Datum_Ki FROM csekkolasok 
             WHERE (Vezeteknev LIKE '%$vezeteknev%' OR Keresztnev LIKE '%$keresztnev%')
@@ -44,10 +63,8 @@ if ($eredmeny === false)
     die("Hiba a lekérdezés végrehajtásában: " . $kapcsolat->error);
 }
 
-if ($eredmeny->num_rows > 0) 
+if ($eredmeny->num_rows > 0) // Lekérdezés megformázása.
 {
-    $osszes_ora = 0;
-    $csekkolasok_szama = 0;
 
     $bejelentkezesek = [];
     $kijelentkezesek = [];
@@ -78,8 +95,6 @@ if ($eredmeny->num_rows > 0)
         {
             $be_ido = strtotime($bejelentkezesek[$i]['Datum_Be']);
             $ki_ido = strtotime($kijelentkezesek[$i]['Datum_Ki']);
-            $munka_ora = ($ki_ido - $be_ido) / 3600;
-            $osszes_ora += $munka_ora;
 
             $adatok[] = [
                 'teljes_nev' => $bejelentkezesek[$i]['teljes_nev'],
@@ -88,18 +103,13 @@ if ($eredmeny->num_rows > 0)
             ];
         }
     }
-
-    $csekkolasok_szama = count($bejelentkezesek);
-
-    echo "Összes munkaóra: " . $osszes_ora . " óra<br>";
-    echo "Csekkolások száma: " . $csekkolasok_szama . "<br>";
 } 
 else 
 {
     echo "Nincs találat.";
 }
 
-if (!empty($adatok)) 
+if (!empty($adatok)) // Ha van adat...
 {
     foreach ($adatok as $sor) 
     {
@@ -107,7 +117,7 @@ if (!empty($adatok))
         $datum_be = $sor["Datum_Be"];
         $datum_ki = $sor["Datum_Ki"];
 
-        $sql = "INSERT INTO ideiglenes (Nev, Datum_Be, Datum_Ki) VALUES ('$uj_nev', '$datum_be', '$datum_ki')";
+        $sql = "INSERT INTO ideiglenes (Nev, Datum_Be, Datum_Ki) VALUES ('$uj_nev', '$datum_be', '$datum_ki')"; // Az ideiglenes adatbázisba eltároluk.
         if ($kapcsolat->query($sql) === false) 
         {
             die("Hiba az adat beszúrásakor: " . $kapcsolat->error);
