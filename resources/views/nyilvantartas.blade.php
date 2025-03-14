@@ -30,7 +30,7 @@
                                 <th>Vezetéknév</th>
                                 <th>Keresztnév</th>
                                 <th>Munkakör</th>
-                                <th>Eszközök</th>
+                                <th class="d-none d-sm-block">Eszközök</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -40,7 +40,7 @@
                                     <td>{{ $Dolgozo->Vezeteknev }}</td>
                                     <td>{{ $Dolgozo->Keresztnev }}</td>
                                     <td>{{ $Dolgozo->Munkakor }}</td>
-                                    <td>
+                                    <td class="d-none d-sm-block">
                                         <input type="image" src="kepek/kuka.svg" class="btn btn-danger btn-sm col-1" id="egy_gomb" onclick="torles({{ $Dolgozo->DolgozoID }})"/>
                                         <input type="image" src="kepek/cerka.svg" class="btn btn-primary btn-sm col-1" id="egy_gomb" onclick="lekeres({{ $Dolgozo->DolgozoID }})"/>
                                     </td>
