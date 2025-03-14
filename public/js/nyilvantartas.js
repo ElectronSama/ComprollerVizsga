@@ -156,15 +156,15 @@ function torles(id)
             'Content-Type': 'application/json', // JSON-á állitás.
         }
     })
-    .then(function(response) 
+    .then(function(valasz) 
     {
 
-        return response.json(); // Válasz JSON-á konvertálása.
+        return valasz.json(); // Válasz JSON-á konvertálása.
     })
-    .then(function(data) 
+    .then(function(adat) 
     {
 
-        if (data.success) // Ha van dolgozó akkor kitöröljük a DOM-ból is majd visszamegyünk a nyilvántartásra.
+        if (adat.success) // Ha van dolgozó akkor kitöröljük a DOM-ból is majd visszamegyünk a nyilvántartásra.
         {
             console.log("Dolgozó törölve:", id);
             let elem = document.getElementById("sor_" + id);
@@ -188,9 +188,9 @@ function torles(id)
         }
 
     })
-    .catch(function(error) 
+    .catch(function(hiba) 
     {
-        console.error("Hiba történt a törlés során:", error);
+        console.error("Hiba történt a törlés során:", hiba);
     });
 
 }
@@ -198,33 +198,33 @@ function torles(id)
 function lekeres(id) // ID szerint megjelenitjük a dolgozók adatait.
 {
     fetch('/dolgozok/' + id)
-        .then(function(response) 
+        .then(function(valasz) 
         {
-            return response.json();
+            return valasz.json();
         })
-        .then(function(data) 
+        .then(function(adat) 
         {
-            console.log('Lekért adatok:', data);
-            if (data.success) 
+            console.log('Lekért adatok:', adat);
+            if (adat.success) 
             {
                 document.getElementById("modal_id").value = id;
-                document.getElementById("modal_vezeteknev").value = data.dolgozo.Vezeteknev;
-                document.getElementById("modal_keresztnev").value = data.dolgozo.Keresztnev;
-                document.getElementById("modal_email").value = data.dolgozo.Email;
-                document.getElementById("modal_telefonszam").value = data.dolgozo.Telefonszam;
-                document.getElementById("modal_munkakor").value = data.dolgozo.Munkakor;
-                document.getElementById("modal_alapber").value = data.dolgozo.Alapber;
-                document.getElementById("modal_szuletesi").value = data.dolgozo.Szuletesi_datum;
-                document.getElementById("modal_anyja").value = data.dolgozo.Anyja_neve;
-                document.getElementById("modal_tajszam").value = data.dolgozo.Tajszam;
-                document.getElementById("modal_adoszam").value = data.dolgozo.Adoszam;
-                document.getElementById("modal_bankszamlaszam").value = data.dolgozo.Bankszamlaszam;
-                document.getElementById("modal_qrcode").value = data.dolgozo.Qrcode;
-                document.getElementById("modal_cim").value = data.dolgozo.Cim;
-                document.getElementById("modal_allam").value = data.dolgozo.Allampolgarsag;
-                document.getElementById("modal_szemelyi").value = data.dolgozo.Szemelyigazolvany_szam;
-                document.getElementById("modal_tartozkodas").value = data.dolgozo.Tartozkodasi_hely;
-                document.getElementById("modal_megjegyzes").value = data.dolgozo.Megjegyzes;
+                document.getElementById("modal_vezeteknev").value = adat.dolgozo.Vezeteknev;
+                document.getElementById("modal_keresztnev").value = adat.dolgozo.Keresztnev;
+                document.getElementById("modal_email").value = adat.dolgozo.Email;
+                document.getElementById("modal_telefonszam").value = adat.dolgozo.Telefonszam;
+                document.getElementById("modal_munkakor").value = adat.dolgozo.Munkakor;
+                document.getElementById("modal_alapber").value = adat.dolgozo.Alapber;
+                document.getElementById("modal_szuletesi").value = adat.dolgozo.Szuletesi_datum;
+                document.getElementById("modal_anyja").value = adat.dolgozo.Anyja_neve;
+                document.getElementById("modal_tajszam").value = adat.dolgozo.Tajszam;
+                document.getElementById("modal_adoszam").value = adat.dolgozo.Adoszam;
+                document.getElementById("modal_bankszamlaszam").value = adat.dolgozo.Bankszamlaszam;
+                document.getElementById("modal_qrcode").value = adat.dolgozo.Qrcode;
+                document.getElementById("modal_cim").value = adat.dolgozo.Cim;
+                document.getElementById("modal_allam").value = adat.dolgozo.Allampolgarsag;
+                document.getElementById("modal_szemelyi").value = adat.dolgozo.Szemelyigazolvany_szam;
+                document.getElementById("modal_tartozkodas").value = adat.dolgozo.Tartozkodasi_hely;
+                document.getElementById("modal_megjegyzes").value = adat.dolgozo.Megjegyzes;
 
                 let modal = document.getElementById("modal");
                 modal.classList.remove("hidden");
@@ -235,9 +235,9 @@ function lekeres(id) // ID szerint megjelenitjük a dolgozók adatait.
                 alert("Hiba történt az adatok lekérése közben.");
             }
         })
-        .catch(function(error) 
+        .catch(function(hiba) 
         {
-            console.error('Hiba:', error);
+            console.error('Hiba:', hiba);
             alert("Hiba történt az adatok lekérése közben.");
         });
 }
@@ -293,13 +293,13 @@ function mentes() // Rámentük a dolgozó összes adatára ha valamit el akarun
             megjegyzes: megjegyzes
         })
     })
-    .then(function(response) 
+    .then(function(valasz) 
     {
-        return response.json();
+        return valasz.json();
     })
-    .then(function(data) 
+    .then(function(adat) 
     {
-        if (data.success) 
+        if (adat.success) 
         {
             alert("Adatok sikeresen frissítve!");
             document.getElementById("modal").classList.add("hidden");
@@ -307,12 +307,12 @@ function mentes() // Rámentük a dolgozó összes adatára ha valamit el akarun
         } 
         else 
         {
-            alert("Hiba történt: " + data.error);
+            alert("Hiba történt: " + adat.error);
         }
     })
-    .catch(function(error) 
+    .catch(function(hiba) 
     {
-        console.error("Hiba:", error);
+        console.error("Hiba:", hiba);
     });
 }
 
