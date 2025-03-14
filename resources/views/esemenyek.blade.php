@@ -28,7 +28,7 @@
     <div id="kozepre">
         <h1>Naptár és események</h1>
 
-        <div id="naptar_kerete">
+        <div class="d-none d-sm-block" id="naptar_kerete">
             <div id="naptar_navigacio">
                 <button onclick="elozo_honap()" class="nav_gomb">Előző</button>
                 <div id="naptar_cim"></div>
