@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 14, 2025 at 03:42 PM
+-- Generation Time: Mar 14, 2025 at 06:11 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -43,12 +43,13 @@ CREATE TABLE `berszamfejtes` (
 --
 
 CREATE TABLE `csekkolasok` (
-  `id` bigint(20) UNSIGNED NOT NULL,
   `DolgozoID` bigint(20) UNSIGNED NOT NULL,
   `Vezeteknev` varchar(255) NOT NULL,
   `Keresztnev` varchar(255) NOT NULL,
-  `Datum_Be` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `Datum_Ki` timestamp NULL DEFAULT NULL,
+  `Datum_Be` varchar(255) NOT NULL,
+  `Datum_Ki` varchar(255) DEFAULT NULL,
+  `Kezdido` varchar(255) NOT NULL,
+  `Vegido` varchar(255) NOT NULL,
   `Ora` float DEFAULT NULL,
   `Ber` int(11) DEFAULT NULL,
   `Bonusz` int(11) DEFAULT NULL,
@@ -56,6 +57,17 @@ CREATE TABLE `csekkolasok` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `csekkolasok`
+--
+
+INSERT INTO `csekkolasok` (`DolgozoID`, `Vezeteknev`, `Keresztnev`, `Datum_Be`, `Datum_Ki`, `Kezdido`, `Vegido`, `Ora`, `Ber`, `Bonusz`, `Vegosszeg`, `created_at`, `updated_at`) VALUES
+(1, 'Kovács', 'János', '2025-03-01', '2025-03-01', '10:00', '12:00', NULL, NULL, NULL, NULL, '2025-03-14 15:40:58', '2025-03-14 15:46:24'),
+(2, 'Nagy', 'Anna', '2025-03-02', '2025-03-02', '10:00', '12:00', NULL, NULL, NULL, NULL, '2025-03-14 15:43:21', '2025-03-14 15:46:32'),
+(3, 'Szabó', 'Péter', '2025-03-03 ', '2025-03-03 ', '10:00', '12:00', NULL, NULL, NULL, NULL, '2025-03-14 16:19:10', '2025-03-14 16:19:10'),
+(4, 'Kovács', 'János', '2025-03-02 ', '2025-03-02 ', '15:00', '15:50', NULL, NULL, NULL, NULL, '2025-03-14 16:57:23', '2025-03-14 16:57:23'),
+(5, 'Kovács', 'János', '2025-03-03 ', '2025-03-03 ', '10:00', '12:00', NULL, NULL, NULL, NULL, '2025-03-14 16:57:42', '2025-03-14 16:57:42');
 
 -- --------------------------------------------------------
 
@@ -105,29 +117,15 @@ CREATE TABLE `ideiglenes` (
   `DolgozoID` int(255) NOT NULL,
   `Nev` varchar(255) NOT NULL,
   `Datum_Be` varchar(255) NOT NULL,
-  `Datum_Ki` varchar(255) NOT NULL,
-  `Osszora` varchar(255) NOT NULL,
-  `Csekkszam` varchar(255) NOT NULL
+  `Datum_Ki` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `ideiglenes`
 --
 
-INSERT INTO `ideiglenes` (`DolgozoID`, `Nev`, `Datum_Be`, `Datum_Ki`, `Osszora`, `Csekkszam`) VALUES
-(51, 'Nagy Anna', '2025-03-01 07:00:00', '2025-03-01 15:00:00', '', ''),
-(52, 'Szabó Péter', '2025-03-01 07:00:00', '2025-03-01 15:00:00', '', ''),
-(53, 'Kovács János', '2025-03-02 07:00:00', '2025-03-02 15:00:00', '', ''),
-(54, 'Nagy Anna', '2025-03-02 07:00:00', '2025-03-02 15:00:00', '', ''),
-(55, 'Szabó Péter', '2025-03-02 07:00:00', '2025-03-02 15:00:00', '', ''),
-(56, 'Nagy Anna', '2025-03-13 20:33:21', '2025-03-13 19:33:21', '', ''),
-(57, 'Kovács János', '2025-03-01 07:00:00', '2025-03-01 15:00:00', '', ''),
-(58, 'Nagy Anna', '2025-03-01 07:00:00', '2025-03-01 15:00:00', '', ''),
-(59, 'Szabó Péter', '2025-03-01 07:00:00', '2025-03-01 15:00:00', '', ''),
-(60, 'Kovács János', '2025-03-02 07:00:00', '2025-03-02 15:00:00', '', ''),
-(61, 'Nagy Anna', '2025-03-02 07:00:00', '2025-03-02 15:00:00', '', ''),
-(62, 'Szabó Péter', '2025-03-02 07:00:00', '2025-03-02 15:00:00', '', ''),
-(63, 'Nagy Anna', '2025-03-13 20:33:21', '2025-03-13 19:33:21', '', '');
+INSERT INTO `ideiglenes` (`DolgozoID`, `Nev`, `Datum_Be`, `Datum_Ki`) VALUES
+(1, 'Kovács János', '2025-03-02 ', '2025-03-02 ');
 
 -- --------------------------------------------------------
 
@@ -163,7 +161,7 @@ CREATE TABLE `nyilvantartas` (
   `Tajszam` varchar(11) DEFAULT NULL,
   `Adoszam` varchar(20) DEFAULT NULL,
   `Bankszamlaszam` varchar(24) DEFAULT NULL,
-  `Alapber` int(11) NOT NULL,
+  `Alapber` varchar(255) NOT NULL,
   `Cim` text DEFAULT NULL,
   `Allampolgarsag` varchar(100) DEFAULT NULL,
   `Tartozkodasi_hely` text DEFAULT NULL,
@@ -182,10 +180,11 @@ CREATE TABLE `nyilvantartas` (
 --
 
 INSERT INTO `nyilvantartas` (`DolgozoID`, `Keresztnev`, `Vezeteknev`, `Szuletesi_datum`, `Anyja_neve`, `Tajszam`, `Adoszam`, `Bankszamlaszam`, `Alapber`, `Cim`, `Allampolgarsag`, `Tartozkodasi_hely`, `Szemelyigazolvany_szam`, `Email`, `Telefonszam`, `Munkakor`, `Megjegyzes`, `Qrcode`, `created_at`, `updated_at`) VALUES
-(1, 'János', 'Kovács', '1990-01-01', 'Erzsébet Kovács', '123456789', '123456789', 'HU123456789', 250000, 'Budapest, Fő utca 1.', 'Magyar', 'Budapest', 'AB123456', 'janos.kovacs@example.com', '0612345678', 'Számviteli munkatárs', 'Nincs megjegyzés', 'QR1234567890', '2025-03-05 17:13:57', '2025-03-05 17:13:57'),
-(2, 'Anna', 'Nagy', '1985-05-12', 'Mária Nagy', '987654321', '987654321', 'HU987654321', 280000, 'Budapest, Petőfi utca 2.', 'Magyar', 'Budapest', 'XY987654', 'anna.nagy@example.com', '0612345679', 'HR munkatárs', 'Nincs megjegyzés', 'QR9876543210', '2025-03-05 17:13:57', '2025-03-05 17:13:57'),
-(3, 'Péter', 'Szabó', '1992-03-03', 'Katalin Szabó', '111223344', '112233445', 'HU112233445', 320000, 'Debrecen, Kossuth utca 5.', 'Magyar', 'Debrecen', 'XY112233', 'peter.szabo@example.com', '0623456789', 'Fejlesztő', 'Nincs megjegyzés', 'QR1122334455', '2025-03-05 17:13:57', '2025-03-14 14:41:45'),
-(4, 'Bercel', 'asdfg', '2025-03-06', 'Papp Gabriella', '123456789', '12345678-1-12', '00000000-00000000-000000', 2000, '0000, Példa Példa utca 00.', 'magyar', '0000, Példa Példa utca 00.', '123456FF', 'pelda@pelda.hu', '1234567899', 'valami', 'asd', 'xzw9dmuu', '2025-03-13 15:20:18', '2025-03-14 14:41:51');
+(1, 'János', 'Kovács', '1990-01-01', 'Erzsébet Kovács', '123456789', '123456789', 'HU123456789', '250000', 'Budapest, Fő utca 1.', 'Magyar', 'Budapest', 'AB123456', 'janos.kovacs@example.com', '0612345678', 'Számviteli munkatárs', 'Nincs megjegyzés', 'QR1234567890', '2025-03-05 17:13:57', '2025-03-05 17:13:57'),
+(2, 'Anna', 'Nagy', '1985-05-12', 'Mária Nagy', '987654321', '987654321', 'HU987654321', '280000', 'Budapest, Petőfi utca 2.', 'Magyar', 'Budapest', 'XY987654', 'anna.nagy@example.com', '0612345679', 'HR munkatárs', 'Nincs megjegyzés', 'QR9876543210', '2025-03-05 17:13:57', '2025-03-05 17:13:57'),
+(3, 'Péter', 'Szabó', '1992-03-03', 'Katalin Szabó', '111223344', '112233445', 'HU112233445', '320000', 'Debrecen, Kossuth utca 5.', 'Magyar', 'Debrecen', 'XY112233', 'peter.szabo@example.com', '0623456789', 'Fejlesztő', 'Nincs megjegyzés', 'QR1122334455', '2025-03-05 17:13:57', '2025-03-14 14:41:45'),
+(4, 'Dolgozó', 'Példa', '2025-03-10', 'Példa Ember', '123456788', '12345678-1-15', '10000000-00000000-000000', '3000', '1000, Példa utca 01.', 'példa', '0000, Példa Példa utca 00.', 'dolgozo@gmail.com', 'dolgozo@gmail.com', '1234567891', 'Búrkoló', 'asd', 'xzw9dmmm', '2025-03-13 15:20:18', '2025-03-14 14:10:42'),
+(5, 'Új', 'Dolgozó', '2025-03-14', 'Példa Anyja', '111111111', '12345678-1-30', '123456789012', '3000', 'Példa út 30.', 'magyar', 'Példa.', '111111ZZ', 'pelda2@gmail.com', '06301111111', 'Búrkoló', 'Példa', '02t2zgm0', '2025-03-14 14:12:30', '2025-03-14 14:12:30');
 
 -- --------------------------------------------------------
 
@@ -207,8 +206,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('ed6zkEKfLqBg5sY4zdHPhiDtafZQuaYT0QqPirzQ', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:136.0) Gecko/20100101 Firefox/136.0', 'YTozOntzOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjY6Il90b2tlbiI7czo0MDoiME1PbWxqMHR4bUxiU05OUEJMM2d2MGxWTGgzcEpLTEdzQmgxamxYOSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7fX0=', 1741962980),
-('vI2h0ZA2dzsM15OzeTz46DDSK99W1fMUFS1ZUYOz', NULL, '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTozOntzOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjY6Il90b2tlbiI7czo0MDoiNThsR2h0WG96cm1VenNBVDN1V3hmaElYNzRGSk1ONVV5Z1dKUkhmZSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MTY6Imh0dHA6Ly9sb2NhbGhvc3QiO319', 1741951239);
+('ed6zkEKfLqBg5sY4zdHPhiDtafZQuaYT0QqPirzQ', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:136.0) Gecko/20100101 Firefox/136.0', 'YTo0OntzOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjY6Il90b2tlbiI7czo0MDoiME1PbWxqMHR4bUxiU05OUEJMM2d2MGxWTGgzcEpLTEdzQmgxamxYOSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzA6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC93b3JrdGltZSI7fXM6NzoiaXNBZG1pbiI7YjoxO30=', 1741972235);
 
 --
 -- Indexes for dumped tables
@@ -225,7 +223,7 @@ ALTER TABLE `berszamfejtes`
 -- Indexes for table `csekkolasok`
 --
 ALTER TABLE `csekkolasok`
-  ADD PRIMARY KEY (`id`),
+  ADD PRIMARY KEY (`DolgozoID`),
   ADD KEY `DolgozoID` (`DolgozoID`);
 
 --
@@ -276,13 +274,13 @@ ALTER TABLE `sessions`
 -- AUTO_INCREMENT for table `csekkolasok`
 --
 ALTER TABLE `csekkolasok`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `DolgozoID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `esemenyek`
 --
 ALTER TABLE `esemenyek`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `felhasznalok`
@@ -294,7 +292,7 @@ ALTER TABLE `felhasznalok`
 -- AUTO_INCREMENT for table `ideiglenes`
 --
 ALTER TABLE `ideiglenes`
-  MODIFY `DolgozoID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+  MODIFY `DolgozoID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -306,7 +304,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `nyilvantartas`
 --
 ALTER TABLE `nyilvantartas`
-  MODIFY `DolgozoID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `DolgozoID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
