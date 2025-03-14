@@ -1,24 +1,24 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "comproller";
+$szerver = "localhost";
+$felhasznalo = "root";
+$jelszo = "";
+$adatbazis = "comproller";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+$kapcsolodas = new mysqli($szerver, $felhasznalo, $jelszo, $adatbazis);
 
-if ($conn->connect_error) 
+if ($kapcsolodas->connect_error) 
 {
-    die("Kapcsolódási hiba: " . $conn->connect_error);
+    die("Kapcsolódási hiba: " . $kapcsolodas->connect_error);
 }
 
 // Tábla törlése, id 1-re vissza állítása.
 $sql = "TRUNCATE TABLE ideiglenes;";
-if ($conn->query($sql) === false) 
+if ($kapcsolodas->query($sql) === false) 
 {
-    die("Hiba a tábla ürítésekor: " . $conn->error);
+    die("Hiba a tábla ürítésekor: " . $kapcsolodas->error);
 }
 
-$conn->close();
+$kapcsolodas->close();
 ?>
 
 <script>
