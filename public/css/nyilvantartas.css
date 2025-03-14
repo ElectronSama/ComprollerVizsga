@@ -83,51 +83,6 @@
     margin: 0 auto;
 }
 
-.fulek_tarolo
-{
-    margin-bottom: 30px;
-    border-bottom: 2px solid #e0e0e0;
-}
-
-.ful
-{
-    display: inline-block; /* Egysorba rakás. */
-    padding: 10px 20px;
-    margin-right: 10px;
-    cursor: pointer;
-    border: none;
-    background: none;
-    color: #7f8c8d;
-}
-
-.ful_aktiv
-{
-    color: #2c3e50;
-    border-bottom: 2px solid #2c3e50;
-    margin-bottom: -2px;
-}
-
-.szuro_sav
-{
-    background-color: white;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap; /* Reszponzívan új sorba rendezés. */
-}
-
-.szuro_mezo
-{
-    padding: 8px 12px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    flex: 1; /* Reszponzív beállitás. */
-    min-width: 200px;
-}
-
 .tablazat_tarolo
 {
     background-color: white;
@@ -161,72 +116,6 @@
     background-color: #f5f6fa;
 }
 
-.oldal_leptetok
-{
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-    gap: 10px;
-}
-
-.oldal_gomb
-{
-    padding: 8px 12px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background-color: white;
-    cursor: pointer;
-}
-
-.oldal_gomb:hover
-{
-    background-color: #f5f6fa;
-}
-
-.oldal_gomb_aktiv
-{
-    background-color: #2c3e50;
-    color: white;
-    border: none;
-}
-
-.muvelet_gomb
-{
-    background-color: #e1ecf4;
-    border-radius: 3px;
-    border: 1px solid #7aa7c7;
-    padding: 5px 10px;
-    color: #39739d;
-    cursor: pointer;
-    margin-right: 5px;
-}
-
-.muvelet_gomb:hover
-{
-    background-color: #b3d3ea;
-}
-
-.allapot_jelzo
-{
-    display: inline-block;
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: bold;
-}
-
-.allapot_aktiv
-{
-    background-color: #e8f5e9;
-    color: #2e7d32;
-}
-
-.allapot_inaktiv
-{
-    background-color: #ffebee;
-    color: #c62828;
-}
-
 .gomb_skin 
 {
     width: 40%;
@@ -242,23 +131,6 @@
 }
 
 .gomb_skin:hover 
-{
-    background-color: #b3d3ea;
-}
-
-.gomb_skin2
-{
-    width: auto;
-    background-color: #e1ecf4;
-    border: 1px solid #7aa7c7;
-    border-radius: 3px;
-    color: #39739d;
-    padding: 6px 12px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.gomb_skin2:hover 
 {
     background-color: #b3d3ea;
 }
@@ -286,24 +158,27 @@
     margin-bottom: 30px;
 
 }
-.modal-content {
+
+.modal-content 
+{
     display: flex;
     flex-wrap: wrap;
     gap: 20px; /* A mezők közötti távolság */
 }
 
-
-
-.input-container {
+.input-container
+{
     display: flex;
     width: 100%;
 }
 
-.input-row {
+.input-sor 
+{
     flex: 1;
     padding: 0 10px;
 }
 
-.input-pair {
+.input-par
+{
     margin-bottom: 10px;
 }
