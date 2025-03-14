@@ -53,10 +53,10 @@
                 <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Automatikus Rögzités</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link d-none d-sm-block" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Manuális Rögzités</button>
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Manuális Rögzités</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link d-none d-sm-block" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Lekérdezés</button>
+                <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Lekérdezés</button>
             </li>
         </ul>
             <div class="tab-content" id="myTabContent">
@@ -118,19 +118,19 @@
                                             <div class="card-body">
                                                 <div class="mb-3">
                                                     <label for="date" class="form-label fw-bold">Dátum:</label>
-                                                    <input type="date" class="form-control" id="date" name="idopont_input" style="border: 1px solid lightblue;" onchange="ellenorzes()" required>
+                                                    <input type="date" class="form-control" id="date" name="idopont_input" style="border: 1px solid lightblue;" onchange="mezo_ellenorzes()" required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="date" class="form-label fw-bold">Vég Dátum:</label>
-                                                    <input type="date" class="form-control" id="date2" name="idopont_input2" style="border: 1px solid lightblue;" onchange="ellenorzes()" oninput="datum()" required>
+                                                    <input type="date" class="form-control" id="date2" name="idopont_input2" style="border: 1px solid lightblue;" onchange="mezo_ellenorzes()" oninput="datum()" required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="time" class="form-label fw-bold">Idő:</label>
-                                                    <input type="time" class="form-control" id="time" name="idopont_ido" style="border: 1px solid lightblue;" onchange="ellenorzes()" required>
+                                                    <input type="time" class="form-control" id="time" name="idopont_ido" style="border: 1px solid lightblue;" onchange="mezo_ellenorzes()" required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="time" class="form-label fw-bold">Vég Idő:</label>
-                                                    <input type="time" class="form-control" id="time2" name="idopont_ido2" style="border: 1px solid lightblue;" onchange="ellenorzes()" required>
+                                                    <input type="time" class="form-control" id="time2" name="idopont_ido2" style="border: 1px solid lightblue;" onchange="mezo_ellenorzes()" required>
                                                 </div>
                                                 <div class="mb-3" hidden>
                                                     <label for="hours" class="form-label fw-bold">Munkanap hossza:</label>
@@ -210,8 +210,8 @@
                                             <th>Név</th>
                                             <th>Kezdés</th>
                                             <th>Befejezés</th>
-                                            <th>Kezdő óra</th>
-                                            <th>Vég óra</th>
+                                            <th>Kezdeti idő</th>
+                                            <th>Befejezési idő</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -271,7 +271,7 @@
                                                 <input type="text" id="dID" name="exampleDataList" hidden><br>
                                                 <input type="text" id="dkezd" name="dkezd" hidden><br>
                                                 <input type="text" id="dveg" name="dveg" hidden><br>
-                                                <input type="submit" id="phpgomb" class="btn btn-info" onclick="szures()" value="Listázás">
+                                                <input type="submit" id="phpgomb" class="btn btn-info" onclick="datum_szures()" value="Listázás">
                                             </form>
                                         </div>
                                         <div id="error-message" class="alert alert-danger mt-3 d-none"></div>
