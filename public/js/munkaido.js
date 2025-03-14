@@ -7,7 +7,7 @@ let mezo = document.getElementById("name");
 hozzadas_gomb.disabled = true;
 mezo.disabled = true;
 
-function ellenorzes()
+function mezo_ellenorzes() // Mezők tiltása és feloldása szükség esetén.
 {
 
     let date = document.getElementById("date");
@@ -34,7 +34,28 @@ function ellenorzes()
 
 }
 
-function szures()
+function lezar() // Mező vissza zárása gombnyomásra.
+{
+
+    let hozzadas_gomb = document.getElementById("add-button");
+    let mezo = document.getElementById("name");
+
+    hozzadas_gomb.disabled = true;
+    mezo.disabled = true;
+
+}
+
+function vissza()
+{
+
+    
+    let atadas_form = document.getElementById("atadas_form");
+
+    atadas_form.reset();
+
+}
+
+function datum_szures() // Dátumos mezők ellenörzése.
 {
 
     let keress = document.getElementById("exampleDataList").value;
@@ -65,17 +86,7 @@ function szures()
 
 }
 
-function vissza()
-{
-
-    
-    let atadas_form = document.getElementById("atadas_form");
-
-    atadas_form.reset();
-
-}
-
-function idoszakos()
+function idoszakos() // Időszakos lekérdezéshez a mezők lekezelése.
 {
 
     let kocka = document.getElementById("flexCheckDefault");
@@ -90,13 +101,39 @@ function idoszakos()
     else if (kocka.checked === false)
     {
 
-        mezo.disabled = true;
+        mezo.value = "";
+        mezo.disabled = true;       
 
     }
 
 }
 
-function datum1() 
+function datum() // Manuális végidő lekezelése.
+{
+    let ma = new Date();
+    ma.setHours(0, 0, 0, 0);
+
+    let Szuletesi_datum = document.getElementById("date2");
+    let szuletes_input = Szuletesi_datum.value;
+
+    if (!szuletes_input) 
+    {
+        alert("Kérlek, adj meg egy dátumot!");
+        return;
+    }
+
+    let uj_datum = new Date(szuletes_input);
+    uj_datum.setHours(0, 0, 0, 0);
+
+    if (uj_datum > ma) 
+    {
+        alert("Az érték nem lehet a jövőben!");
+        Szuletesi_datum.value = "";
+    }
+
+}
+
+function datum1() // Kezdeti dátum le ellenörzése.
 {
     let ma = new Date();
     ma.setHours(0, 0, 0, 0);
@@ -121,7 +158,7 @@ function datum1()
 
 }
 
-function datum2() 
+function datum2() // Vég dátum le ellenörzése.
 {
     let ma = new Date();
     ma.setHours(0, 0, 0, 0);
@@ -137,31 +174,6 @@ function datum2()
 
     let uj_datum = new Date(szuletes_input);
     uj_datum.setHours(0, 0, 0, 0); /* Idő lefixálása hogy ne okozzon gondokat. */
-
-    if (uj_datum > ma) 
-    {
-        alert("Az érték nem lehet a jövőben!");
-        Szuletesi_datum.value = "";
-    }
-
-}
-
-function datum() 
-{
-    let ma = new Date();
-    ma.setHours(0, 0, 0, 0);
-
-    let Szuletesi_datum = document.getElementById("date2");
-    let szuletes_input = Szuletesi_datum.value;
-
-    if (!szuletes_input) 
-    {
-        alert("Kérlek, adj meg egy dátumot!");
-        return;
-    }
-
-    let uj_datum = new Date(szuletes_input);
-    uj_datum.setHours(0, 0, 0, 0);
 
     if (uj_datum > ma) 
     {
@@ -389,14 +401,14 @@ document.getElementById("add-button").addEventListener("click", function() {
     }
 });
 
-document.getElementById("name").addEventListener("change", function() {
+document.getElementById("name").addEventListener("change", function() { // Mező vizsgálása hogy átadjuk a paramétereket.
     let nev = this.value.trim();
     if (nev) {
-        alapber(nev);
+        dolgozoinfo(nev); 
     }
 });
 
-function alapber(nev) 
+function dolgozoinfo(nev) 
 {
     let nev_reszek = nev.split(" "); /* Nevek felosztása. (Vezeték,kereszt). */
     
@@ -416,51 +428,41 @@ function alapber(nev)
     let leiras_input = document.getElementById("hours").value;
     let muszak_input = document.getElementById("name").value; /* Kiszedjük a bemeneti adatokat. */
 
-    let formData = new URLSearchParams(); /* Form kompatibilissá állitsuk a változót. */
-    formData.append("action", "lekeres"); /* Hozzáfüzünk egy parancsszót. */
-    formData.append("vezeteknev", vezeteknev);
-    formData.append("keresztnev", keresztnev);
-    formData.append("idopont_input", idopont_input);
-    formData.append("idopont_input2", idopont_input2);
-    formData.append("idopont_ido", idopont_ido);
-    formData.append("idopont_ido2", idopont_ido2);
-    formData.append("leiras_input", leiras_input);
-    formData.append("muszak_input", muszak_input); /* Hozzáfüzzük a küldendő adatokat. */
+    let form_adat = new URLSearchParams(); /* Form kompatibilissá állitsuk a változót. */
+    form_adat.append("action", "lekeres"); /* Hozzáfüzünk egy parancsszót. */
+    form_adat.append("vezeteknev", vezeteknev);
+    form_adat.append("keresztnev", keresztnev);
+    form_adat.append("idopont_input", idopont_input);
+    form_adat.append("idopont_input2", idopont_input2);
+    form_adat.append("idopont_ido", idopont_ido);
+    form_adat.append("idopont_ido2", idopont_ido2);
+    form_adat.append("leiras_input", leiras_input);
+    form_adat.append("muszak_input", muszak_input); /* Hozzáfüzzük a küldendő adatokat. */
 
     fetch("php/mfeltoltes.php", /* Megcélozzuk a php-t. */ 
     {
         method: "POST", /* Küldés módja. */
         headers: { "Content-Type": "application/x-www-form-urlencoded" }, /* Formája. */
-        body: formData /* Mit küldünk. */
+        body: form_adat /* Mit küldünk. */
     })
-    .then(function(response) 
+    .then(function(valasz) 
     {
-        return response.json(); /* JSON-á konvertálás. (response=válasz)*/
+        return valasz.json(); /* JSON-á konvertálás. (response=válasz)*/
     })
-    .then(function(data) 
+    .then(function(adat) 
     {
-        if (data.alapber) 
-        {
-            oraber = data.alapber;
-            alert("Siker! Alapbér: " + data.alapber + " Ft"); /* Ha találtunk alapbért, megjelenitsük. */
-        } 
-        else if (data.alapber_error) 
-        {
-            alert("Hiba: " + data.alapber_error); /* Vagy ha nem azt is. */
-        }
-
         /* Válasz a kimenetről. */
-        if (data.insert_success) 
+        if (adat.insert_success) 
         {
             console.log("Adatbázisba elmentve.");
         } 
-        else if (data.insert_error) 
+        else if (adat.insert_error) 
             {
-            alert("Hiba az esemény hozzáadása során: " + data.insert_error);
+            alert("Hiba az esemény hozzáadása során: " + adat.insert_error);
         }
     })
-    .catch(function(error) /* Hibaüzenet. */
+    .catch(function(hiba) /* Hibaüzenet. */
     {
-        console.error("Hiba:", error);
+        console.error("Hiba:", hiba);
     });
 }
