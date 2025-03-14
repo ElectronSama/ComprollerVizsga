@@ -70,7 +70,7 @@
                                     </li>
                                     <li class="list-group-item d-flex align-items-center">
                                         <strong class="me-2">GitHub:</strong>
-                                        <a href="https://github.com/ElectronSama/comproller" class="text-decoration-none">github.com/ElectronSama/comproller</a>
+                                        <a href="https://github.com/ElectronSama/ComprollerVizsga" class="text-decoration-none">https://github.com/ElectronSama/ComprollerVizsga</a>
                                     </li>
                                     <li class="list-group-item d-flex align-items-center">
                                         <strong class="me-2">Email:</strong>
