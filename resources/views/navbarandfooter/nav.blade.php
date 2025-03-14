@@ -32,7 +32,7 @@
                     <a class="nav-link mx-2" href="/worktime">Munkaidő</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link mx-2" href="/payroll-calculation">Bérszámfejtés</a>
+                    <a class="nav-link mx-2 d-none d-sm-block" href="/payroll-calculation">Bérszámfejtés</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link mx-2" href="/profile">Profil</a>
