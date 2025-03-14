@@ -1,47 +1,32 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] === "POST") 
-{
-    if (isset($_POST['esemeny_neve'])) 
+
+    $esemeny_neve = $_POST['esemeny_neve'];
+
+    $szerver = "localhost";
+    $felhasznalo = "root";
+    $jelszo = "";
+    $adatbazis = "comproller";
+
+    $kapcsolodas = new mysqli($szerver, $felhasznalo, $jelszo, $adatbazis);
+
+    if ($kapcsolodas->connect_error) 
     {
-        $esemeny_neve = $_POST['esemeny_neve'];
+        die("Kapcsolódási hiba: " . $kapcsolodas->connect_error);
+    }
 
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "comproller";
+    $sql = "DELETE FROM esemenyek WHERE esemeny_neve = '$esemeny_neve'";
 
-        $conn = new mysqli($servername, $username, $password, $dbname);
-
-        if ($conn->connect_error) 
-        {
-            die("Kapcsolódási hiba: " . $conn->connect_error);
-        }
-
-        $sql = "DELETE FROM esemenyek WHERE esemeny_neve = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $esemeny_neve);
-
-        if ($stmt->execute()) 
-        {
-            echo "Esemény sikeresen törölve: " . htmlspecialchars($_POST['esemeny_neve']);
-        } 
-        else 
-        {
-            echo "Hiba a törlés során: " . $conn->error;
-        }
-
-        $stmt->close();
-        $conn->close();
+    if ($kapcsolodas->query($sql) === TRUE) 
+    {
+        echo "Esemény sikeresen törölve: " . $_POST['esemeny_neve'];
     } 
     else 
     {
-        echo "Érvénytelen kérés.";
+        echo "Hiba a törlés során: " . $kapcsolodas->error;
     }
-} 
-else 
-{
-    echo "Hozzáférés megtagadva.";
-}
+
+    $kapcsolodas->close();
+
 ?>
 
 <script>
