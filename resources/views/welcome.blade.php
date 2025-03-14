@@ -48,7 +48,9 @@
                     <label>Jelszó</label>
                     <img src="{{ asset('kepek/szem_be.png') }}" onclick="megnez('password-signin', this)" class="jelszo-icon">
                 </div>
-                <button type="button" onclick="bejelentkezes()">Bejelentkezés</button>
+                <div class="text-center">
+                    <button class="btn btn-primary btn-lg" type="button" onclick="bejelentkezes()">Bejelentkezés</button>
+                </div>
             </form>
         </div>
     </div>

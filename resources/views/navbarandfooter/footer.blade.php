@@ -16,15 +16,7 @@
         <a href="mailto:comprollerinfo@gmail.com"><i class="bi-envelope-fill social-icon"></i></a>
     </div>
 </footer>
-<script src="css\bootstrap-5.3.3\js\bootstrap.js"></script>
 <style>
-    html, body 
-{
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
-
 .content 
 {
     padding-bottom: 80px;

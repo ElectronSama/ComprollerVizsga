@@ -84,6 +84,5 @@
     </div>
     @include('navbarandfooter/footer')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <script src="css\bootstrap-5.3.3\js\bootstrap.js"></script>
 </body>
 </html>
