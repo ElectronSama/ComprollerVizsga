@@ -17,7 +17,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-7">
-                    <canvas id="myChart"></canvas>
+                    <canvas id="myChart" class="d-none d-md-block"></canvas>
                 </div>
                 <div class="col">
                     <div id="myPlot"></div>

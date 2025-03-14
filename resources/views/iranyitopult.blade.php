@@ -20,12 +20,12 @@
                 <div class="kartya_ertek">{{ $Dolgozokszama }}</div>
                 <div class="kartya_leiras">Az összes dolgozó száma a nyilvántartásban.</div>
             </div>
-            <div class="kartya">
+            <div class="kartya d-none d-sm-block">
                 <div class="kartya_cim">Összes</div>
                 <div class="kartya_ertek">{{ $Osszesmunkakor }}</div>
                 <div class="kartya_leiras">Az összes munkakör a nyilvántartásban.</div>
             </div>
-            <div class="kartya">
+            <div class="kartya d-none d-sm-block">
                 <div class="kartya_cim">Dátum</div>
                 <div class="kartya_ertek" id="datum"></div>
                 <script>
