@@ -299,8 +299,6 @@ Route::post('/profile', function (Request $request) {
     $validatedData = $request->validate([
         'jelszo' => 'required|string|max:255',
     ]);
-
-    // Hash the password
     $validatedData['jelszo'] = Hash::make($validatedData['jelszo']);
 
     DB::table('felhasznalok')
