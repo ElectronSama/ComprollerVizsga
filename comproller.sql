@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 14, 2025 at 06:11 PM
+-- Generation Time: Mar 14, 2025 at 09:30 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -63,11 +63,13 @@ CREATE TABLE `csekkolasok` (
 --
 
 INSERT INTO `csekkolasok` (`DolgozoID`, `Vezeteknev`, `Keresztnev`, `Datum_Be`, `Datum_Ki`, `Kezdido`, `Vegido`, `Ora`, `Ber`, `Bonusz`, `Vegosszeg`, `created_at`, `updated_at`) VALUES
-(1, 'Kovács', 'János', '2025-03-01', '2025-03-01', '10:00', '12:00', NULL, NULL, NULL, NULL, '2025-03-14 15:40:58', '2025-03-14 15:46:24'),
-(2, 'Nagy', 'Anna', '2025-03-02', '2025-03-02', '10:00', '12:00', NULL, NULL, NULL, NULL, '2025-03-14 15:43:21', '2025-03-14 15:46:32'),
-(3, 'Szabó', 'Péter', '2025-03-03 ', '2025-03-03 ', '10:00', '12:00', NULL, NULL, NULL, NULL, '2025-03-14 16:19:10', '2025-03-14 16:19:10'),
-(4, 'Kovács', 'János', '2025-03-02 ', '2025-03-02 ', '15:00', '15:50', NULL, NULL, NULL, NULL, '2025-03-14 16:57:23', '2025-03-14 16:57:23'),
-(5, 'Kovács', 'János', '2025-03-03 ', '2025-03-03 ', '10:00', '12:00', NULL, NULL, NULL, NULL, '2025-03-14 16:57:42', '2025-03-14 16:57:42');
+(1, 'Kovács', 'János', '2025-03-01', '2025-03-01', '10:00', '12:00', NULL, NULL, NULL, NULL, '2025-03-14 14:40:58', '2025-03-14 14:46:24'),
+(2, 'Nagy', 'Anna', '2025-03-02', '2025-03-02', '10:00', '12:00', NULL, NULL, NULL, NULL, '2025-03-14 14:43:21', '2025-03-14 14:46:32'),
+(3, 'Szabó', 'Péter', '2025-03-03 ', '2025-03-03 ', '10:00', '12:00', NULL, NULL, NULL, NULL, '2025-03-14 15:19:10', '2025-03-14 15:19:10'),
+(4, 'Kovács', 'János', '2025-03-02 ', '2025-03-02 ', '15:00', '15:50', NULL, NULL, NULL, NULL, '2025-03-14 15:57:23', '2025-03-14 15:57:23'),
+(5, 'Kovács', 'János', '2025-03-03 ', '2025-03-03 ', '10:00', '12:00', NULL, NULL, NULL, NULL, '2025-03-14 15:57:42', '2025-03-14 15:57:42'),
+(6, 'Nagy', 'Anna', '2025-03-01 ', '2025-03-01 ', '10:00', '12:00', NULL, NULL, NULL, NULL, '2025-03-14 20:26:48', '2025-03-14 20:26:48'),
+(7, 'Nagy', 'Anna', '2025-03-01 ', '2025-03-01 ', '10:00', '12:00', NULL, NULL, NULL, NULL, '2025-03-14 20:29:20', '2025-03-14 20:29:20');
 
 -- --------------------------------------------------------
 
@@ -125,7 +127,13 @@ CREATE TABLE `ideiglenes` (
 --
 
 INSERT INTO `ideiglenes` (`DolgozoID`, `Nev`, `Datum_Be`, `Datum_Ki`) VALUES
-(1, 'Kovács János', '2025-03-02 ', '2025-03-02 ');
+(1, 'Kovács János', '2025-03-01', '2025-03-01'),
+(2, 'Nagy Anna', '2025-03-01 ', '2025-03-01 '),
+(3, 'Nagy Anna', '2025-03-01 ', '2025-03-01 '),
+(4, 'Nagy Anna', '2025-03-02', '2025-03-02'),
+(5, 'Kovács János', '2025-03-02 ', '2025-03-02 '),
+(6, 'Szabó Péter', '2025-03-03 ', '2025-03-03 '),
+(7, 'Kovács János', '2025-03-03 ', '2025-03-03 ');
 
 -- --------------------------------------------------------
 
@@ -206,7 +214,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('ed6zkEKfLqBg5sY4zdHPhiDtafZQuaYT0QqPirzQ', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:136.0) Gecko/20100101 Firefox/136.0', 'YTo0OntzOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjY6Il90b2tlbiI7czo0MDoiME1PbWxqMHR4bUxiU05OUEJMM2d2MGxWTGgzcEpLTEdzQmgxamxYOSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzA6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC93b3JrdGltZSI7fXM6NzoiaXNBZG1pbiI7YjoxO30=', 1741972235);
+('ed6zkEKfLqBg5sY4zdHPhiDtafZQuaYT0QqPirzQ', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:136.0) Gecko/20100101 Firefox/136.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiVnVkME51dE1PUURsZ1NhSmZ3UjJlTUY1RkgyRGc0WU9VZWdmN2RXbSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzA6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC93b3JrdGltZSI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NzoiaXNBZG1pbiI7YjoxO30=', 1741984222);
 
 --
 -- Indexes for dumped tables
@@ -223,8 +231,7 @@ ALTER TABLE `berszamfejtes`
 -- Indexes for table `csekkolasok`
 --
 ALTER TABLE `csekkolasok`
-  ADD PRIMARY KEY (`DolgozoID`),
-  ADD KEY `DolgozoID` (`DolgozoID`);
+  ADD PRIMARY KEY (`DolgozoID`);
 
 --
 -- Indexes for table `esemenyek`
@@ -274,7 +281,7 @@ ALTER TABLE `sessions`
 -- AUTO_INCREMENT for table `csekkolasok`
 --
 ALTER TABLE `csekkolasok`
-  MODIFY `DolgozoID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `DolgozoID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `esemenyek`
@@ -292,7 +299,7 @@ ALTER TABLE `felhasznalok`
 -- AUTO_INCREMENT for table `ideiglenes`
 --
 ALTER TABLE `ideiglenes`
-  MODIFY `DolgozoID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `DolgozoID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -305,16 +312,6 @@ ALTER TABLE `migrations`
 --
 ALTER TABLE `nyilvantartas`
   MODIFY `DolgozoID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `csekkolasok`
---
-ALTER TABLE `csekkolasok`
-  ADD CONSTRAINT `csekkolasok_ibfk_1` FOREIGN KEY (`DolgozoID`) REFERENCES `nyilvantartas` (`DolgozoID`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
