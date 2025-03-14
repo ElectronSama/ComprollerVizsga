@@ -264,7 +264,7 @@ Route::post('/register', function (Request $request) {
     })->name('register.store');
 
 // Felhasználónév frissítése //
-Route::post('/profile', function (Request $request) {
+Route::post('/profile/username', function (Request $request) {
     $validatedData = $request->validate([
         'felhasznalonev'=> 'required|string|max:255',
         'jelszo' => 'required|string|max:255',
@@ -294,7 +294,7 @@ Route::post('/profile', function (Request $request) {
 })->name('profile.store');
 
 // Jelszó frissítése //
-Route::post('/profile', function (Request $request) {
+Route::post('/profile/password', function (Request $request) {
     $validatedData = $request->validate([
         'jelszo' => 'required|string|max:255',
     ]);
