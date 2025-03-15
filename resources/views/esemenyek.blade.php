@@ -92,7 +92,7 @@
         <div id="esemeny_modal" style="display: none;">
             <div class="modal_tartalom">
                 <h2 id="datum_cim">Új esemény hozzáadása</h2>
-                <form action="php/hozzaadas.php" method="post" onsubmit="return ellenorzes();" target="/events" id="form1">
+                <form action="php/hozzaadas.php" method="post" target="/events" id="form1">
                     <input type="hidden" name="datum" id="modal_datum_input">
                     <input type="text" name="esemeny_leiras" id="esemeny_bevitel" placeholder="Esemény leírása" 
                         style="width: 100%; padding: 10px; margin-bottom: 10px;" required>
