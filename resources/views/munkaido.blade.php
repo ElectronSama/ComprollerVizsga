@@ -6,7 +6,7 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('kepek/icon.png') }}">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/bootstrap-5.3.3/css/bootstrap.css') }}">
-    <link rel="stylesheet" href="css/munkaido.css">
+    <link rel="stylesheet" href="{{ asset('css/munkaido.css') }}">
     <title>Comproller - Munkaidő</title>
 </head>
 <body>

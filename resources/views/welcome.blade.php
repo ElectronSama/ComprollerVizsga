@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{{ asset('css\bootstrap-5.3.3\css\bootstrap.css') }}">
     <meta charset="UTF-8">
     <title>Comproller - Főoldal</title>
-    <link rel="stylesheet" href="css/fooldal.css">
+    <link rel="stylesheet" href="{{ asset('css/fooldal.css') }}">
     <style>
 
         body

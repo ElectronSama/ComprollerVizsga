@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{ asset('css\bootstrap-5.3.3\css\bootstrap.css') }}">
     <title>Comproller - Nyilvántartás</title>
-    <link rel="stylesheet" href="css/nyilvantartas.css">
+    <link rel="stylesheet" href="{{ asset('css/nyilvantartas.css') }}">
 </head>
 <body>
     @include('navbarandfooter/nav')
