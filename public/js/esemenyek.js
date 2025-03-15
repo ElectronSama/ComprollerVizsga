@@ -66,18 +66,6 @@ function naptar_frissites()
         
         let datum = `${aktualis_ev}-${String(aktualis_honap+1).padStart(2, '0')}-${String(nap).padStart(2, '0')}`; /* YYYY-MM-DD formába formázás, mindig 2-jegyüek lesznek a számok. */
         nap_elem.setAttribute('data-datum', datum); /* Attribútum megadása, szükség esetén. */
-        
-        if (naptar_esemenyek[datum]) /* Ha van esemény, létrehozzuk és hozzáadjuk az oldalhoz. */
-        {
-            naptar_esemenyek[datum].forEach(function(esemeny)
-            {
-                let esemeny_elem = document.createElement('div');
-                esemeny_elem.classList.add('esemeny');
-                esemeny_elem.textContent = esemeny;
-                nap_elem.appendChild(esemeny_elem);
-            });
-        }
-
         nap_elem.addEventListener('click', datum_valasztas); /* Kattintási esemény hozzáadása. */
         naptar_container.appendChild(nap_elem); /* Hozzáadás a naptárhoz. */
     }
@@ -98,62 +86,6 @@ function datum_valasztas(esemeny) /* Ha rámegyünk egy napra kicseréli az adat
     document.getElementById('esemeny_modal').style.display = 'block';
 }
 
-function esemeny_hozzaadasa() 
-{
-    let esemeny_input = document.getElementById('esemeny_bevitel');
-    let esemeny = esemeny_input.value.trim();
-
-    if (esemeny && kivalasztott_datum) /* Ha van esemény és nem üres a dátum... */
-    {
-        if (!naptar_esemenyek[kivalasztott_datum]) /* Ha nincs tömb, létrehozzuk az eseményeknek. */
-        {
-            naptar_esemenyek[kivalasztott_datum] = [];
-        }
-
-        naptar_esemenyek[kivalasztott_datum].push(esemeny); /* Eltároljuk az eseményt a naphoz majd kitöröljkük amit beírtunk és frissítünk mindent. */
-        
-        esemeny_bevitel.value = '';
-        modal_bezarasa();
-        naptar_frissites();
-    }
-}
-
-function esemeny_frissites() 
-{
-    let tbody = document.getElementById('osszes_esemeny');
-    tbody.innerHTML = ''; /* Események törlése hogy ne legyenek duplán. */
-
-    Object.keys(naptar_esemenyek).forEach(function(datum) /* Végig megyünk az eseményeken és a dátumon... */
-    {
-        naptar_esemenyek[datum].forEach(function(esemeny)
-        {
-            let sor = tbody.insertRow();
-            sor.insertCell(0).textContent = datum;
-            sor.insertCell(1).textContent = esemeny; /* Ezeket kiíratjuk egymás mellett. */
-            
-            let torles_gomb = document.createElement('button');
-            torles_gomb.textContent = 'Törlés';
-            torles_gomb.classList.add('gomb_skin'); /* Definilunk egy törlés gombot. */
-            torles_gomb.onclick = function() 
-            {
-                naptar_esemenyek[datum] = naptar_esemenyek[datum].filter(function(e) /* Kiszürjük az eseményt... */
-                {
-                    return e !== esemeny;
-                });
-
-                if (naptar_esemenyek[datum].length === 0) /* Ha a dátumnak nincsennek eseményei, kitöröljük. */
-                {
-                    delete naptar_esemenyek[datum];
-                }
-                naptar_frissites();
-            };
-            
-            let muvelet = sor.insertCell(2); /* A törlés gomb lesz a 3-adik elem a sorba. */
-            muvelet.appendChild(torles_gomb); /* Hozzáadjuk a törlés gombot az eseményhez a legvégén. */
-        });
-    });
-}
-
 function modal_megnyitasa() 
 {
     document.getElementById("esemeny_modal").style.display = "block";
@@ -162,21 +94,6 @@ function modal_megnyitasa()
 function modal_bezarasa() 
 {
     document.getElementById("esemeny_modal").style.display = "none";
-}
-
-function ellenorzes() 
-{
-    let leiras = document.getElementById("esemeny_bevitel").value.trim();
-    let datum = document.getElementById("modal_datum_input").value.trim();
-
-    if (leiras === "" || datum === "") 
-    {
-        alert("Kérjük, töltsd ki az összes mezőt!");
-        return false;
-    }
-
-    return true;
-
 }
 
 naptar_frissites();
