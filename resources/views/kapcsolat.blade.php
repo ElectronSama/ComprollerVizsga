@@ -62,15 +62,15 @@
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item d-flex align-items-center">
                                         <strong class="me-2">Facebook:</strong>
-                                        <a href="https://facebook.com/pumpkinstudio" class="text-decoration-none">facebook.com/pumpkinstudio</a>
+                                        <a href="https://bit.ly/4kTgo2Q" class="text-decoration-none">https://bit.ly/4kTgo2Q</a>
                                     </li>
                                     <li class="list-group-item d-flex align-items-center">
                                         <strong class="me-2">Instagram:</strong>
-                                        <a href="https://instagram.com/pumpkinstudio" class="text-decoration-none">instagram.com/pumpkinstudio</a>
+                                        <a href="https://bit.ly/3FuSo69" class="text-decoration-none">https://bit.ly/3FuSo69</a>
                                     </li>
                                     <li class="list-group-item d-flex align-items-center">
                                         <strong class="me-2">GitHub:</strong>
-                                        <a href="https://github.com/ElectronSama/ComprollerVizsga" class="text-decoration-none">https://github.com/ElectronSama/ComprollerVizsga</a>
+                                        <a href="https://bit.ly/4h8fP2g" class="text-decoration-none">https://bit.ly/4h8fP2g</a>
                                     </li>
                                     <li class="list-group-item d-flex align-items-center">
                                         <strong class="me-2">Email:</strong>

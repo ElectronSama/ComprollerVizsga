@@ -27,6 +27,7 @@ Route::view('/events', 'esemenyek');
 Route::view('/worktime', 'munkaido');
 Route::view('/payroll-calculation', 'berszamfejtes');
 Route::view('/register', 'regisztracio');
+Route::view('/error', 'hiba');
 Route::get('/api/chart-data', [ChartController::class, 'getChartData']);
 Route::get('/get-job-titles', [WorkController::class, 'getJobTitles']);
 Route::get('/payroll-calculation/kereses', [DolgozoController::class, 'search'])->name('dolgozok.kereses');

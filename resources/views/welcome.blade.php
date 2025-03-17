@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{{ asset('css\bootstrap-5.3.3\css\bootstrap.css') }}">
     <meta charset="UTF-8">
     <title>Comproller - Főoldal</title>
-    <link rel="stylesheet" href="css/fooldal.css">
+    <link rel="stylesheet" href="{{ asset('css/fooldal.css') }}">
     <style>
 
         body
@@ -22,16 +22,17 @@
     @include('navbarandfooter/nav')
 
     <?php
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "comproller";
 
-        $conn = new mysqli($servername, $username, $password, $dbname);
+        $szerver = "localhost";
+        $felhasznalo = "root";
+        $jelszo = "";
+        $adatbazis = "comproller";
 
-        if ($conn->connect_error) 
+        $kapcsolodas = new mysqli($szerver, $felhasznalo, $jelszo, $adatbazis);
+
+        if ($kapcsolodas->connect_error) 
         {
-            die("Kapcsolódási hiba: " . $conn->connect_error);
+            die("Kapcsolódási hiba: " . $kapcsolodas->connect_error);
         }
     ?>
 
@@ -58,26 +59,26 @@
     <?php
 
         $sql = "SELECT felhasznalonev, jelszo, szerep FROM felhasznalok"; // Felhasználó adatainak lekérése.
-        $result = $conn->query($sql);
+        $eredmeny = $kapcsolodas->query($sql);
 
-        if ($result->num_rows > 0) 
+        if ($eredmeny->num_rows > 0) 
         {
-            $data = [];
-            while($row = $result->fetch_assoc()) 
+            $adat = [];
+            while($sor = $eredmeny->fetch_assoc()) 
             {
-                $data[] = [
-                    'felhasznalonev' => $row["felhasznalonev"],
-                    'jelszo' => $row["jelszo"],
-                    'szerep' => $row["szerep"]
+                $adat[] = [
+                    'felhasznalonev' => $sor["felhasznalonev"],
+                    'jelszo' => $sor["jelszo"],
+                    'szerep' => $sor["szerep"]
                 ];
             }
         } 
         else 
         {
-            $data = [];
+            $adat = [];
         }
 
-        $conn->close();
+        $kapcsolodas->close();
     
     ?>
 
@@ -93,12 +94,12 @@
             let jelszavak = [];
             let szerepek = [];
 
-            let adat = <?php echo json_encode($data); ?>; // JSON-á konvertálás.
-            adat.forEach(function(user) // Felhasználó tömb létrehozása.
+            let adat = <?php echo json_encode($adat); ?>; // JSON-á konvertálás.
+            adat.forEach(function(felhasznalo) // Felhasználó tömb létrehozása.
             {
-                felhasznalok.push(user.felhasznalonev);
-                jelszavak.push(user.jelszo);
-                szerepek.push(user.szerep);
+                felhasznalok.push(felhasznalo.felhasznalonev);
+                jelszavak.push(felhasznalo.jelszo);
+                szerepek.push(felhasznalo.szerep);
             });
 
             let felhasznalonev = document.getElementById("b_nev").value;
@@ -128,13 +129,13 @@
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content // Így beállit egy token-t.
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content // Így beállít egy token-t.
                         },
                         body: JSON.stringify({ admin: true })
                     })
-                    .then(function(response) 
+                    .then(function(valasz) 
                     {
-                        if (response.ok) 
+                        if (valasz.ok) 
                         {
                             window.location.href = '/dashboard';
                         } 
@@ -143,9 +144,9 @@
                             alert("Hiba történt a jogosultság frissítése közben.");
                         }
                     })
-                    .catch(function(error) 
+                    .catch(function(hiba) 
                     {
-                        console.error('Hiba:', error);
+                        console.error('Hiba:', hiba);
                     });
                 }
             }
