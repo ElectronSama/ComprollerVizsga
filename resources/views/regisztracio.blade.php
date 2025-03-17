@@ -17,21 +17,21 @@
                         <h1 class="h3 mb-0">Regisztráció</h1>
                     </div>
                     <div class="card-body">
-                        <form action="/register" method="POST">
+                        <form action="/regisztracio" method="POST">                            @csrf
                             <div class="mb-3">
                                 <label for="felhasznalo_nev" class="form-label">Felhasználónév</label>
-                                <input type="text" class="form-control" id="felhasznalo_nev" placeholder="Írja be a felhasználónevét">
+                                <input name="felhasznalonev" type="text" class="form-control" id="felhasznalonev" placeholder="Írja be a felhasználónevét">
                             </div>
 
                             <div class="mb-3">
                                 <label for="jog" class="form-label">Jogkör</label>
-                                <input type="text" class="form-control" id="jog" placeholder="Írja be a jogkörét">
+                                <input name="szerep" type="text" class="form-control" id="szerep" placeholder="Írja be a jogkörét">
                             </div>
 
                             <div class="mb-3">
                                 <label for="jelszo" class="form-label">Jelszó</label>
                                 <div class="input-group">
-                                    <input type="password" class="form-control" id="jelszo" placeholder="Írja be a jelszavát">
+                                    <input name="jelszo" type="password" class="form-control" id="jelszo" placeholder="Írja be a jelszavát">
                                     <span class="input-group-text">
                                         <img src="kepek/szem_be.png" onclick="megnez('jelszo', this)" style="width: 20px; cursor: pointer;">
                                     </span>
@@ -48,7 +48,7 @@
                                 </div>
                             </div>
 
-                            <button type="button" class="btn btn-primary w-100" onclick="regisztracio()">Regisztráció</button>
+                            <button type="submit" class="btn btn-primary w-100">Regisztráció</button>
                             <div id="uzenet" class="alert mt-3" role="alert" style="display: none;"></div>
                         </form>
                     </div>
