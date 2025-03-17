@@ -26,7 +26,6 @@ Route::view('/dashboard', 'iranyitopult');
 Route::view('/events', 'esemenyek');
 Route::view('/worktime', 'munkaido');
 Route::view('/payroll-calculation', 'berszamfejtes');
-Route::view('/camera', 'kamera');
 Route::view('/register', 'regisztracio');
 Route::get('/api/chart-data', [ChartController::class, 'getChartData']);
 Route::get('/get-job-titles', [WorkController::class, 'getJobTitles']);
@@ -138,65 +137,6 @@ Route::post('/logout', function () {
 })->name('logout');
 
 Route::post('/dolgozok/update', [DolgozoController::class, 'update']);
-
-// Csekkolás //
-Route::post('/camera', function (Request $request) {
-    $request->validate([
-        'qr_data' => 'required|string'
-    ]);
-
-    $qr_data = $request->input('qr_data');
-
-    // Ellenőrzés: QR-kód szerepel-e a nyilvántartásban
-    $dolgozo = DB::table('nyilvantartas')
-        ->where('Qrcode', $qr_data)
-        ->first();
-
-    if (!$dolgozo) {
-        return response()->json(['status' => 'Érvénytelen QR-kód!'], 400);
-    }
-
-    $dolgozo_id = $dolgozo->DolgozoID;
-
-    // Ellenőrzés: Van-e már nyitott belépés
-    $existingEntry = DB::table('csekkolasok')
-        ->where('DolgozoID', $dolgozo_id)
-        ->whereNull('Datum_Ki')
-        ->orderBy('Datum_Be', 'desc')
-        ->first();
-
-    if ($existingEntry) {
-        // Kilépés rögzítése
-        DB::table('csekkolasok')
-            ->where('id', $existingEntry->id)
-            ->update([
-                'Datum_Ki' => now(),
-                'Ora' => number_format((float)Carbon::parse($existingEntry->Datum_Be)->diffInHours(Carbon::parse(now())), 2),
-                'Ber' => $dolgozo->Alapber ? (int)((float)$dolgozo->Alapber * Carbon::parse($existingEntry->Datum_Be)->diffInHours(Carbon::parse(now()))) : 0,
-                'Bonusz' => ((Carbon::parse($existingEntry->Datum_Be)->format('H:i:s') >= '18:00:00' && Carbon::parse($existingEntry->Datum_Be)->diffInHours(Carbon::parse(now())) >= 4) || 
-                            (Carbon::parse($existingEntry->Datum_Be)->format('H:i:s') <= '06:00:00' && Carbon::parse($existingEntry->Datum_Be)->diffInHours(Carbon::parse(now())) >= 4))
-                    ? (int)($dolgozo->Alapber * Carbon::parse($existingEntry->Datum_Be)->diffInHours(Carbon::parse(now())) * 0.3) 
-                    : 0,
-                'Vegosszeg' => (int)($dolgozo->Alapber * Carbon::parse($existingEntry->Datum_Be)->diffInHours(Carbon::parse(now()))) + 
-                              (((Carbon::parse($existingEntry->Datum_Be)->format('H:i:s') >= '18:00:00' && Carbon::parse($existingEntry->Datum_Be)->diffInHours(Carbon::parse(now())) >= 4) || 
-                                (Carbon::parse($existingEntry->Datum_Be)->format('H:i:s') <= '06:00:00' && Carbon::parse($existingEntry->Datum_Be)->diffInHours(Carbon::parse(now())) >= 4))
-                                ? (int)($dolgozo->Alapber * Carbon::parse($existingEntry->Datum_Be)->diffInHours(Carbon::parse(now())) * 0.3) 
-                                : 0),
-        ]);
-            return response()->json(['status' => 'Sikeres kilépés!']);
-        } else {
-            // Belépés rögzítése
-            DB::table('csekkolasok')->insert([
-                'DolgozoID' => $dolgozo->DolgozoID,
-                'Vezeteknev' => $dolgozo->Vezeteknev,
-                'Keresztnev' => $dolgozo->Keresztnev,
-                'Datum_Be' => now()
-            ]);
-
-            return response()->json(['status' => 'Sikeres belépés!']);
-        }
-        });
-
 
 
 // Manuális csekkolás (érkezés vagy távozás rögzítése)
