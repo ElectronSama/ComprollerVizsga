@@ -313,3 +313,50 @@ Route::post('/regisztracio', function (Request $request) {
 
     return view('regisztracio');
 })->name('register.store');
+
+// Profil: felhasználónév frissítése //
+Route::post('/profile/username', function (Request $request) {
+    $validatedData = $request->validate([
+        'felhasznalonev' => 'required|string|max:255',
+        'jelszo' => 'nullable|string|min:8',
+    ]);
+
+    $userId = Auth::id(); // A bejelentkezett felhasználó ID-ja
+
+    // Ellenőrizzük, hogy van-e már ilyen név másnál
+    $existingCheck = DB::table('felhasznalok')
+        ->where('felhasznalonev', $validatedData['felhasznalonev'])
+        ->where('id', '!=', $userId)
+        ->exists();
+
+    if ($existingCheck) {
+        return view('profil')->with('error', 'Már van ilyen felhasználónév.');
+    }
+
+    // Frissítési adatok összeállítása
+
+    $updateData = ['felhasznalonev' => $validatedData['felhasznalonev']];
+
+    // Frissítés az adatbázisban
+    DB::table('felhasznalok')
+        ->where('id', $userId)
+        ->update($updateData);
+
+    return view('profil')->with('success', 'Profil sikeresen frissítve.');
+})->name('profile.store');
+
+// Profil: jelszó frissítése //
+Route::post('/profile/password', function (Request $request) {
+    $validatedData = $request->validate([
+        'new_password' => 'required|string|min:8|confirmed',
+    ]);
+
+    $userId = Auth::id(); // Bejelentkezett felhasználó ID-ja
+
+    // Új jelszó frissítése az adatbázisban
+    DB::table('felhasznalok')
+        ->where('id', $userId)
+        ->update(['jelszo' => $validatedData['new_password']]);
+
+    return view('profil')->with('success', 'Jelszó sikeresen frissítve.');
+})->name('profile.password');
