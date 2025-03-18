@@ -111,14 +111,12 @@
                                 <th scope="col">Távozás</th>
                                 <th scope="col">Ledolgozott óra</th>
                                 <th scope="col">Bér</th>
-                                <th scope="col">Bónusz</th>
                                 <th scope="col">Összeg</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <th></th>
-                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -139,7 +137,6 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger">Lezárás</button>
-                    <button type="button" class="btn btn-primary">Exportálás PDF</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezár</button>
                 </div>
             </div>
