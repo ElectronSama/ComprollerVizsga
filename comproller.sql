@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2025. Már 18. 07:57
+-- Létrehozás ideje: 2025. Már 18. 11:47
 -- Kiszolgáló verziója: 10.4.32-MariaDB
 -- PHP verzió: 8.2.12
 
@@ -105,10 +105,12 @@ CREATE TABLE `felhasznalok` (
 --
 
 INSERT INTO `felhasznalok` (`id`, `felhasznalonev`, `jelszo`, `szerep`, `created_at`, `updated_at`) VALUES
-(1, 'nikecareer', '123456', 'admin', NULL, NULL),
-(2, 'shellpath', '654321', 'hr', NULL, NULL),
-(3, 'viola123', 'admin123', 'pu', NULL, NULL),
-(4, 'valami', 'valami123', 'admin', '2025-03-18 05:54:39', '2025-03-18 05:54:39');
+(1, 'nikecareer', '123456', 'hr', NULL, NULL),
+(2, 'shellpath', '654321', 'pu', NULL, NULL),
+(3, 'viola123', 'admin123', 'valami', NULL, NULL),
+(4, 'rudirudi', '12345678', 'raktar', '2025-03-18 09:32:07', '2025-03-18 09:32:07'),
+(5, 'guest', 'guest123', 'guest', '2025-03-18 09:40:06', '2025-03-18 09:40:06'),
+(6, 'valami', 'valamivalami', 'admin', '2025-03-18 09:43:08', '2025-03-18 09:43:08');
 
 -- --------------------------------------------------------
 
@@ -215,8 +217,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('Czm6EDt4Gy8Jg65wZL1DV4I08AYT1YcrVJdUO8zS', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjY6Il90b2tlbiI7czo0MDoidFBZbXlDMXhROExiT0RnSDBaUXk4bTIwQkp3ZUxFdjdCYkZ5WXFNOSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzY6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9nZXQtam9iLXRpdGxlcyI7fXM6NzoiaXNBZG1pbiI7YjoxO30=', 1742280927),
-('ed6zkEKfLqBg5sY4zdHPhiDtafZQuaYT0QqPirzQ', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:136.0) Gecko/20100101 Firefox/136.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiVnVkME51dE1PUURsZ1NhSmZ3UjJlTUY1RkgyRGc0WU9VZWdmN2RXbSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzA6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC93b3JrdGltZSI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NzoiaXNBZG1pbiI7YjoxO30=', 1741984222);
+('Czm6EDt4Gy8Jg65wZL1DV4I08AYT1YcrVJdUO8zS', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjY6Il90b2tlbiI7czo0MDoiSlI4TVkzMmptSDRTTHhIY2VyNVdsS2hwM0lHT0U4OXNHTjhIT2NkQiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjk6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9wcm9maWxlIjt9czo3OiJpc0FkbWluIjtiOjE7fQ==', 1742294763);
 
 --
 -- Indexek a kiírt táblákhoz
@@ -246,7 +247,8 @@ ALTER TABLE `esemenyek`
 --
 ALTER TABLE `felhasznalok`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `felhasznalok_felhasznalonev_unique` (`felhasznalonev`);
+  ADD UNIQUE KEY `felhasznalok_felhasznalonev_unique` (`felhasznalonev`),
+  ADD UNIQUE KEY `felhasznalok_szerep_unique` (`szerep`);
 
 --
 -- A tábla indexei `ideiglenes`
@@ -294,7 +296,7 @@ ALTER TABLE `esemenyek`
 -- AUTO_INCREMENT a táblához `felhasznalok`
 --
 ALTER TABLE `felhasznalok`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT a táblához `ideiglenes`
