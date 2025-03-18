@@ -1,69 +1,89 @@
-function megnez(jelszo_id, ikon_elem) // Jelszó elrejtése vagy megjelenitése.
+let megjelenitett = false;
+let megjelenitett2 = false;
+
+function megvaltoztat()
 {
-    let jelszo_mezo = document.getElementById(jelszo_id);
-    if (jelszo_mezo.type === 'password') 
+
+    let szem_kep = document.getElementById("szem_kep");
+    let jelszo = document.getElementById("jelszo");
+
+    if (megjelenitett === false)
     {
-        jelszo_mezo.type = 'text';
-        ikon_elem.src = 'kepek/szem_ki.png';
-    } 
-    else 
-    {
-        jelszo_mezo.type = 'password';
-        ikon_elem.src = 'kepek/szem_be.png';
+
+        
+        szem_kep.src = "kepek/szem_ki.png";
+        jelszo.type = "input";
+        megjelenitett = true;
+
     }
+    else if (megjelenitett === true)
+    {
+
+        szem_kep.src = "kepek/szem_be.png";
+        jelszo.type = "password";
+        megjelenitett = false;
+
+    }
+
 }
 
-function uzenet_megjelenites(uzenet_id, uzenet, sikeres) // Üzenet tipushoz CSS rendelése.
+function megvaltoztat2()
 {
-    let uzenet_elem = document.getElementById(uzenet_id);
-    uzenet_elem.textContent = uzenet;
-    uzenet_elem.classList.remove('success_message', 'error_message');
-    uzenet_elem.classList.add(sikeres ? 'success_message' : 'error_message');
-    uzenet_elem.style.display = 'block';
-    
-    setTimeout(function() 
+
+    let szem_kep = document.getElementById("szem_kep2");
+    let jelszo_megerosites = document.getElementById("jelszo_megerosites");
+
+    if (megjelenitett === false)
     {
-        uzenet_elem.style.display = 'none';
-    }, 3000); // 3 másodperc után eltünik.
+
+        
+        szem_kep.src = "kepek/szem_ki.png";
+        jelszo_megerosites.type = "input";
+        megjelenitett = true;
+
+    }
+    else if (megjelenitett === true)
+    {
+
+        szem_kep.src = "kepek/szem_be.png";
+        jelszo_megerosites.type = "password";
+        megjelenitett = false;
+
+    }
+
 }
 
-function regisztracio() // Mezők ellenörzése.
+function kitoltve()
 {
-    let felhasznalo_nev = document.getElementById('felhasznalo_nev');
-    let email = document.getElementById('email');
-    let jelszo = document.getElementById('jelszo');
-    let jelszo_megerosites = document.getElementById('jelszo_megerosites');
-    
-    if (felhasznalo_nev.value.trim() === '') 
+
+    let fnev = document.getElementById("felhasznalonev");
+    let jogkor = document.getElementById("szerep");
+    let jelszo_mezo = document.getElementById("jelszo");
+    let jelszo_mezo2 = document.getElementById("jelszo_megerosites");
+    let regisztracio = document.getElementById("regisztracio_gomb");
+
+    if (fnev.value !== "" && jogkor.value !== "" && jelszo_mezo.value !== "" && jelszo_mezo2.value !== "")
     {
-        uzenet_megjelenites('uzenet', 'Kérem adjon meg egy felhasználónevet!', false);
-        return;
+
+        if (jelszo_mezo.value === jelszo_mezo2.value)
+        {
+            regisztracio.disabled = false;
+        }
+        else
+        {
+
+            alert("Nem egyeznek a jelszavak!");
+
+            regisztracio.disabled = true;
+
+        }
+
     }
-    
-    if (email.value.trim() === '') 
+    else if (fnev.value === "" || jogkor.value === "" || jelszo_mezo.value === "" || jelszo_mezo2.value === "")
     {
-        uzenet_megjelenites('uzenet', 'Kérem adja meg az e-mail címét!', false);
-        return;
+
+        regisztracio.disabled = true;
+
     }
-    
-    if (jelszo.value.trim() === '') 
-    {
-        uzenet_megjelenites('uzenet', 'Kérem adjon meg egy jelszót!', false);
-        return;
-    }
-    
-    if (jelszo_megerosites.value.trim() === '') 
-    {
-        uzenet_megjelenites('uzenet', 'Kérem erősítse meg a jelszavát!', false);
-        return;
-    }
-    
-    if (jelszo.value !== jelszo_megerosites.value) 
-    {
-        uzenet_megjelenites('uzenet', 'A két jelszó nem egyezik!', false);
-        return;
-    }
-    
-    uzenet_megjelenites('uzenet', 'Sikeres regisztráció!', true);
-    
+
 }
