@@ -24,20 +24,14 @@
                             </div>
 
                             <div class="mb-3">
-                                <div class="input-group mb-3">
-                                    <label class="input-group-text" for="inputGroupSelect01">Munkakör</label>
-                                    <select class="form-select" id="inputGroupSelect01" required>
-                                        <option value="hr">HR</option>
-                                        <option value="pu">Pénzügy</option>
-                                        <option value="raktar">Raktár</option>
-                                    </select>
-                                </div>
+                                <label for="jog" class="form-label">Jogkör</label>
+                                <input name="szerep" type="text" class="form-control" id="szerep" placeholder="Írja be a jogkörét">
                             </div>
 
                             <div class="mb-3">
                                 <label for="jelszo" class="form-label">Jelszó</label>
                                 <div class="input-group">
-                                    <input name="jelszo" type="password" class="form-control" pattern=".{8,}" id="jelszo" placeholder="Írja be a jelszavát" required>
+                                    <input name="jelszo" type="password" class="form-control" pattern=".{8,}" id="jelszo" placeholder="Írja be a jelszavát">
                                     <span class="input-group-text">
                                         <img src="kepek/szem_be.png" onclick="megnez('jelszo', this)" style="width: 20px; cursor: pointer;">
                                     </span>
@@ -47,7 +41,7 @@
                             <div class="mb-3">
                                 <label for="jelszo_megerosites" class="form-label">Jelszó megerősítése</label>
                                 <div class="input-group">
-                                    <input type="password" class="form-control" pattern=".{8,}" id="jelszo_megerosites" placeholder="Írja be újra a jelszavát" required>
+                                    <input type="password" class="form-control" pattern=".{8,}" id="jelszo_megerosites" placeholder="Írja be újra a jelszavát">
                                     <span class="input-group-text">
                                         <img src="kepek/szem_be.png" onclick="megnez('jelszo_megerosites', this)" style="width: 20px; cursor: pointer;">
                                     </span>
