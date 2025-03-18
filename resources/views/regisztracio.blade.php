@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="kepek/icon.png">
     <link rel="stylesheet" href="{{ asset('css\bootstrap-5.3.3\css\bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/regisztracio.css') }}">
     <title>Regisztráció</title>
 </head>
 <body>
@@ -17,23 +18,26 @@
                         <h1 class="h3 mb-0">Regisztráció</h1>
                     </div>
                     <div class="card-body">
-                        <form action="/regisztracio" method="POST">                            @csrf
+                        <form action="/regisztracio" method="POST">
+                            @csrf
                             <div class="mb-3">
                                 <label for="felhasznalo_nev" class="form-label">Felhasználónév</label>
-                                <input name="felhasznalonev" type="text" class="form-control" id="felhasznalonev" placeholder="Írja be a felhasználónevét">
+                                <input name="felhasznalonev" type="text" class="form-control" id="felhasznalonev" placeholder="Írja be a felhasználónevét" onchange="kitoltve()">
                             </div>
 
                             <div class="mb-3">
                                 <label for="jog" class="form-label">Jogkör</label>
-                                <input name="szerep" type="text" class="form-control" id="szerep" placeholder="Írja be a jogkörét">
+                                <input name="szerep" type="text" class="form-control" id="szerep" placeholder="Írja be a jogkörét" onchange="kitoltve()">
                             </div>
 
                             <div class="mb-3">
                                 <label for="jelszo" class="form-label">Jelszó</label>
                                 <div class="input-group">
-                                    <input name="jelszo" type="password" class="form-control" pattern=".{8,}" id="jelszo" placeholder="Írja be a jelszavát">
+                                    <input name="jelszo" type="password" class="form-control" id="jelszo" placeholder="Írja be a jelszavát" onchange="kitoltve()">
                                     <span class="input-group-text">
-                                        <img src="kepek/szem_be.png" onclick="megnez('jelszo', this)" style="width: 20px; cursor: pointer;">
+                                        <a onclick="megvaltoztat()">
+                                            <img src="kepek/szem_be.png" id="szem_kep">
+                                        </a>
                                     </span>
                                 </div>
                             </div>
@@ -41,15 +45,16 @@
                             <div class="mb-3">
                                 <label for="jelszo_megerosites" class="form-label">Jelszó megerősítése</label>
                                 <div class="input-group">
-                                    <input type="password" class="form-control" pattern=".{8,}" id="jelszo_megerosites" placeholder="Írja be újra a jelszavát">
+                                    <input type="password" class="form-control" id="jelszo_megerosites" placeholder="Írja be újra a jelszavát" onchange="kitoltve()">
                                     <span class="input-group-text">
-                                        <img src="kepek/szem_be.png" onclick="megnez('jelszo_megerosites', this)" style="width: 20px; cursor: pointer;">
+                                        <a onclick="megvaltoztat2()">
+                                            <img src="kepek/szem_be.png" id="szem_kep2">
+                                        </a>
                                     </span>
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-primary w-100">Regisztráció</button>
-                            <div id="uzenet" class="alert mt-3" role="alert" style="display: none;"></div>
+                            <button type="submit" class="btn btn-primary w-100" id="regisztracio_gomb" disabled>Regisztráció</button>
                         </form>
                     </div>
                 </div>
