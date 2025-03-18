@@ -239,53 +239,6 @@ Route::post('/worktime', function (Request $request) {
     }
 })->name('worktime.store');
 
-// Felhasználónév frissítése // -> kontroller
-Route::post('/profile/username', function (Request $request) {
-    $validatedData = $request->validate([
-        'felhasznalonev'=> 'required|string|max:255',
-        'jelszo' => 'required|string|max:255',
-    ]);
-
-    $validatedData['jelszo'] = Hash::make($validatedData['jelszo']);
-
-    $existingCheck = DB::table('felhasznalok')
-        ->where('felhasznalonev', $validatedData['felhasznalonev'])
-        ->where('id', '!=', $request->id)
-        ->first();
-
-    if ($existingCheck) {
-        return redirect()->route('profile')
-            ->with('error', 'Már van ilyen felhasználó.');
-    }
-
-    DB::table('felhasznalok')
-        ->where('id', $request->id)
-        ->update([
-            'felhasznalonev' => $validatedData['felhasznalonev'],
-            'jelszo' => $validatedData['jelszo']
-        ]);
-
-    return redirect()->route('profile')
-        ->with('success', 'Profil sikeresen frissítve.');
-})->name('profile.store');
-
-// Jelszó frissítése //
-Route::post('/profile/password', function (Request $request) {
-    $validatedData = $request->validate([
-        'jelszo' => 'required|string|max:255',
-    ]);
-    $validatedData['jelszo'] = Hash::make($validatedData['jelszo']);
-
-    DB::table('felhasznalok')
-        ->where('id', $request->id)
-        ->update([
-            'jelszo' => $validatedData['jelszo']
-        ]);
-
-    return redirect()->route('profile')
-        ->with('success', 'Jelszó sikeresen frissítve.');
-})->name('profile.store');
-
 // Regisztráció //
 Route::post('/regisztracio', function (Request $request) {
     // Validáció
