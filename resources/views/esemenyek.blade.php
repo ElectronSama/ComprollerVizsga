@@ -94,8 +94,7 @@
                 <h2 id="datum_cim">Új esemény hozzáadása</h2>
                 <form action="php/hozzaadas.php" method="post" target="/events" id="form1">
                     <input type="hidden" name="datum" id="modal_datum_input">
-                    <input type="text" name="esemeny_leiras" id="esemeny_bevitel" placeholder="Esemény leírása" 
-                        style="width: 100%; padding: 10px; margin-bottom: 10px;" required>
+                    <input type="text" name="esemeny_leiras" id="esemeny_bevitel" placeholder="Esemény leírása" required>
                     <button type="submit" class="gomb_skin" onclick="oldal_frissites()">Mentés</button>
                     <button type="button" onclick="modal_bezarasa()" class="gomb_skin">Mégsem</button>
                 </form>
