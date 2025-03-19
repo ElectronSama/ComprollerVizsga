@@ -113,7 +113,7 @@
                 if (felhasznalok[i] == felhasznalonev && jelszavak[i] == jelszo) // Ha minden megegyezik...
                 {
                     ervenyes = true;
-                    if (szerepek[i] == "hr" || szerepek[i] == "pu" || szerepek[i] == "admin")
+                    if (szerepek[i] == "hr" || szerepek[i] == "admin")
                     {
                         admin = true; // Minden esetben admin lesz a felhasználó.
                     }
@@ -124,7 +124,7 @@
             {
                 if (admin == true)
                 {                   
-                    fetch('/api/set-admin-session', 
+                    fetch('/admin', 
                     {
                         method: 'POST',
                         headers: {
