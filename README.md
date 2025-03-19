@@ -14,9 +14,6 @@ A program célja, hogy egyszerű és átlátható virtuális környezetet nyújt
 
 Az alkalmazás használatához felhasználókat kell létrehozni. Ezt a feladatot kizárólag a megbízott személy vagy a rendszergazda végezheti el terminálon keresztül.
 
-### Miért terminál?
-Ez a megoldás biztonsági okokból született, hogy illetéktelen személyek ne férhessenek hozzá az alkalmazás tartalmához.
-
 ### Jogosultságok
 A rendszergazda teljes jogosultsággal rendelkezik a program moduljainak kezelésére és megfigyelésére.
 
