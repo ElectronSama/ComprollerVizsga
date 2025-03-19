@@ -10,7 +10,7 @@
         </button>
         <div class="navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto"> 
-                @if(!session('isAdmin'))
+                @if(!session('admin'))
                 <li class="nav-item">
                     <a class="nav-link mx-2" href="/">Kezdőlap</a>
                 </li>
@@ -18,7 +18,7 @@
                     <a class="nav-link mx-2" href="/contact">Kapcsolat</a>
                 </li>
                 @endif
-                @if(session('isAdmin'))
+                @if(session('admin'))
                 <li class="nav-item">
                     <a class="nav-link mx-2" href="/dashboard">Irányítópult</a>
                 </li>
@@ -44,7 +44,7 @@
             </ul>
         </div>
         <div class="d-flex align-items-center">
-            @if(session('isAdmin'))
+            @if(session('admin'))
             <ul class="navbar-nav me-auto"> 
                 <a class="nav-link me-3" href="#" onclick="kijelentkezes()">Kijelentkezés</a>
             </ul>
@@ -61,7 +61,7 @@
 <script>
     function kijelentkezes() // Kijelentkezési parancs küldése.
     {
-        fetch('{{ route('logout') }}', 
+        fetch('{{ route('kijelentkezes') }}', 
         {
             method: 'POST',
             headers: 
