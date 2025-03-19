@@ -33,7 +33,7 @@
                             <div class="mb-3">
                                 <label for="jelszo" class="form-label">Jelszó</label>
                                 <div class="input-group">
-                                    <input name="jelszo" type="password" class="form-control" id="jelszo" placeholder="Írja be a jelszavát" onchange="kitoltve()">
+                                    <input name="jelszo" type="password" class="form-control" id="jelszo" placeholder="Írja be a jelszavát" minlength="8" onchange="kitoltve()">
                                     <span class="input-group-text">
                                         <a onclick="megvaltoztat()">
                                             <img src="kepek/szem_be.png" id="szem_kep">
@@ -45,7 +45,7 @@
                             <div class="mb-3">
                                 <label for="jelszo_megerosites" class="form-label">Jelszó megerősítése</label>
                                 <div class="input-group">
-                                    <input type="password" class="form-control" id="jelszo_megerosites" placeholder="Írja be újra a jelszavát" onchange="kitoltve()">
+                                    <input type="password" class="form-control" id="jelszo_megerosites" placeholder="Írja be újra a jelszavát"  minlength="8" onchange="kitoltve()">
                                     <span class="input-group-text">
                                         <a onclick="megvaltoztat2()">
                                             <img src="kepek/szem_be.png" id="szem_kep2">
