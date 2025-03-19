@@ -67,6 +67,8 @@ class DolgozoController extends Controller
         $dolgozo->Szemelyigazolvany_szam = $request->email;
         $dolgozo->Telefonszam = $request->telefonszam;
         $dolgozo->Munkakor = $request->munkakor;
+        $dolgozo->Megjegyzes = $request->megjegyzes;
+        $dolgozo->Tartozkodasi_hely = $request->tartozkodas;
         $dolgozo->save();
     
         return response()->json(['success' => true]);
