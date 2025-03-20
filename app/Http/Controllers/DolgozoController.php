@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class DolgozoController extends Controller
 {
-    public function destroy($id)
+    public function destroy($id) // Dolgozó kitörlése id alapján.
     {
         $dolgozo = Dolgozo::find($id);
 
@@ -22,7 +22,7 @@ class DolgozoController extends Controller
         return response()->json(['success' => false, 'message' => 'A dolgozó nem található!'], 404);
     }
 
-    public function show($id)
+    public function show($id) // Dolgozó megjelenítése id alapján.
     {
         $dolgozo = Dolgozo::find($id);
 
@@ -42,9 +42,9 @@ class DolgozoController extends Controller
         }
     }
 
-    public function update(Request $request) 
+    public function update(Request $request) // Dolgozó frissítése.
     {
-        $dolgozo = Dolgozo::find($request->id);
+        $dolgozo = Dolgozo::find($request->id); // id alapján.
         if (!$dolgozo) 
         {
             return response()->json(['success' => false, 'error' => 'Dolgozó nem található!']);
@@ -72,8 +72,9 @@ class DolgozoController extends Controller
         $dolgozo->save();
     
         return response()->json(['success' => true]);
-    } 
-    public function search(Request $request)
+    }
+
+    public function search(Request $request) // Dolgozók keresése adatok alapján.
     {
         $query = $request->input('query');
         if ($query) {
@@ -87,7 +88,8 @@ class DolgozoController extends Controller
         }
         return view('berszamfejtes', compact('dolgozok'));
     }
-    public function getDolgozoCsekkolas($id)
+
+    public function getDolgozoCsekkolas($id) // Csekkolás keresése.
     {
         // Adatok lekérdezése az adott dolgozóhoz
         $csekkolasok = DB::table('csekkolasok')
