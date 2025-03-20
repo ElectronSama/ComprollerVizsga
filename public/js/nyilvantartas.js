@@ -100,7 +100,6 @@ function megnez_modal()
 function datum() 
 {
     let ma = new Date();
-    ma.setHours(0, 0, 0, 0);
 
     let Szuletesi_datum = document.getElementById("Szuletesi_datum");
     let szuletes_input = Szuletesi_datum.value;
@@ -112,7 +111,6 @@ function datum()
     }
 
     let uj_datum = new Date(szuletes_input);
-    uj_datum.setHours(0, 0, 0, 0); /* Idő lefixálása hogy ne okozzon gondokat. */
 
     if (uj_datum > ma) 
     {
