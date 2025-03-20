@@ -1,10 +1,10 @@
 let a_form = document.getElementById("a_form");
-a_form.reset();
+a_form.reset(); // Form visszaállítás.
 
 let hozzadas_gomb = document.getElementById("add-button");
 let mezo = document.getElementById("name");
 
-hozzadas_gomb.disabled = true;
+hozzadas_gomb.disabled = true; // Elemek kikapcsolása indításkor.
 mezo.disabled = true;
 
 function mezo_ellenorzes() // Mezők tiltása és feloldása szükség esetén.
@@ -45,7 +45,7 @@ function lezar() // Mező vissza zárása gombnyomásra.
 
 }
 
-function vissza()
+function vissza() // Form visszaállitása.
 {
 
     
@@ -111,7 +111,6 @@ function idoszakos() // Időszakos lekérdezéshez a mezők lekezelése.
 function datum() // Manuális végidő lekezelése.
 {
     let ma = new Date();
-    ma.setHours(0, 0, 0, 0);
 
     let Szuletesi_datum = document.getElementById("date2");
     let szuletes_input = Szuletesi_datum.value;
@@ -123,7 +122,6 @@ function datum() // Manuális végidő lekezelése.
     }
 
     let uj_datum = new Date(szuletes_input);
-    uj_datum.setHours(0, 0, 0, 0);
 
     if (uj_datum > ma) 
     {
@@ -136,7 +134,6 @@ function datum() // Manuális végidő lekezelése.
 function datum1() // Kezdeti dátum le ellenörzése.
 {
     let ma = new Date();
-    ma.setHours(0, 0, 0, 0);
 
     let Szuletesi_datum = document.getElementById("datum_kezd");
     let szuletes_input = Szuletesi_datum.value;
@@ -148,7 +145,6 @@ function datum1() // Kezdeti dátum le ellenörzése.
     }
 
     let uj_datum = new Date(szuletes_input);
-    uj_datum.setHours(0, 0, 0, 0); /* Idő lefixálása hogy ne okozzon gondokat. */
 
     if (uj_datum > ma) 
     {
@@ -161,7 +157,6 @@ function datum1() // Kezdeti dátum le ellenörzése.
 function datum2() // Vég dátum le ellenörzése.
 {
     let ma = new Date();
-    ma.setHours(0, 0, 0, 0);
 
     let Szuletesi_datum = document.getElementById("datum_befejez");
     let szuletes_input = Szuletesi_datum.value;
@@ -173,7 +168,6 @@ function datum2() // Vég dátum le ellenörzése.
     }
 
     let uj_datum = new Date(szuletes_input);
-    uj_datum.setHours(0, 0, 0, 0); /* Idő lefixálása hogy ne okozzon gondokat. */
 
     if (uj_datum > ma) 
     {
@@ -204,7 +198,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let ido2 = document.getElementById("break-time-2");
     let veg1 = document.getElementById("break-end-1");
     let veg2 = document.getElementById("break-end-2");
-    let resz3 = document.getElementById("no-break-div");
+    // let resz3 = document.getElementById("no-break-div");
 
     resz1.classList.add("d-none");
     resz2.classList.add("d-none");
@@ -340,7 +334,7 @@ document.getElementById("add-button").addEventListener("click", function() {
         return;
     }
 
-    let teljes_oraber = munka_orak * oraber;
+    // let teljes_oraber = munka_orak * oraber;
     let munka_befejezese = document.getElementById("time2").value;
 
     if (dolgozo && munkanap && vegnap && munka_kezdete && munka_orak && munka_befejezese) {
