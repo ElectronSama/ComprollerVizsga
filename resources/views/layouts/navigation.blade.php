@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
     <div class="container">
         <!-- Logo -->
-        <a href="/dashboard" class="bi bi-moon-stars-fill" style="font-size: 2rem; color: black;"></a>
+        <a href="/" class="bi bi-moon-stars-fill" style="font-size: 2rem; color: black;"></a>
         <!-- Hamburger -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
             <span class="navbar-toggler-icon"></span>
