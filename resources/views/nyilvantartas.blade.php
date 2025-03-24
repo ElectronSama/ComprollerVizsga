@@ -33,7 +33,7 @@
                                             <button class="btn btn-danger btn-sm" onclick="torles({{ $Dolgozo->DolgozoID }})">
                                                 <i class="bi bi-trash3-fill"></i> Törlés
                                             </button>
-                                            <button class="btn btn-primary btn-sm" onclick="lekeres({{ $Dolgozo->DolgozoID }})">
+                                            <button class="btn btn-primary btn-sm" onclick="lekeres({{ $Dolgozo->DolgozoID }})" data-bs-toggle="modal" data-bs-target="#szerkesztesModal">
                                                 <i class="bi bi-pencil-fill"></i> Szerkesztés
                                             </button>
                                         </div>
@@ -143,6 +143,23 @@
                             </form>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="szerkesztesModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Szerkesztés</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Szerkesztes</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezárás</button>
+                    <button type="button" class="btn btn-primary">Mentés</button>
                 </div>
             </div>
         </div>
