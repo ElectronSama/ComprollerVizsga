@@ -1,11 +1,21 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="hu">
 <head>
   <meta charset="UTF-8">
+  <link rel="icon" type="image/x-icon" href="kepek/icon.png">
   <title>Comproller</title>
-  <link rel="stylesheet" href="css/hiba.css">
+  <link rel="stylesheet" href="{{ asset('css/hiba.css') }}">
 </head>
 <body>
+<div id="teljes">
+  <div class="container">
+    <h1>Hiba történt!</h1>
+    <div class="div">
+        <p>A kért oldal nem található, kérjük próbáld újra később.</p>
+        <p> (◕‿◕) </p> 
+    </div>
+  </div>
+</div>
 <div class="wrapper">
   <div class="candles">
     <div class="light__wave"></div>

@@ -1,6 +1,5 @@
 <x-app-layout>
 <link rel="stylesheet" href="{{ asset('css/munkaido.css') }}">
-<script src="{{ asset('js/munkaido.js') }}"></script>
 <?php // Belsős csatlakozás adatbázishoz.
         $szerver = "localhost";
         $felhasznalo = "root";
@@ -80,19 +79,19 @@
                                         <div class="card-body">
                                             <div class="mb-3">
                                                 <label for="date" class="form-label fw-bold">Dátum:</label>
-                                                <input type="date" class="form-control" id="date" name="idopont_input" id="szin" onchange="mezo_ellenorzes()" required>
+                                                <input type="date" class="form-control" id="date" name="idopont_input" id="szin" onblur="mezo_ellenorzes()" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="date" class="form-label fw-bold">Vég Dátum:</label>
-                                                <input type="date" class="form-control" id="date2" name="idopont_input2" id="szin" onchange="mezo_ellenorzes()" oninput="datum()" required>
+                                                <input type="date" class="form-control" id="date2" name="idopont_input2" id="szin" onblur="mezo_ellenorzes()" oninput="datum()" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="time" class="form-label fw-bold">Idő:</label>
-                                                <input type="time" class="form-control" id="time" name="idopont_ido" id="szin" onchange="mezo_ellenorzes()" required>
+                                                <input type="time" class="form-control" id="time" name="idopont_ido" id="szin" onblur="mezo_ellenorzes()" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="time" class="form-label fw-bold">Vég Idő:</label>
-                                                <input type="time" class="form-control" id="time2" name="idopont_ido2" id="szin" onchange="mezo_ellenorzes()" required>
+                                                <input type="time" class="form-control" id="time2" name="idopont_ido2" id="szin" onblur="mezo_ellenorzes()" required>
                                             </div>
                                             <div class="mb-3" hidden>
                                                 <label for="hours" class="form-label fw-bold">Munkanap hossza:</label>
@@ -205,7 +204,7 @@
                                             <form id="lekérdezésForm">
                                                 <div class="mb-3">
                                                     <label for="name" class="form-label fw-bold">Név:</label>
-                                                    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Keress..." name="dolgozoid" required>                              
+                                                    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Keress..." name="dolgozoid" required onblur="nev_ellenorzes()">                              
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="date" class="form-label fw-bold">Dátum:</label>
@@ -232,7 +231,7 @@
                                             <input type="text" id="dID" name="exampleDataList" hidden><br>
                                             <input type="text" id="dkezd" name="dkezd" hidden><br>
                                             <input type="text" id="dveg" name="dveg" hidden><br>
-                                            <input type="submit" id="phpgomb" class="btn btn-info" onclick="datum_szures()" value="Listázás">
+                                            <input type="submit" id="phpgomb" class="btn btn-info" onclick="datum_szures()" value="Listázás" disabled>
                                         </form>
                                     </div>
                                     <div id="error-message" class="alert alert-danger mt-3 d-none"></div>
@@ -295,4 +294,5 @@
         </div>
         </div>
     </div>
+<script src="{{ asset('js/munkaido.js') }}"></script>
 </x-app-layout>

@@ -1,4 +1,5 @@
 <x-app-layout>
+    <link rel="stylesheet" href="{{ asset('css/nyilvantartas.css') }}">
     <div class="container my-5">
         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
             <li class="nav-item p-2" role="presentation">
@@ -33,7 +34,7 @@
                                             <button class="btn btn-danger btn-sm" onclick="torles({{ $Dolgozo->DolgozoID }})">
                                                 <i class="bi bi-trash3-fill"></i> Törlés
                                             </button>
-                                            <button class="btn btn-primary btn-sm" onclick="lekeres({{ $Dolgozo->DolgozoID }})" data-bs-toggle="modal" data-bs-target="#szerkesztesModal">
+                                            <button class="btn btn-primary btn-sm" onclick="lekeres({{ $Dolgozo->DolgozoID }})">
                                                 <i class="bi bi-pencil-fill"></i> Szerkesztés
                                             </button>
                                         </div>
@@ -42,6 +43,58 @@
                             @endforeach
                         </tbody>
                     </table>
+                </div>
+                <div id="modal" class="modal hidden">
+                    <div class="modal-content">
+                        <span class="close-button" onclick="bezaras()">×</span>
+                        
+                        <input type="hidden" id="modal_id">
+                        
+                        <div class="input-container">
+                            <div class="input-sor">
+                                <div class="input-par">
+                                    <p><strong>Vezetéknév:</strong> <input type="text" id="modal_vezeteknev"></p>
+                                    <p><strong>Keresztnév:</strong> <input type="text" id="modal_keresztnev"></p>
+                                </div>
+                                
+                                <div class="input-par">
+                                    <p><strong>Email:</strong> <input type="email" id="modal_email"></p>
+                                    <p><strong>Telefonszám:</strong> <input type="text" id="modal_telefonszam"></p>
+                                </div>
+                                
+                                <div class="input-par">
+                                    <p><strong>Munkakör:</strong> <input type="text" id="modal_munkakor"></p>
+                                    <p><strong>Alapbér:</strong> <input type="text" id="modal_alapber"></p>
+                                </div>
+                                
+                                <div class="input-par">
+                                    <p><strong>Születési dátum:</strong> <input type="text" id="modal_szuletesi"></p>
+                                    <p><strong>Anyja neve:</strong> <input type="text" id="modal_anyja"></p>
+                                </div>
+                                                                
+                                <div class="input-par">
+                                    <p><strong>Tajszám:</strong> <input type="text" id="modal_tajszam"></p>
+                                </div>
+                            </div>
+                            
+                            <div class="input-sor">
+                                <div class="input-par">
+                                    <p><strong>Adószám:</strong> <input type="text" id="modal_adoszam"></p>
+                                </div>
+                                <div class="input-par">
+                                    <p><strong>Bankszámlaszám:</strong> <input type="text" id="modal_bankszamlaszam"></p>
+                                    <p><strong>Qr kód:</strong> <input type="text" id="modal_qrcode" onclick="modal_qrcode()" onblur="qrcode_bezar()"></p>
+                                </div>
+                                
+                                <button onclick="mentes()" class="btn btn-info">Mentés</button>
+
+                            </div>
+                        </div>
+                        <div class="input-par">
+                            <div id="qrcode_id" style="padding: 10px;"></div>
+                        </div>
+                        
+                    </div>
                 </div>
             </div>
             
@@ -66,27 +119,27 @@
                                                 <div class="row g-3">
                                                     <div class="col-md-6">
                                                         <label for="Vezeteknev" class="form-label text-gray-600">Vezetéknév</label>
-                                                        <input type="text" class="form-control" id="Vezeteknev" name="Vezeteknev" placeholder="Kovács" required>
+                                                        <input type="text" class="form-control" id="Vezeteknev" name="Vezeteknev" placeholder="Kovács" required oninput="ures_e()">
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label for="Keresztnev" class="form-label text-gray-600">Keresztnév</label>
-                                                        <input type="text" class="form-control" id="Keresztnev" name="Keresztnev" placeholder="János" required>
+                                                        <input type="text" class="form-control" id="Keresztnev" name="Keresztnev" placeholder="János" required oninput="ures_e()">
                                                     </div>
                                                     <div class="col">
                                                         <label for="Anyja_neve" class="form-label text-gray-600">Anyja neve</label>
-                                                        <input type="text" class="form-control" id="Keresztnev" name="Anyja_neve" placeholder="Papp Zsuzsanna" required>
+                                                        <input type="text" class="form-control" id="Anyja_neve" name="Anyja_neve" placeholder="Papp Zsuzsanna" required oninput="ures_e()">
                                                     </div>
                                                     <div class="col-12">
                                                         <label for="Email" class="form-label text-gray-600">Email cím</label>
-                                                        <input type="email" class="form-control" id="Email" name="Email" placeholder="kovacs.janos@example.com" required>
+                                                        <input type="email" class="form-control" id="Email" name="Email" placeholder="kovacs.janos@example.com" required oninput="ures_e()">
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label for="Telefonszam" class="form-label text-gray-600">Telefonszám</label>
-                                                        <input type="tel" class="form-control" id="Telefonszam" name="Telefonszam" placeholder="+36 30 123 4567" required>
+                                                        <input type="tel" class="form-control" id="Telefonszam" name="Telefonszam" placeholder="+36 30 123 4567" required oninput="ures_e()" maxlength="12">
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label for="Munkakor" class="form-label text-gray-600">Munkakör</label>
-                                                        <input type="text" class="form-control" id="Munkakor" name="Munkakor" placeholder="Fejlesztő" required>
+                                                        <input type="text" class="form-control" id="Munkakor" name="Munkakor" placeholder="Fejlesztő" required oninput="ures_e()">
                                                     </div>
                                                 </div>
                                             </div>
@@ -103,26 +156,26 @@
                                                 <div class="row g-3">
                                                     <div class="col-md-6">
                                                         <label for="Szuletesi_datum" class="form-label text-gray-600">Születési dátum</label>
-                                                        <input type="date" class="form-control" id="Szuletesi_datum" name="Szuletesi_datum" required onchange="datum()">
+                                                        <input type="date" class="form-control" id="Szuletesi_datum" name="Szuletesi_datum" required oninput="datum()" onblur="ures_e()">
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label for="Alapber" class="form-label text-gray-600">Alapbér</label>
                                                         <div class="input-group">
-                                                            <input type="text" class="form-control" id="Alapber" name="Alapber" placeholder="350000" required onkeyup="megnez()">
+                                                            <input type="text" class="form-control" id="Alapber" name="Alapber" placeholder="350000" required onkeyup="megnez()" oninput="ures_e()">
                                                             <span class="input-group-text">Ft</span>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label for="Tajszam" class="form-label text-gray-600">TAJ szám</label>
-                                                        <input type="text" class="form-control" id="Tajszam" name="Tajszam" placeholder="123-456-789" required>
+                                                        <input type="text" class="form-control" id="Tajszam" name="Tajszam" placeholder="123-456-789" required oninput="ures_e()" maxlength="9">
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label for="Adoszam" class="form-label text-gray-600">Adószám</label>
-                                                        <input type="text" class="form-control" id="Adoszam" name="Adoszam" placeholder="8123456789" required>
+                                                        <input type="text" class="form-control" id="Adoszam" name="Adoszam" placeholder="8123456789" required oninput="ures_e()" maxlength="10">
                                                     </div>
                                                     <div class="col-12">
                                                         <label for="Bankszamlaszam" class="form-label text-gray-600">Bankszámlaszám</label>
-                                                        <input type="text" class="form-control" id="Bankszamlaszam" name="Bankszamlaszam" placeholder="11773377-12345678" required onchange="hossz()">
+                                                        <input type="text" class="form-control" id="Bankszamlaszam" name="Bankszamlaszam" placeholder="11773377-12345678" required onblur="hossz()" oninput="ures_e()" maxlength="24">
                                                     </div>
                                                     <div class="col-12">
                                                         <label for="qrcode_mezo" class="form-label text-gray-600">QR kód</label>
@@ -136,30 +189,13 @@
                                 </div>
                                 <!-- Gombok a regisztrálás-->
                                 <div class="text-start mt-4 d-flex gap-3">
-                                    <button type="submit" class="btn btn-dark text-white d-flex align-items-center px-3" onclick="ures_e()">
+                                    <button type="submit" class="btn btn-dark text-white d-flex align-items-center px-3">
                                         <i class="bi bi-person-plus-fill me-2"></i>Dolgozó regisztrálása
                                     </button>
                                 </div>
                             </form>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="szerkesztesModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Szerkesztés</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Szerkesztes</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezárás</button>
-                    <button type="button" class="btn btn-primary">Mentés</button>
                 </div>
             </div>
         </div>

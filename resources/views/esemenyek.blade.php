@@ -1,6 +1,5 @@
 <x-app-layout>
 <link rel="stylesheet" href="{{ asset('css/esemenyekV2.css') }}">
-<script src="{{ asset('js/esemenyek.js') }}"></script>
 <?php // Belsős csatlakozás adatbázishoz.
 
     $szerver = "localhost";
@@ -93,4 +92,5 @@
         </div>
     </div>
 </div>
+<script src="{{ asset('js/esemenyek.js') }}"></script>
 </x-app-layout>

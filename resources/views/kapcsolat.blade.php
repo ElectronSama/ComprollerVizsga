@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+        <link rel="icon" type="image/x-icon" href="kepek/icon.png">
         <title>Comproller</title>
         <link rel="stylesheet" href="{{ asset('css/kapcsolat.css') }}">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -23,10 +24,6 @@
                                     <a href="{{ route('login') }}" class="btn btn-light d-flex align-items-center gap-2">
                                         <i class="bi bi-box-arrow-in-right"></i>
                                         Bejelentkezés
-                                    </a>
-                                    <a href="{{ route('register') }}" class="btn btn-light d-flex align-items-center gap-2">
-                                        <i class="bi bi-person-fill-add"></i>
-                                        Regisztráció
                                     </a>
                                     <a href="{{ url('/contact') }}" class="btn btn-light d-flex align-items-center gap-2">
                                         <i class="bi bi-envelope"></i>
