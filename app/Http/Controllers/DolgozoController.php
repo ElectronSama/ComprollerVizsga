@@ -8,6 +8,66 @@ use DB;
 
 class DolgozoController extends Controller
 {
+
+    public function destroy($id) // Dolgozó kitörlése id alapján.
+    {
+        $dolgozo = Dolgozo::find($id);
+
+        if ($dolgozo) 
+        {
+            $dolgozo->delete();
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['success' => false, 'message' => 'A dolgozó nem található!'], 404);
+    }
+
+    public function show($id) // Dolgozó megjelenítése id alapján.
+    {
+        $dolgozo = Dolgozo::find($id);
+
+        if ($dolgozo) 
+        {
+            return response()->json([
+                'success' => true,
+                'dolgozo' => $dolgozo,
+            ]);
+        } 
+        else 
+        {
+            return response()->json([
+                'success' => false,
+                'message' => 'Dolgozó nem található.',
+            ]);
+        }
+    }
+
+    public function update(Request $request) // Dolgozó frissítése.
+    {
+        $dolgozo = Dolgozo::find($request->id); // id alapján.
+        if (!$dolgozo) 
+        {
+            return response()->json(['success' => false, 'error' => 'Dolgozó nem található!']);
+        }
+    
+        $dolgozo->Vezeteknev = $request->vezeteknev;
+        $dolgozo->Keresztnev = $request->keresztnev;
+        $dolgozo->Email = $request->email;
+        $dolgozo->Telefonszam = $request->telefonszam;
+        $dolgozo->Munkakor = $request->munkakor;
+        $dolgozo->Alapber = $request->alapber;
+        $dolgozo->Szuletesi_datum = $request->szuletesi_datum;
+        $dolgozo->Anyja_neve = $request->anyja_neve;
+        $dolgozo->Tajszam = $request->tajszam;
+        $dolgozo->Adoszam = $request->adoszam;
+        $dolgozo->Bankszamlaszam = $request->bankszamlaszam;
+        $dolgozo->Qrcode = $request->qrcode;
+        $dolgozo->Munkakor = $request->munkakor;
+        $dolgozo->save();
+    
+        return response()->json(['success' => true]);
+    }
+
     public function post(Request $request)
     {
         // Validáció
@@ -21,10 +81,6 @@ class DolgozoController extends Controller
             'Adoszam' => 'nullable|string|max:20',
             'Bankszamlaszam' => 'nullable|string|max:24',
             'Alapber' => 'required|numeric',
-            'Cim' => 'nullable|string',
-            'Allampolgarsag' => 'nullable|string|max:100',
-            'Tartozkodasi_hely' => 'nullable|string',
-            'Szemelyigazolvany_szam' => 'nullable|string|max:20',
             'Email' => 'nullable|email',
             'Telefonszam' => 'nullable|string|max:20',
             'Qrcode' => 'nullable|string',
@@ -40,14 +96,9 @@ class DolgozoController extends Controller
         $dolgozo->Adoszam = $request->Adoszam;
         $dolgozo->Bankszamlaszam = $request->Bankszamlaszam;
         $dolgozo->Alapber = $request->Alapber;
-        $dolgozo->Cim = $request->Cim;
-        $dolgozo->Allampolgarsag = $request->Allampolgarsag;
-        $dolgozo->Tartozkodasi_hely = $request->Tartozkodasi_hely;
-        $dolgozo->Szemelyigazolvany_szam = $request->Szemelyigazolvany_szam;
         $dolgozo->Email = $request->Email;
         $dolgozo->Telefonszam = $request->Telefonszam;
         $dolgozo->Munkakor = $request->Munkakor;
-        $dolgozo->Megjegyzes = $request->Megjegyzes;
         $dolgozo->Qrcode = $request->Qrcode;
     
         // Mentés az adatbázisba
