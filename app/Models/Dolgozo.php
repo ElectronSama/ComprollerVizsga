@@ -13,9 +13,8 @@ class Dolgozo extends Model
     protected $primaryKey = 'DolgozoID';
     protected $fillable = [
         'Keresztnev', 'Vezeteknev', 'Szuletesi_datum', 'Anyja_neve', 'Tajszam',
-        'Adoszam', 'Bankszamlaszam', 'Alapber', 'Cim', 'Allampolgarsag', 
-        'Tartozkodasi_hely', 'Szemelyigazolvany_szam', 'Email', 'Telefonszam', 
-        'Munkakor', 'Megjegyzes', 'Qrcode'
+        'Adoszam', 'Bankszamlaszam', 'Alapber', 'Email', 'Telefonszam', 
+        'Munkakor', 'Qrcode'
     ];
 
     public $timestamps = true;
