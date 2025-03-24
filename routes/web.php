@@ -41,6 +41,12 @@ Route::get('/registry', function () {
     return view('nyilvantartas');
 })->middleware(['auth', 'verified'])->name('registry');
 
+// Dolgozós útvonalak //
+Route::get('/dolgozok', [DolgozoController::class, 'index']);
+Route::get('/dolgozok/{id}', [DolgozoController::class, 'show']);
+Route::delete('/dolgozok/{id}', [DolgozoController::class, 'destroy'])->name('dolgozok.destroy');
+Route::post('/dolgozok/update', [DolgozoController::class, 'update']);
+
 // Események //
 
 Route::get('/events', function () {
