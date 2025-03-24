@@ -1,11 +1,45 @@
 let a_form = document.getElementById("a_form");
-a_form.reset(); // Form visszaállítás.
+a_form.reset();
+
+let lekerdezes_form = document.getElementById("lekérdezésForm");
+lekerdezes_form.reset();
 
 let hozzadas_gomb = document.getElementById("add-button");
 let mezo = document.getElementById("name");
+let idoszakos_gomb = document.getElementById("flexCheckDefault");
+let datum_befejez = document.getElementById("datum_befejez");
+let phpgomb = document.getElementById("phpgomb");
 
-hozzadas_gomb.disabled = true; // Elemek kikapcsolása indításkor.
+idoszakos_gomb.checked = false;
+datum_befejez.disabled = true;
+hozzadas_gomb.disabled = true;
 mezo.disabled = true;
+
+function nev_ellenorzes()
+{
+
+    let nev_mezo = document.getElementById("exampleDataList").value;
+
+    let darab = nev_mezo.split(" ");
+
+    if (darab.length < 2 || darab.length > 3)
+    {
+
+        alert("Kérlek adj meg egy teljes nevet!");
+
+        nev_mezo = document.getElementById("exampleDataList").value = "";
+
+        phpgomb.disabled = true;
+
+    }
+    else
+    {
+
+        phpgomb.disabled = false;
+
+    }
+
+}
 
 function mezo_ellenorzes() // Mezők tiltása és feloldása szükség esetén.
 {
@@ -45,7 +79,7 @@ function lezar() // Mező vissza zárása gombnyomásra.
 
 }
 
-function vissza() // Form visszaállitása.
+function vissza()
 {
 
     
@@ -334,7 +368,7 @@ document.getElementById("add-button").addEventListener("click", function() {
         return;
     }
 
-    // let teljes_oraber = munka_orak * oraber;
+    let teljes_oraber = munka_orak * oraber;
     let munka_befejezese = document.getElementById("time2").value;
 
     if (dolgozo && munkanap && vegnap && munka_kezdete && munka_orak && munka_befejezese) {

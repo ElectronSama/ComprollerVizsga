@@ -8,15 +8,12 @@ function ures_e()
     let Adoszam = document.getElementById("Adoszam").value.trim();
     let Bankszamlaszam = document.getElementById("Bankszamlaszam").value.trim();
     let Alapber = document.getElementById("Alapber").value.trim();
-    let Cim = document.getElementById("Cim").value.trim();
-    let Allampolgarsag = document.getElementById("Allampolgarsag").value.trim();
-    let Szemelyigazolvany_szam = document.getElementById("Szemelyigazolvany_szam").value.trim();
     let Email = document.getElementById("Email").value.trim();
     let Telefonszam = document.getElementById("Telefonszam").value.trim();
     let Munkakor = document.getElementById("Munkakor").value.trim(); /* Az összes adattipus lekezelése. */
 
     if (Keresztnev !== "" && Vezeteknev !== "" && Szuletesi_datum !== "" && Anyja_neve !== "" && Tajszam !== "" && Adoszam !== "" &&
-        Bankszamlaszam !== "" && Alapber !== "" && Cim !== "" && Allampolgarsag !== "" && Szemelyigazolvany_szam !== "" && Email !== "" && /* Vizsgáljuk hogy üresek e a változók. */
+        Bankszamlaszam !== "" && Alapber !== "" && Email !== "" && /* Vizsgáljuk hogy üresek e a változók. */
         Telefonszam !== "" && Munkakor !== "") {
 
         let lista = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", 
@@ -134,14 +131,6 @@ function hossz()
     
 }
 
-let ember_adatok = document.getElementById("ember_adatok");
-let ember_szamok = ember_adatok.children.length;
-for (let i = 0; i < ember_szamok; i++) 
-{
-    let az_id = "resz" + i;
-    ember_adatok.children[i].setAttribute("id", az_id);
-} // ID-k állitása módosításhoz.
-
 function torles(id) 
 {
     if (!id) return; // Ha nincs id akkor nem csinálunk semmit.
@@ -218,11 +207,6 @@ function lekeres(id) // ID szerint megjelenitjük a dolgozók adatait.
                 document.getElementById("modal_adoszam").value = adat.dolgozo.Adoszam;
                 document.getElementById("modal_bankszamlaszam").value = adat.dolgozo.Bankszamlaszam;
                 document.getElementById("modal_qrcode").value = adat.dolgozo.Qrcode;
-                document.getElementById("modal_cim").value = adat.dolgozo.Cim;
-                document.getElementById("modal_allam").value = adat.dolgozo.Allampolgarsag;
-                document.getElementById("modal_szemelyi").value = adat.dolgozo.Szemelyigazolvany_szam;
-                document.getElementById("modal_tartozkodas").value = adat.dolgozo.Tartozkodasi_hely;
-                document.getElementById("modal_megjegyzes").value = adat.dolgozo.Megjegyzes;
 
                 let modal = document.getElementById("modal");
                 modal.classList.remove("hidden");
@@ -255,11 +239,6 @@ function mentes() // Rámentük a dolgozó összes adatára ha valamit el akarun
     let adoszam = document.getElementById("modal_adoszam").value;
     let bankszamlaszam = document.getElementById("modal_bankszamlaszam").value;
     let qrcode = document.getElementById("modal_qrcode").value;
-    let cim = document.getElementById("modal_cim").value;
-    let allampolgarsag = document.getElementById("modal_allam").value;
-    let szemelyi = document.getElementById("modal_szemelyi").value;
-    let tartozkodas = document.getElementById("modal_tartozkodas").value;
-    let megjegyzes = document.getElementById("modal_megjegyzes").value;
 
     fetch('/dolgozok/update', 
     
@@ -283,12 +262,7 @@ function mentes() // Rámentük a dolgozó összes adatára ha valamit el akarun
             tajszam: tajszam,
             adoszam: adoszam,
             bankszamlaszam: bankszamlaszam,
-            qrcode: qrcode,
-            cim: cim,
-            allampolgarsag: allampolgarsag,
-            szemelyi: szemelyi,
-            tartozkodas: tartozkodas,
-            megjegyzes: megjegyzes
+            qrcode: qrcode
         })
     })
     .then(function(valasz) 
