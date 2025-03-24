@@ -1,6 +1,6 @@
 <x-app-layout>
 <link rel="stylesheet" href="{{ asset('css/munkaido.css') }}">
-<link rel="stylesheet" href="{{ asset('js/munkaido.js') }}">
+<script src="{{ asset('js/munkaido.js') }}"></script>
 <?php // Belsős csatlakozás adatbázishoz.
         $szerver = "localhost";
         $felhasznalo = "root";

@@ -19,8 +19,14 @@
                             </div>
                             <div class="d-flex align-items-center gap-3">
                                 @auth
-                                    <a href="{{ url('/dashboard') }}" class="btn btn-light">Irányítópult</a>
-                                    <a href="{{ url('/camera') }}" class="btn btn-light">Kamera</a>
+                                    <a href="{{ url('/dashboard') }}" class="btn btn-light">
+                                        <i class="bi bi-house-gear-fill"></i>
+                                        Irányítópult
+                                    </a>
+                                    <a href="{{ url('/camera') }}" class="btn btn-light">
+                                        <i class="bi bi-qr-code-scan"></i>
+                                        Kamera
+                                    </a>
                                 @else
                                     <a href="{{ route('login') }}" class="btn btn-light d-flex align-items-center gap-2">
                                         <i class="bi bi-box-arrow-in-right"></i>
