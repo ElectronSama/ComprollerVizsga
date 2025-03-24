@@ -1,4 +1,6 @@
+<title>Comproller</title>
 <x-guest-layout>
+    <link rel="icon" type="image/x-icon" href="kepek/icon.png">
     <form method="POST" action="{{ route('register') }}" class="p-2">
         @csrf
         <h3 class="mb-4 text-center">Regisztráció</h3>
@@ -20,7 +22,7 @@
         </div>
 
         <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon3"><i class="fs-5 bi bi-file-lock2"></i></span>
+            <span class="input-group-text" id="basic-addon3">🔒</span>
             <input type="password" class="form-control" placeholder="Jelszó" id="password" name="password" required>
             @error('password')
                 <span class="invalid-feedback d-block" role="alert">{{ $message }}</span>
@@ -28,7 +30,7 @@
         </div>
 
         <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon4"><i class="fs-5 bi bi-file-lock2-fill"></i></span>
+            <span class="input-group-text" id="basic-addon4">🔒</span>
             <input type="password" class="form-control" placeholder="Jelszó megerősítése" id="password_confirmation" name="password_confirmation" required>
         </div>
 

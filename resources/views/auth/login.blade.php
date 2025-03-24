@@ -1,5 +1,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="{{ asset('css/bejelentkezes.css') }}">
+<link rel="icon" type="image/x-icon" href="kepek/icon.png">
+<title>Comproller</title>
 <script src="{{ asset('js/bejelentkezes.js') }}"></script>
 
 <x-guest-layout>
