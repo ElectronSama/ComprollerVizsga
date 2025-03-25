@@ -14,9 +14,9 @@ class AppServiceProvider extends ServiceProvider
         // Minden nézethez hozzáadjuk ezeket a változókat
         View::composer('*', function ($view) {
             $Dolgozokszama = Dolgozo::count();
-            $Dolgozok = Dolgozo::all();
+            $Dolgozok = Dolgozo::limit(5)->get();
             $Osszesmunkakor = DB::table('nyilvantartas')->distinct()->count('Munkakor');
-            $Esemenyek = DB::table('esemenyek')->get();
+            $Esemenyek = DB::table('esemenyek')->limit(5)->get();
             $Csekkolasok = DB::table('csekkolasok')->get();
 
             $view->with([
