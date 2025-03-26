@@ -44,7 +44,7 @@
                                             <tbody>
                                                 @foreach ($Csekkolasok as $Csekkolas)
                                                 <tr>
-                                                    <td class="text-center py-2">{{ $Csekkolas->DolgozoID }}</td>
+                                                    <td class="text-center py-2">{{ $Csekkolas->CsekkolasID }}</td>
                                                     <td class="text-center py-2">{{ $Csekkolas->Vezeteknev }}</td>
                                                     <td class="text-center py-2">{{ $Csekkolas->Keresztnev }}</td>
                                                     <td class="text-center py-2">{{ $Csekkolas->Datum_Be }}</td>
