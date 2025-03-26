@@ -11,12 +11,14 @@ class Dolgozo extends Model
 
     protected $table = 'nyilvantartas';
     protected $primaryKey = 'DolgozoID';
-    protected $fillable = [
-        'Keresztnev', 'Vezeteknev', 'Szuletesi_datum', 'Anyja_neve', 'Tajszam',
-        'Adoszam', 'Bankszamlaszam', 'Alapber', 'Email', 'Telefonszam', 
-        'Munkakor', 'Qrcode'
-    ];
-
+    public $incrementing = true;
+    protected $keyType = 'int';
     public $timestamps = true;
+    protected $fillable = [
+        'Vezeteknev', 'Keresztnev', 'Munkakor', 'Szuletesi_datum',
+        'Anyja_neve', 'Tajszam', 'Adoszam', 'Bankszamlaszam',
+        'Alapber', 'Email', 'Telefonszam', 'Qrcode'
+    ];
 }
+
 

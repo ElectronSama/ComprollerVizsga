@@ -70,7 +70,7 @@ Route::get('/dolgozo/{id}/csekkolas', [DolgozoController::class, 'getDolgozoCsek
 Route::get('/camera', function () {
     return view('kamera');
 })->middleware(['auth', 'verified'])->name('camera');
-Route::post('/csekkolas', [CsekkolasController::class, 'csekkol']);
+Route::post('/csekkolas', [CsekkolasController::class, 'csekkolas'])->name('csekkolas');
 
 // Middleware //
 

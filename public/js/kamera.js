@@ -1,57 +1,35 @@
-import QrScanner from "https://cdn.jsdelivr.net/npm/qr-scanner/qr-scanner.min.js";
+import QrScanner from "https://cdn.jsdelivr.net/npm/qr-scanner@1.4.2/qr-scanner.min.js";
 
-const videoElem = document.getElementById('qr-video');
-const resultElem = document.getElementById('qr-result');
+document.addEventListener("DOMContentLoaded", () => {
+    const video = document.getElementById("qr-video");
+    const qrResult = document.getElementById("qr-result");
+    const qrInput = document.getElementById("qr-input"); // Input mező
+    const qrForm = document.getElementById("qr-form");
 
+    let lastScanTime = 0; // Utolsó szkennelés időpontja
 
-const onScanSuccess = (result) => {
-    resultElem.textContent = `QR kód tartalma: ${result.data}`;
-    qrScanner.stop(); 
+    const scanner = new QrScanner(video, result => {
+        const now = Date.now();
+        const elapsedTime = (now - lastScanTime) / 1000; // Idő másodpercben
 
-    fetch('/camera', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        },
-        body: JSON.stringify({
-            qr_data: result.data
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        const alertElem = document.createElement('div');
-        alertElem.textContent = data.status;
-        alertElem.style.position = 'fixed';
-        alertElem.style.top = '10px';
-        alertElem.style.left = '50%';
-        alertElem.style.transform = 'translateX(-50%)';
-        alertElem.style.backgroundColor = data.status.includes('sikeres') ? '#4caf50' : '#f44336';
-        alertElem.style.color = '#fff';
-        alertElem.style.padding = '10px';
-        alertElem.style.borderRadius = '5px';
-        document.body.appendChild(alertElem);
+        if (elapsedTime < 10) { // 10 másodperc várakozás
+            console.log("Túl gyors szkennelés! Várj egy kicsit...");
+            return;
+        }
+
+        lastScanTime = now; // Frissítjük az utolsó szkennelés időpontját
+
+        console.log("QR kód beolvasva:", result);
+
+        qrResult.textContent = `📌 QR kód tartalma: ${result}`;
+        qrInput.value = result;
 
         setTimeout(() => {
-            alertElem.remove();
-            qrScanner.start();
-        }, 2000);
-    })
-    .catch(error => {
-        console.error('Hiba történt:', error);
+            console.log("Űrlap elküldése...");
+            qrForm.submit(); // Automatikus elküldés
+            scanner.stop(); // Kamera leállítása
+        }, 1000); // 1 másodperc várakozás az adat biztos beírásához
     });
-};
 
-const qrScanner = new QrScanner(videoElem, onScanSuccess, {
-    onDecodeError: (error) => {
-        console.warn(`Beolvasási hiba: ${error}`);
-    },
-    highlightScanRegion: true,
-    highlightCodeOutline: true
-});
-
-qrScanner.start();
-
-window.addEventListener('beforeunload', () => {
-    qrScanner.stop();
+    scanner.start();
 });

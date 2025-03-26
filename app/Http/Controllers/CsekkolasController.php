@@ -4,52 +4,64 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class CsekkolasController extends Controller
 {
-    public function csekkol(Request $request)
+    public function csekkolas(Request $keres)
     {
-        $request->validate([
+        $keres->validate([
             'qr_data' => 'required|string'
         ]);
 
-        $qr_data = $request->input('qr_data');
+        $qr_data = $keres->input('qr_data');
 
-        // Ellenőrzés: QR-kód szerepel-e a nyilvántartásban
+        // Ellenőrizzük, hogy a QR-kód szerepel-e az adatbázisban
         $dolgozo = DB::table('nyilvantartas')
             ->where('Qrcode', $qr_data)
             ->first();
 
         if (!$dolgozo) {
-            return response()->json(['status' => 'Érvénytelen QR-kód!'], 400);
-        }
+            return response()->json([
+                'status' => 'Érvénytelen QR-kód!',
+                'redirect' => url('/camera')], 400);}
 
         $dolgozo_id = $dolgozo->DolgozoID;
 
-        // Ellenőrzés: Van-e már nyitott belépés
+        // Megnézzük, hogy van-e már nyitott belépés
         $existingEntry = DB::table('csekkolasok')
-            ->where('DolgozoID', $dolgozo_id)
+            ->where('az_id', $dolgozo_id)
             ->whereNull('Datum_Ki')
             ->orderBy('Datum_Be', 'desc')
             ->first();
 
-        if ($existingEntry) {
-            // Kilépés rögzítése
-            DB::table('csekkolasok')
-                ->where('id', $existingEntry->id)
-                ->update(['Datum_Ki' => now()]);
+        try {
+            if ($existingEntry) {
+                // Ha van nyitott belépés, akkor most kilépés történik
+                DB::table('csekkolasok')
+                    ->where('CsekkolasID', $existingEntry->CsekkolasID)
+                    ->update([
+                        'Datum_Ki' => Carbon::now()->format('Y-m-d'),
+                        'Vegido' => Carbon::now()->format('H:i'),
+                    ]);
 
-            return response()->json(['status' => 'Sikeres kilépés!']);
-        } else {
-            // Belépés rögzítése
-            DB::table('csekkolasok')->insert([
-                'DolgozoID' => $dolgozo->DolgozoID,
-                'Vezeteknev' => $dolgozo->Vezeteknev,
-                'Keresztnev' => $dolgozo->Keresztnev,
-                'Datum_Be' => now()
-            ]);
+                    return redirect('/camera')->with('status', 'Sikeres kilépés!');
+            } else {
+                // Ha nincs nyitott belépés, akkor belépést rögzítünk
+                DB::table('csekkolasok')->insert([
+                    'az_id' => $dolgozo->DolgozoID,
+                    'Vezeteknev' => $dolgozo->Vezeteknev,
+                    'Keresztnev' => $dolgozo->Keresztnev,
+                    'Datum_Be' => Carbon::now()->format('Y-m-d'), 
+                    'Datum_Ki' => null,
+                    'Kezdido' => Carbon::now()->format('H:i'),
+                    'Vegido' => null,
+                ]);
 
-            return response()->json(['status' => 'Sikeres belépés!']);
+                return redirect('/camera')->with('status', 'Sikeres belépés!');
+            }
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'Hiba történt!', 'error' => $e->getMessage()], 500);
         }
     }
 }
