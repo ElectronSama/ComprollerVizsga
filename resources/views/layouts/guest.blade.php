@@ -6,6 +6,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
         <title>{{ config('app.name', 'Comproller') }}</title>
+        <link rel="icon" type="image/x-icon" href="kepek/icon.png">
         <link rel="stylesheet" href="{{ asset('css/guest.css') }}">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="preconnect" href="https://fonts.bunny.net">
