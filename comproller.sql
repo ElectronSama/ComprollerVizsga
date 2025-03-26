@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2025. Már 26. 08:53
--- Kiszolgáló verziója: 10.4.32-MariaDB
--- PHP verzió: 8.2.12
+-- Létrehozás ideje: 2025. Már 26. 10:46
+-- Kiszolgáló verziója: 10.4.28-MariaDB
+-- PHP verzió: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -88,7 +88,9 @@ INSERT INTO `csekkolasok` (`CsekkolasID`, `az_id`, `Vezeteknev`, `Keresztnev`, `
 (5, '', 'Horváth', 'Eszter', '2025-03-02 ', '2025-03-02 ', '10:00', '12:00', NULL, NULL, NULL, NULL, '2025-03-24 19:06:25', '2025-03-24 19:06:25'),
 (6, '1', 'Kovács', 'Anna', '2025-03-01 ', '2025-03-01 ', '10:00', '12:00', NULL, NULL, NULL, NULL, '2025-03-26 07:48:33', '2025-03-26 07:48:33'),
 (7, '5', 'Horváth', 'Eszter', '2025-03-01 ', '2025-03-01 ', '10:00', '12:00', NULL, NULL, NULL, NULL, '2025-03-26 07:49:05', '2025-03-26 07:49:05'),
-(8, '5', 'Horváth', 'Eszter', '2025-03-02 ', '2025-03-02 ', '10:00', '13:00', NULL, NULL, NULL, NULL, '2025-03-26 07:49:48', '2025-03-26 07:49:48');
+(8, '5', 'Horváth', 'Eszter', '2025-03-02 ', '2025-03-02 ', '10:00', '13:00', NULL, NULL, NULL, NULL, '2025-03-26 07:49:48', '2025-03-26 07:49:48'),
+(9, '4', 'Szabó', 'Gábor', '2025-03-01 ', '2025-03-01 ', '10:00', '11:00', NULL, NULL, NULL, NULL, '2025-03-26 09:35:47', '2025-03-26 09:35:47'),
+(10, '5', 'Horváth', 'Eszter', '2025-03-03 ', '2025-03-03 ', '10:00', '12:00', NULL, NULL, NULL, NULL, '2025-03-26 09:42:26', '2025-03-26 09:42:26');
 
 -- --------------------------------------------------------
 
@@ -127,7 +129,7 @@ CREATE TABLE `failed_jobs` (
 --
 
 CREATE TABLE `ideiglenes` (
-  `DolgozoID` int(255) NOT NULL,
+  `CsekkolasID` int(255) NOT NULL,
   `Nev` varchar(255) NOT NULL,
   `Datum_Be` varchar(255) NOT NULL,
   `Datum_Ki` varchar(255) NOT NULL
@@ -137,8 +139,12 @@ CREATE TABLE `ideiglenes` (
 -- A tábla adatainak kiíratása `ideiglenes`
 --
 
-INSERT INTO `ideiglenes` (`DolgozoID`, `Nev`, `Datum_Be`, `Datum_Ki`) VALUES
-(1, 'Horváth Eszter', '2025-03-01 ', '2025-03-01 ');
+INSERT INTO `ideiglenes` (`CsekkolasID`, `Nev`, `Datum_Be`, `Datum_Ki`) VALUES
+(1, 'Horváth Eszter', '2025-03-01 ', '2025-03-01 '),
+(2, 'Horváth Eszter', '2025-03-01 ', '2025-03-01 '),
+(3, 'Horváth Eszter', '2025-03-02 ', '2025-03-02 '),
+(4, 'Horváth Eszter', '2025-03-02 ', '2025-03-02 '),
+(5, 'Horváth Eszter', '2025-03-03 ', '2025-03-03 ');
 
 -- --------------------------------------------------------
 
@@ -265,6 +271,7 @@ CREATE TABLE `sessions` (
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
 ('gArstTudQF0FoRNWjk1iPqh8u2LvyRVECTU9kfS1', 3, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiMDl4YjVhd0p0RjJIbVBnUE1PRW5VUmhaRVhKUUc4SFhxOGcyZ2d0MyI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjk6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9wcm9maWxlIjt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6Mzt9', 1742892343),
+('wBg7OrHe8uaSoI1QEqYul8m8NqhsbpLJzi9BRNw8', 3, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiRkR3dkpjcGdjTDQzNFZhMU83Z1pqUE5LZE5nQ21XNjZEajZhN0FReiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzA6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC93b3JrdGltZSI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjM7fQ==', 1742982354),
 ('WbWUMt1c12eTxykJpkuWiSQ9VlE5h6F5VX9WtZdq', 3, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiWlhjRmUwbXdsNVIzSzU3NldhZnE4bU1DNE9VVVhTWVJ6VmV2WVN6WiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzA6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC93b3JrdGltZSI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjM7fQ==', 1742975285);
 
 -- --------------------------------------------------------
@@ -332,7 +339,7 @@ ALTER TABLE `failed_jobs`
 -- A tábla indexei `ideiglenes`
 --
 ALTER TABLE `ideiglenes`
-  ADD PRIMARY KEY (`DolgozoID`);
+  ADD PRIMARY KEY (`CsekkolasID`);
 
 --
 -- A tábla indexei `jobs`
@@ -388,7 +395,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT a táblához `csekkolasok`
 --
 ALTER TABLE `csekkolasok`
-  MODIFY `CsekkolasID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `CsekkolasID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT a táblához `esemenyek`
@@ -406,7 +413,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT a táblához `ideiglenes`
 --
 ALTER TABLE `ideiglenes`
-  MODIFY `DolgozoID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `CsekkolasID` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT a táblához `jobs`
