@@ -19,13 +19,15 @@
 
     $vezeteknev = $_POST['vezeteknev'];
     $keresztnev = $_POST['keresztnev'];
+    $az_id;
 
-    $sql = "SELECT Alapber FROM nyilvantartas WHERE Vezeteknev = '$vezeteknev' AND Keresztnev = '$keresztnev'";
+    $sql = "SELECT Alapber, DolgozoID FROM nyilvantartas WHERE Vezeteknev = '$vezeteknev' AND Keresztnev = '$keresztnev'";
     $eredmeny = $kapcsolat->query($sql);
 
     if ($sor = $eredmeny->fetch_assoc()) 
     {
         $valasz["alapber"] = $sor["Alapber"];
+        $az_id = $sor["DolgozoID"];
     } 
     else 
     {
@@ -58,8 +60,8 @@
     $vezeteknev = $nevek[0];
     $keresztnev = $nevek[1];
 
-    $sql = "INSERT INTO csekkolasok (Vezeteknev, Keresztnev, Datum_Be, Datum_Ki, Kezdido, Vegido) 
-            VALUES ('$vezeteknev', '$keresztnev', '$idopont', '$idopont2', '$ora1', '$ora2')";
+    $sql = "INSERT INTO csekkolasok (az_id, Vezeteknev, Keresztnev, Datum_Be, Datum_Ki, Kezdido, Vegido) 
+            VALUES ('$az_id','$vezeteknev', '$keresztnev', '$idopont', '$idopont2', '$ora1', '$ora2')";
 
     if ($kapcsolat->query($sql)) 
     {
