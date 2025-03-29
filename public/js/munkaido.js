@@ -7,6 +7,7 @@ lekerdezes_form.reset();
 let hozzadas_gomb = document.getElementById("add-button");
 let mezo = document.getElementById("name");
 let idoszakos_gomb = document.getElementById("flexCheckDefault");
+let datum_kezd = document.getElementById("datum_kezd");
 let datum_befejez = document.getElementById("datum_befejez");
 let phpgomb = document.getElementById("phpgomb");
 
@@ -14,20 +15,18 @@ idoszakos_gomb.checked = false;
 datum_befejez.disabled = true;
 hozzadas_gomb.disabled = true;
 mezo.disabled = true;
+phpgomb.disabled = true;
 
 function nev_ellenorzes()
 {
 
     let nev_mezo = document.getElementById("exampleDataList").value;
+    datum_kezd = document.getElementById("datum_kezd").value;
 
     let darab = nev_mezo.split(" ");
 
-    if (darab.length < 2 || darab.length > 3)
+    if (darab.length < 2 || darab.length > 3 || datum_kezd === "")
     {
-
-        alert("Kérlek adj meg egy teljes nevet!");
-
-        nev_mezo = document.getElementById("exampleDataList").value = "";
 
         phpgomb.disabled = true;
 
