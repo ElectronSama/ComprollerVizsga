@@ -45,7 +45,15 @@ function naptar_frissites()
     let honap_elso_napja = new Date(aktualis_ev, aktualis_honap, 1); /* Első nap beállitása... */
     let honap_utolso_napja = new Date(aktualis_ev, aktualis_honap + 1, 0); /* A következő hónap 0-adik napjára hivatkozunk mert a napokat 1-től számozzuk és a 0 az utolsó nap a hónap-ba. */
 
-    let elso_nap_indexe = honap_elso_napja.getDay() === 0 ? 7 : honap_elso_napja.getDay(); /* Vasárnap az garantáltan 7-edik nap lesz a hétbe. */
+    let elso_nap_indexe;
+    if (honap_elso_napja.getDay() === 0) 
+    {
+        elso_nap_indexe = 7;  // Vasárnap az garantáltan 7-edik nap lesz a hétben
+    } 
+    else 
+    {
+        elso_nap_indexe = honap_elso_napja.getDay();
+    }
     
     for (let i = 1; i < elso_nap_indexe; i++) /* Üres napok beállitása (DOM CSS). */
     {
