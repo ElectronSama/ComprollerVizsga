@@ -3,10 +3,9 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DolgozoController;
 use App\Http\Controllers\ChartController;
-use App\Http\Controllers\WorkController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CsekkolasController;
-use App\Http\Controllers\KeresesController;
+use App\Http\Controllers\BerszamfejtesController;
 
 
 // Főoldal és Kapcsolat //
@@ -31,7 +30,7 @@ Route::get('/dashboard', function () {
     return view('iranyitopult', );
 })->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/api/chart-data', [ChartController::class, 'getChartData']);
-Route::get('/get-job-titles', [WorkController::class, 'getJobTitles']);
+Route::get('/get-job-titles', [ChartController::class, 'getJobTitles']);
 
 // Nyilvántartás //
 
@@ -61,9 +60,9 @@ Route::get('/worktime', function () {
 
 // Bérszámfejtés //
 
-Route::get('/payroll-calculation', [KeresesController::class, 'keres'])->middleware(['auth', 'verified'])->name('payroll-calculation');
-Route::get('/dolgozo-kereso', [KeresesController::class, 'keres'])->name('dolgozo.kereso');
-Route::get('/dolgozo/{id}/csekkolas', [DolgozoController::class, 'getDolgozoCsekkolas'])->name('dolgozo.csekkolas');
+Route::get('/payroll-calculation', [BerszamfejtesController::class, 'keres'])->middleware(['auth', 'verified'])->name('payroll-calculation');
+Route::get('/payroll-calculation/search', [BerszamfejtesController::class, 'keres'])->name('dolgozo.kereso');
+Route::match(['get', 'post'], '/payroll-calculation/create', [BerszamfejtesController::class, 'create'])->name('payroll-calculation.create');
 
 // Kamera //
 

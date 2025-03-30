@@ -1,5 +1,17 @@
 <x-app-layout>
     <link rel="stylesheet" href="{{ asset('css/berszamfejtes.css') }}">
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+
 
     <div class="berszamfejtes_tarolo">
         <div class="diagram">
@@ -28,9 +40,8 @@
                                 <th>Vezetéknév</th>
                                 <th>Keresztnév</th>
                                 <th>Munkakör</th>
-                                <th>Összeg</th>
+                                <th>Órabér</th>
                                 <th>Művelet</th>
-                                <th>Státusz</th>
                             </tr>
                         </thead>
                         <tbody id="tablazat_tbody">
@@ -42,17 +53,13 @@
                                     <td>{{ $dolgozo->Munkakor }}</td>
                                     <td>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" disabled>
+                                            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" value="{{ $dolgozo->Alapber }}" disabled>
                                             <span class="input-group-text">HUF</span>
                                         </div>
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#vizsgalatModal">
-                                            Vizsgálat
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <span class="statusz lezarva">Lezárva</span>
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#elozmenyekModal">Előzmények</button>
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ujSzamfejtesModal">Új számfejtés</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -62,48 +69,118 @@
             @endif
         </div>
     </div>
-    <div class="modal fade" id="vizsgalatModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg">  <!-- Nagy méretű modál -->
+</div>
+
+<!-- Előzmények Modal -->
+<div class="modal fade" id="elozmenyekModal" tabindex="-1" aria-labelledby="elozmenyekModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg"> <!-- A modal-lg osztály használata -->
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Vizsgálati adatok</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                <h5 class="modal-title" id="elozmenyekModalLabel">Előzmények</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <!-- Reszponzív táblázat -->
-                <div class="table-responsive">
-                    <table class="table table-striped table-bordered">
-                        <thead class="table-dark">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>DolgozoID</th>
+                            <th>Vezetéknév</th>
+                            <th>Keresztnév</th>
+                            <th>Hónap</th>
+                            <th>Bér</th>
+                            <th>Létrehozva</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($szamfejtesek as $szamfejtes)
                             <tr>
-                                <th>ID</th>
-                                <th>Keresztnév</th>
-                                <th>Vezetéknév</th>
-                                <th>Érkezés</th>
-                                <th>Távozás</th>
-                                <th>Munkaidő</th>
-                                <th>Bónusz</th>
-                                <th>Összeg</th>
+                                <td>{{ $szamfejtes->DolgozoID }}</td>
+                                <td>{{ $szamfejtes->vezeteknev }}</td>
+                                <td>{{ $szamfejtes->keresztnev }}</td>
+                                <td>{{ $szamfejtes->honap }}</td>
+                                <td>{{ $szamfejtes->ber }} Ft</td>
+                                <td>{{ $szamfejtes->created_at }}</td>
                             </tr>
-                        </thead>
-                        <tbody>
+                        @empty
                             <tr>
-                                <td>1</td>
-                                <td>Péter</td>
-                                <td>Kiss</td>
-                                <td>08:00</td>
-                                <td>16:00</td>
-                                <td>8 óra</td>
-                                <td>10%</td>
-                                <td>200 000 Ft</td>
+                                <td colspan="6" class="text-center">Nincs elérhető adat.</td>
                             </tr>
-                        </tbody>
-                    </table>
-                </div>
+                        @endforelse
+                    </tbody>
+                </table>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezárás</button>
+                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Bezárás</button>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Modal: Új számfejtés -->
+<div class="modal fade" id="ujSzamfejtesModal" tabindex="-1" aria-labelledby="ujSzamfejtesModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ujSzamfejtesModalLabel">Új számfejtés</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="table-responsive overflow-auto" style="max-height: 70vh;">
+                        <table class="table table-striped table-bordered align-middle">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Vezetéknév</th>
+                                    <th>Keresztnév</th>
+                                    <th>Dátum (Be)</th>
+                                    <th>Dátum (Ki)</th>
+                                    <th>Kezdés</th>
+                                    <th>Vége</th>
+                                    <th>Óra</th>
+                                    <th>Bér</th>
+                                    <th>Bónusz</th>
+                                    <th>Végösszeg</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse($osszescsekkolasok as $Csekkolas)
+                                    <tr>
+                                        <td>{{ $Csekkolas->az_id }}</td>
+                                        <td>{{ $Csekkolas->Vezeteknev }}</td>
+                                        <td>{{ $Csekkolas->Keresztnev }}</td>
+                                        <td>{{ $Csekkolas->Datum_Be }}</td>
+                                        <td>{{ $Csekkolas->Datum_Ki }}</td>
+                                        <td>{{ $Csekkolas->Kezdido }}</td>
+                                        <td>{{ $Csekkolas->Vegido }}</td>
+                                        <td>{{ $Csekkolas->Ora }}</td>
+                                        <td>{{ $Csekkolas->Ber }}</td>
+                                        <td>{{ $Csekkolas->Bonusz }}</td>
+                                        <td>{{ $Csekkolas->Vegosszeg }}</td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="12" class="text-center">Nincs nem számfejtett csekkolás.</td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                        <div class="form-group">
+                            <input type="text" id="vegosszeg_osszeg" value="{{ $csekkolasokosszeg }}" class="form-control" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-between">
+                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Bezárás</button>
+                <form action="{{ route('payroll-calculation.create') }}" method="POST">
+                    @csrf
+                    <input type="text" name="ber" value="{{ $csekkolasokosszeg }}" hidden>
+                    <button type="submit" class="btn btn-success">Számfejtés létrehozása</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 </x-app-layout>

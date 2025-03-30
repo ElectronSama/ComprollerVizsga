@@ -44,7 +44,7 @@
                                             <tbody>
                                                 @foreach ($Csekkolasok as $Csekkolas)
                                                 <tr>
-                                                    <td class="text-center py-2">{{ $Csekkolas->CsekkolasID }}</td>
+                                                    <td class="text-center py-2">{{ $Csekkolas->az_id }}</td>
                                                     <td class="text-center py-2">{{ $Csekkolas->Vezeteknev }}</td>
                                                     <td class="text-center py-2">{{ $Csekkolas->Keresztnev }}</td>
                                                     <td class="text-center py-2">{{ $Csekkolas->Datum_Be }}</td>
@@ -256,7 +256,7 @@
                                             <tbody>
                                                 <?php
                                         
-                                                    $sql = "SELECT CsekkolasID, Nev, Datum_Be, Datum_Ki FROM ideiglenes";
+                                                    $sql = "SELECT DolgozoID, Nev, Datum_Be, Datum_Ki FROM ideiglenes";
                                                     $eredmeny = $kapcsolodas->query($sql);
                                             
                                                     if ($eredmeny->num_rows > 0) 
@@ -264,7 +264,7 @@
                                                         while ($sor = $eredmeny->fetch_assoc()) 
                                                         {
                                                             echo '<tr>';
-                                                            echo '    <td>' . $sor["CsekkolasID"] . '</td>';
+                                                            echo '    <td>' . $sor["DolgozoID"] . '</td>';
                                                             echo '    <td>' . $sor["Nev"] . '</td>';
                                                             echo '    <td>' . $sor["Datum_Be"] . '</td>';
                                                             echo '    <td>' . $sor["Datum_Ki"] . '</td>';

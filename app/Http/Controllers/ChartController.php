@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Dolgozo;
 
 class ChartController extends Controller
@@ -37,5 +36,10 @@ class ChartController extends Controller
             'maxMonth' => $maxMonth, // A hónap neve, ahol a leg több dolgozó regisztrált
             'maxCount' => $maxCount  // A regisztrált dolgozók maximális száma
         ]);
+    }
+    public function getJobTitles()
+    {
+        $jobTitles = Dolgozo::pluck('munkakor');
+        return response()->json($jobTitles);
     }
 }

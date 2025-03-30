@@ -24,7 +24,8 @@ class CsekkolasController extends Controller
         if (!$dolgozo) {
             return response()->json([
                 'status' => 'Érvénytelen QR-kód!',
-                'redirect' => url('/camera')], 400);}
+                'redirect' => url('/camera')], 400);
+        }
 
         $dolgozo_id = $dolgozo->DolgozoID;
 
@@ -38,14 +39,27 @@ class CsekkolasController extends Controller
         try {
             if ($existingEntry) {
                 // Ha van nyitott belépés, akkor most kilépés történik
+                $ora = Carbon::parse($existingEntry->Kezdido)->diffInHours(Carbon::now());
+                $ber = $dolgozo->alapber * $ora;
+
+                // Éjszakai bónusz számítása (ha 18:00 és 06:00 között dolgozott)
+                $kezdIdoOra = Carbon::parse($existingEntry->Kezdido)->hour;
+                $bonusz = ($kezdIdoOra >= 18 || $kezdIdoOra <= 6) ? ($ber * 0.3) : 0;
+
+                $vegosszeg = $ber + $bonusz;
+
                 DB::table('csekkolasok')
                     ->where('CsekkolasID', $existingEntry->CsekkolasID)
                     ->update([
                         'Datum_Ki' => Carbon::now()->format('Y-m-d'),
                         'Vegido' => Carbon::now()->format('H:i'),
+                        'Ora' => $ora,
+                        'Ber' => $ber,
+                        'Bonusz' => $bonusz,
+                        'Vegosszeg' => $vegosszeg,
                     ]);
 
-                    return redirect('/camera')->with('status', 'Sikeres kilépés!');
+                return redirect('/camera')->with('status', 'Sikeres kilépés!');
             } else {
                 // Ha nincs nyitott belépés, akkor belépést rögzítünk
                 DB::table('csekkolasok')->insert([
