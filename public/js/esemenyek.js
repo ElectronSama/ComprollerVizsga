@@ -73,7 +73,7 @@ function naptar_frissites()
         nap_elem.textContent = nap; /* A napot beállitjuk... */
         
         let datum = `${aktualis_ev}-${String(aktualis_honap+1).padStart(2, '0')}-${String(nap).padStart(2, '0')}`; /* YYYY-MM-DD formába formázás, mindig 2-jegyüek lesznek a számok. */
-        nap_elem.setAttribute('data-datum', datum); /* Attribútum megadása, szükség esetén. */
+        nap_elem.setAttribute('datum_adat', datum); /* Attribútum megadása, szükség esetén. */
         nap_elem.addEventListener('click', datum_valasztas); /* Kattintási esemény hozzáadása. */
         naptar_container.appendChild(nap_elem); /* Hozzáadás a naptárhoz. */
     }
@@ -87,7 +87,7 @@ function datum_valasztas(esemeny) /* Ha rámegyünk egy napra kicseréli az adat
     if (elozo) elozo.classList.remove('aktiv_nap');
 
     esemeny.currentTarget.classList.add('aktiv_nap');
-    kivalasztott_datum = esemeny.currentTarget.getAttribute('data-datum');
+    kivalasztott_datum = esemeny.currentTarget.getAttribute('datum_adat');
 
     document.getElementById('datum_cim').textContent = kivalasztott_datum;
     document.getElementById('modal_datum_input').value = kivalasztott_datum;
