@@ -17,7 +17,7 @@
 ?>
 
 <div id="kozepre">
-    <div id="naptar_kerete">
+    <div id="naptar_kerete" class="d-none d-sm-block">
         <div id="naptar_navigacio">
             <button onclick="elozo_honap()" class="nav_gomb">Előző</button>
             <div id="naptar_cim"></div>
