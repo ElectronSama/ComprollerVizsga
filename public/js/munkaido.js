@@ -403,7 +403,7 @@ document.getElementById("add-button").addEventListener("click", function() {
         */
 
         setTimeout(function() {
-            let mezok = ["name", "date", "date2", "time", "time2"];
+            let mezok = ["name", "date", "date2", "time", "time2","ora_input","ber_input","bonusz_input","vegosszeg_input"];
             mezok.forEach(function(i) {
                 document.getElementById(i).value = "";
             });
