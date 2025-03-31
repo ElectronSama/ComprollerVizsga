@@ -22,7 +22,7 @@
         </div>
 
         <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon3">🔒</span>
+            <span class="input-group-text" id="basic-addon3"><i class="bi bi-file-lock2"></i></span>
             <input type="password" class="form-control" placeholder="Jelszó" id="password" name="password" required>
             @error('password')
                 <span class="invalid-feedback d-block" role="alert">{{ $message }}</span>
@@ -30,7 +30,7 @@
         </div>
 
         <div class="input-group mb-3">
-            <span class="input-group-text" id="basic-addon4">🔒</span>
+            <span class="input-group-text" id="basic-addon4"><i class="bi bi-file-lock2-fill"></i></span>
             <input type="password" class="form-control" placeholder="Jelszó megerősítése" id="password_confirmation" name="password_confirmation" required>
         </div>
 
