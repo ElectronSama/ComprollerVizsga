@@ -49,8 +49,13 @@ function mezo_ellenorzes() // Mezők tiltása és feloldása szükség esetén.
     let time2 = document.getElementById("time2");
     let hozzadas_gomb = document.getElementById("add-button");
     let mezo = document.getElementById("name");
+    let ora_input = document.getElementById("ora_input");
+    let ber_input = document.getElementById("ber_input");
+    let bonusz_input = document.getElementById("bonusz_input");
+    let vegosszeg_input = document.getElementById("vegosszeg_input");
 
-    if (date.value == "" || date2.value == "" || time.value == "" || time2.value == "")
+    if (date.value == "" || date2.value == "" || time.value == "" || time2.value == "" || ora_input.value == "" 
+        || ber_input.value == "" || bonusz_input.value == "" || vegosszeg_input.value == "")
     {
 
         hozzadas_gomb.disabled = true;
@@ -454,6 +459,10 @@ function dolgozoinfo(nev)
     let idopont_ido2 = document.getElementById("time2").value;
     let leiras_input = document.getElementById("hours").value;
     let muszak_input = document.getElementById("name").value; /* Kiszedjük a bemeneti adatokat. */
+    let ora_input = document.getElementById("ora_input").value;
+    let ber_input = document.getElementById("ber_input").value;
+    let bonusz_input = document.getElementById("bonusz_input").value;
+    let vegosszeg_input = document.getElementById("vegosszeg_input").value;
 
     let form_adat = new URLSearchParams(); /* Form kompatibilissá állitsuk a változót. */
     form_adat.append("action", "lekeres"); /* Hozzáfüzünk egy parancsszót. */
@@ -465,6 +474,10 @@ function dolgozoinfo(nev)
     form_adat.append("idopont_ido2", idopont_ido2);
     form_adat.append("leiras_input", leiras_input);
     form_adat.append("muszak_input", muszak_input); /* Hozzáfüzzük a küldendő adatokat. */
+    form_adat.append("ora_input", ora_input);
+    form_adat.append("ber_input", ber_input);
+    form_adat.append("bonusz_input", bonusz_input);
+    form_adat.append("vegosszeg_input", vegosszeg_input);
 
     fetch("php/mfeltoltes.php", /* Megcélozzuk a php-t. */ 
     {
