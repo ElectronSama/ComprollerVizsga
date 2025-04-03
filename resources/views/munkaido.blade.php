@@ -79,44 +79,36 @@
                                         <div class="card-body">
                                             <div class="mb-3">
                                                 <label for="date" class="form-label fw-bold">Dátum:</label>
-                                                <input type="date" class="form-control" id="date" name="idopont_input" id="szin" onblur="mezo_ellenorzes()" required>
+                                                <input type="date" class="form-control" id="date" class="szin" name="idopont_input" onblur="mezo_ellenorzes()" oninput="kezd_datum()" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="date" class="form-label fw-bold">Vég Dátum:</label>
-                                                <input type="date" class="form-control" id="date2" name="idopont_input2" id="szin" onblur="mezo_ellenorzes()" oninput="datum()" required>
+                                                <input type="date" class="form-control" id="date2" class="szin" name="idopont_input2" onblur="mezo_ellenorzes()" oninput="veg_datum()" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="time" class="form-label fw-bold">Idő:</label>
-                                                <input type="time" class="form-control" id="time" name="idopont_ido" id="szin" onblur="mezo_ellenorzes()" required>
+                                                <input type="time" class="form-control" id="time" class="szin" name="idopont_ido"onblur="mezo_ellenorzes()" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="time" class="form-label fw-bold">Vég Idő:</label>
-                                                <input type="time" class="form-control" id="time2" name="idopont_ido2" id="szin" onblur="mezo_ellenorzes()" required>
+                                                <input type="time" class="form-control" id="time2" class="szin" name="idopont_ido2" onblur="mezo_ellenorzes()" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="time" class="form-label fw-bold">Órák:</label>
-                                                <input type="number" class="form-control" id="ora_input" name="ora_input" id="szin" onblur="mezo_ellenorzes()" required>
+                                                <input type="text" class="form-control" id="ora_input" class="szin" name="ora_input" onblur="mezo_ellenorzes()" onkeyup="orak()" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="time" class="form-label fw-bold">Bér:</label>
-                                                <input type="number" class="form-control" id="ber_input" name="ber_input" id="szin" onblur="mezo_ellenorzes()" required>
+                                                <input type="text" class="form-control" id="ber_input" class="szin" name="ber_input" onblur="mezo_ellenorzes()" onkeyup="ber_mezo()" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="time" class="form-label fw-bold">Bónusz:</label>
-                                                <input type="number" class="form-control" id="bonusz_input" name="bonusz_input" id="szin" onblur="mezo_ellenorzes()" required>
+                                                <input type="text" class="form-control" id="bonusz_input" class="szin" name="bonusz_input" onblur="mezo_ellenorzes()" onkeyup="bonusz()" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="time" class="form-label fw-bold">Végösszeg:</label>
-                                                <input type="number" class="form-control" id="vegosszeg_input" name="vegosszeg_input" id="szin" onblur="mezo_ellenorzes()" 
+                                                <input type="text" class="form-control" id="vegosszeg_input" class="szin" name="vegosszeg_input"onblur="mezo_ellenorzes()" onkeyup="veg_mezo()" 
                                                 required>
-                                            </div>
-                                            <div class="mb-3" hidden>
-                                                <label for="hours" class="form-label fw-bold">Munkanap hossza:</label>
-                                                <select class="form-control" id="hours" name="leiras_input" id="szin">
-                                                    <option value="4">4 óra</option>
-                                                    <option value="8">8 óra</option>
-                                                    <option value="12">12 óra</option>
-                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -162,7 +154,7 @@
                                 <div class="col-md-10">
                                     <div class="mb-3">
                                         <label for="name" class="form-label fw-bold">Név:</label>
-                                        <input type="text" class="form-control" id="name" name="muszak_input" placeholder="Írd be a nevet" id="szin">
+                                        <input type="text" class="form-control" id="dolgozoid_mezo" name="dolgozoid_mezo" onkeyup="megnez()" placeholder="Írd be az ID-t" id="szin">
                                     </div>
                                     <div class="d-grid gap-2 col-md-6 mx-auto">
                                         <button type="button" id="add-button" class="btn btn-lg" onclick="lezar()">Hozzáadás a táblázathoz</button>
@@ -183,8 +175,8 @@
                             <table id="info-table" class="table table-striped table-bordered">
                                 <thead id="szin">
                                     <tr>
+                                        <th>Sorszám</th>
                                         <th>ID</th>
-                                        <th>Név</th>
                                         <th>Kezdés</th>
                                         <th>Befejezés</th>
                                         <th>Kezdeti idő</th>
@@ -218,40 +210,33 @@
                                             <h4 class="mb-0" id="betuk">Munkavállalói adatok</h4>
                                         </div>
                                         <div class="card-body">
-                                            <form id="lekérdezésForm">
+                                            <form action="php/matadas.php" method="POST" target="_blank" id="atadas_form">
                                                 <div class="mb-3">
-                                                    <label for="name" class="form-label fw-bold">Név:</label>
-                                                    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Keress..." name="dolgozoid" required onblur="nev_ellenorzes()">                              
+                                                    <label for="name" class="form-label fw-bold">ID:</label>
+                                                    <input type="text" class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Keress..." onblur="lekeres_ellenorzes()" name="exampleDataList" min="1" required>                              
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="date" class="form-label fw-bold">Dátum:</label>
-                                                    <input type="date" class="form-control" id="datum_kezd" name="datum_kezd" oninput="datum1()">
+                                                    <input type="date" class="form-control" id="datum_kezd" name="dkezd" oninput="lekeres_mezo1()" onblur="lekeres_ellenorzes()">
                                                 </div>
                                                 <div class="mb-3">
                                                     <div class="mb-3">
-                                                        <input type="date" class="form-control" id="datum_befejez" name="datum_befejez" oninput="datum2()" disabled>
+                                                        <input type="date" class="form-control" id="datum_befejez" name="dveg" oninput="lekeres_mezo2()" disabled>
                                                     </div>
                                                     <input class="form-check-input" type="checkbox" id="flexCheckDefault" oninput="idoszakos()">
                                                     <label class="form-check-label" for="flexCheckDefault">
                                                         Időszakos lekérdezés
                                                     </label>                                           
                                                 </div>
+                                                <div class="col-md-10">
+                                                    <div>
+                                                        <input type="submit" id="phpgomb" class="btn btn-info" onclick="datum_szures()" value="Listázás" disabled>
+                                                    </div>
+                                                    <div id="error-message" class="alert alert-danger mt-3 d-none"></div>
+                                                </div>
                                             </form>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="row justify-content-center mb-4">
-                                <div class="col-md-10">
-                                    <div>
-                                        <form action="php/matadas.php" method="POST" target="_blank" id="atadas_form">
-                                            <input type="text" id="dID" name="exampleDataList" hidden><br>
-                                            <input type="text" id="dkezd" name="dkezd" hidden><br>
-                                            <input type="text" id="dveg" name="dveg" hidden><br>
-                                            <input type="submit" id="phpgomb" class="btn btn-info" onclick="datum_szures()" value="Listázás" disabled>
-                                        </form>
-                                    </div>
-                                    <div id="error-message" class="alert alert-danger mt-3 d-none"></div>
                                 </div>
                             </div>
                         </div>
