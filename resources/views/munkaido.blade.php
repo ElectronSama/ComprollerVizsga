@@ -93,6 +93,23 @@
                                                 <label for="time" class="form-label fw-bold">Vég Idő:</label>
                                                 <input type="time" class="form-control" id="time2" name="idopont_ido2" id="szin" onblur="mezo_ellenorzes()" required>
                                             </div>
+                                            <div class="mb-3">
+                                                <label for="time" class="form-label fw-bold">Órák:</label>
+                                                <input type="number" class="form-control" id="ora_input" name="ora_input" id="szin" onblur="mezo_ellenorzes()" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="time" class="form-label fw-bold">Bér:</label>
+                                                <input type="number" class="form-control" id="ber_input" name="ber_input" id="szin" onblur="mezo_ellenorzes()" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="time" class="form-label fw-bold">Bónusz:</label>
+                                                <input type="number" class="form-control" id="bonusz_input" name="bonusz_input" id="szin" onblur="mezo_ellenorzes()" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="time" class="form-label fw-bold">Végösszeg:</label>
+                                                <input type="number" class="form-control" id="vegosszeg_input" name="vegosszeg_input" id="szin" onblur="mezo_ellenorzes()" 
+                                                required>
+                                            </div>
                                             <div class="mb-3" hidden>
                                                 <label for="hours" class="form-label fw-bold">Munkanap hossza:</label>
                                                 <select class="form-control" id="hours" name="leiras_input" id="szin">
