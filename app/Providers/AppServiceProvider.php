@@ -18,6 +18,7 @@ class AppServiceProvider extends ServiceProvider
             $Osszesmunkakor = DB::table('nyilvantartas')->distinct()->count('Munkakor');
             $Esemenyek = DB::table('esemenyek')->limit(5)->get();
             $Csekkolasok = DB::table('csekkolasok')->get();
+            $szamfejtesek = DB::table('berszamfejtes')->get();
 
             $view->with([
                 'Dolgozok' => $Dolgozok,
@@ -25,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
                 'Osszesmunkakor' => $Osszesmunkakor,
                 'Esemenyek' => $Esemenyek,
                 'Csekkolasok' => $Csekkolasok,
+                'szamfejtesek' => $szamfejtesek,
             ]);
         });
     }

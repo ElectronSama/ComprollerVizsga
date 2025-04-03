@@ -1,3 +1,4 @@
+//Jelszo megjelenítés
 let megnyomva = false;
 
 function megnez(passwordId, iconElement) {
@@ -13,6 +14,7 @@ function megnez(passwordId, iconElement) {
     }
 }
 
+//Hibakezeles
 document.getElementById('loginForm').addEventListener('submit', function(event) {
     const username = document.getElementById('b_nev').value;
     const password = document.getElementById('password-signin').value;

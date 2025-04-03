@@ -19,6 +19,10 @@ class Dolgozo extends Model
         'Anyja_neve', 'Tajszam', 'Adoszam', 'Bankszamlaszam',
         'Alapber', 'Email', 'Telefonszam', 'Qrcode'
     ];
+    public function csekkolasok()
+    {
+        return $this->hasMany(Csekkolas::class, 'az_id', 'DolgozoID');
+    }
 }
 
 

@@ -24,6 +24,7 @@
                 <div class="kereses_resz col">
                     <input type="text" name="query" placeholder="Keresés dolgozó ID, név vagy munkakör alapján">
                     <button class="btn btn-success" type="submit">Keresés</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#elozmenyekModal">Előzmények</button>
                 </div>
             </form>
 
@@ -58,8 +59,12 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#elozmenyekModal">Előzmények</button>
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ujSzamfejtesModal">Új számfejtés</button>
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ujSzamfejtesModal" 
+                                            data-dolgozo-id="{{ $dolgozo->DolgozoID }}" 
+                                            data-vezeteknev="{{ $dolgozo->Vezeteknev }}" 
+                                            data-keresztnev="{{ $dolgozo->Keresztnev }}">
+                                            Új számfejtés
+                                        </button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -121,7 +126,7 @@
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="ujSzamfejtesModalLabel">Új számfejtés</h5>
+                <h5 class="modal-title" id="ujSzamfejtesModalLabel">Új számfejtés - <span id="dolgozoNev"></span></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -143,30 +148,12 @@
                                     <th>Végösszeg</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                @forelse($osszescsekkolasok as $Csekkolas)
-                                    <tr>
-                                        <td>{{ $Csekkolas->az_id }}</td>
-                                        <td>{{ $Csekkolas->Vezeteknev }}</td>
-                                        <td>{{ $Csekkolas->Keresztnev }}</td>
-                                        <td>{{ $Csekkolas->Datum_Be }}</td>
-                                        <td>{{ $Csekkolas->Datum_Ki }}</td>
-                                        <td>{{ $Csekkolas->Kezdido }}</td>
-                                        <td>{{ $Csekkolas->Vegido }}</td>
-                                        <td>{{ $Csekkolas->Ora }}</td>
-                                        <td>{{ $Csekkolas->Ber }}</td>
-                                        <td>{{ $Csekkolas->Bonusz }}</td>
-                                        <td>{{ $Csekkolas->Vegosszeg }}</td>
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="12" class="text-center">Nincs nem számfejtett csekkolás.</td>
-                                    </tr>
-                                @endforelse
+                            <tbody id="csekkolasokTbody">
+                                <!-- A csekkolások itt jelennek meg JavaScript segítségével -->
                             </tbody>
                         </table>
                         <div class="form-group">
-                            <input type="text" id="vegosszeg_osszeg" value="{{ $csekkolasokosszeg }}" class="form-control" disabled>
+                            <input type="text" id="vegosszeg_osszeg" class="form-control" disabled>
                         </div>
                     </div>
                 </div>
@@ -175,11 +162,74 @@
                 <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Bezárás</button>
                 <form action="{{ route('payroll-calculation.create') }}" method="POST">
                     @csrf
-                    <input type="text" name="ber" value="{{ $csekkolasokosszeg }}" hidden>
+                    <input type="hidden" name="dolgozoID" id="selectedDolgozoID">
+                    <input type="hidden" name="ber" id="selectedBer">
                     <button type="submit" class="btn btn-success">Számfejtés létrehozása</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Az összes csekkolás adatainak tárolása
+    const osszesCsekkolas = @json($osszescsekkolasok);
+    
+    // Modal megnyitásakor a dolgozó adatainak beállítása
+    const ujSzamfejtesModal = document.getElementById('ujSzamfejtesModal');
+    ujSzamfejtesModal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        const dolgozoID = button.getAttribute('data-dolgozo-id');
+        const vezeteknev = button.getAttribute('data-vezeteknev');
+        const keresztnev = button.getAttribute('data-keresztnev');
+        
+        // Dolgozó nevének megjelenítése a modal címében
+        document.getElementById('dolgozoNev').textContent = vezeteknev + ' ' + keresztnev;
+        
+        // Dolgozó ID tárolása a form-ban
+        document.getElementById('selectedDolgozoID').value = dolgozoID;
+        
+        // Csekkolások szűrése a kiválasztott dolgozó alapján
+        const dolgozoCsekkolasok = osszesCsekkolas.filter(csekkolas => csekkolas.az_id == dolgozoID);
+        
+        // Csekkolások megjelenítése a táblázatban
+        const csekkolasokTbody = document.getElementById('csekkolasokTbody');
+        csekkolasokTbody.innerHTML = '';
+        
+        let osszeg = 0;
+        
+        if (dolgozoCsekkolasok.length > 0) {
+            dolgozoCsekkolasok.forEach(csekkolas => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${csekkolas.az_id}</td>
+                    <td>${csekkolas.Vezeteknev}</td>
+                    <td>${csekkolas.Keresztnev}</td>
+                    <td>${csekkolas.Datum_Be}</td>
+                    <td>${csekkolas.Datum_Ki}</td>
+                    <td>${csekkolas.Kezdido}</td>
+                    <td>${csekkolas.Vegido}</td>
+                    <td>${csekkolas.Ora}</td>
+                    <td>${csekkolas.Ber}</td>
+                    <td>${csekkolas.Bonusz}</td>
+                    <td>${csekkolas.Vegosszeg}</td>
+                `;
+                csekkolasokTbody.appendChild(row);
+                
+                // Végösszeg számítása
+                osszeg += parseFloat(csekkolas.Vegosszeg || 0);
+            });
+        } else {
+            const row = document.createElement('tr');
+            row.innerHTML = `<td colspan="11" class="text-center">Nincs nem számfejtett csekkolás ehhez a dolgozóhoz.</td>`;
+            csekkolasokTbody.appendChild(row);
+        }
+        
+        // Végösszeg megjelenítése
+        document.getElementById('vegosszeg_osszeg').value = osszeg.toFixed(2);
+        document.getElementById('selectedBer').value = osszeg.toFixed(2);
+    });
+});
+</script>
 </x-app-layout>
