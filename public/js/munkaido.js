@@ -63,10 +63,10 @@ function orak()
 
     }
 
-    if (ora_input.value < 0 || ora_input.value > 24)
+    if (ora_input.value < 1 || ora_input.value > 24)
     {
 
-        alert("Csak 0-től 24 óra!");
+        alert("Csak 1-től 24 óra!");
 
         ora_input.value = "";
 
@@ -89,10 +89,10 @@ function bonusz()
 
     }
 
-    if (bonusz_input.value < 1 || bonusz_input.value > 100)
+    if (bonusz_input.value < 0 || bonusz_input.value > 100)
     {
 
-        alert("Csak 1-től 100% bónusz!");
+        alert("Csak 0-től 100% bónusz!");
 
         bonusz_input.value = "";
 
