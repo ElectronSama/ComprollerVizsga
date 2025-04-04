@@ -11,7 +11,7 @@
   <div class="container">
     <h1>Hiba történt!</h1>
     <div class="div">
-        <p>Lejart munkamenet, probald ujra!</p>
+        <p>Lejárt a munkamenet, probáld újra!</p>
         <p> (◕‿◕) </p> 
     </div>
   </div>
