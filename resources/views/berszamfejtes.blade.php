@@ -149,7 +149,6 @@
                                 </tr>
                             </thead>
                             <tbody id="csekkolasokTbody">
-                                <!-- A csekkolások itt jelennek meg JavaScript segítségével -->
                             </tbody>
                         </table>
                         <div class="form-group">
@@ -216,39 +215,6 @@ document.addEventListener('DOMContentLoaded', function() {
             row.innerHTML = `<td colspan="11" class="text-center">Nincs nem számfejtett csekkolás ehhez a dolgozóhoz.</td>`;
             csekkolasokTbody.appendChild(row);
         }
-        //Csekkolasok lezarasa es szamfejtes rogzitese
-        const csekkolasForm = document.getElementById('csekkolasForm');
-        csekkolasForm.addEventListener('submit', function (event) {
-            event.preventDefault();
-            const formData = new FormData(csekkolasForm);
-            formData.append('dolgozoID', dolgozoID);
-            formData.append('ber', osszeg);
-            formData.append('honap', new Date().toLocaleString('default', { month: 'long' }));
-            fetch('/szamfejtes', {
-                method: 'POST',
-                body: formData,
-            })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw new Error('problema');
-                }
-            })
-            .then(data => {
-                if (data.success) {
-                    alert('Számfejtés sikeresen létrehozva!');
-                    ${csekkolas.Szamfejtve} = 1;
-                    // Frissítjük az oldalt, hogy látható legyen a változás
-                    window.location.reload();
-                } else {
-                    alert('Hiba történt a számfejtés létrehozásakor.');
-                }
-            })
-            .catch(error => {
-                console.error('problema2:', error);
-            });
-        });
 
         // Végösszeg megjelenítése
         document.getElementById('vegosszeg_osszeg').value = osszeg.toFixed(2);
