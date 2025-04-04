@@ -11,7 +11,7 @@ if ($kapcsolat->connect_error)
     die("Kapcsolódási hiba: " . $kapcsolat->connect_error);
 }
 
-$neve = $_POST['exampleDataList'];
+$adott_id = $_POST['exampleDataList'];
 $dkezd = $_POST['dkezd']; // Mezők lekérése.
 if (isset($_POST['dveg'])) // Vizsgálat hogy van e végidő.
 {  
@@ -24,34 +24,18 @@ else
 
 $adatok = [];
 
-$nev_reszek = explode(" ", $neve); // Név 2 részre szedése.
-$vezeteknev = $nev_reszek[0];
-
-if (isset($nev_reszek[1]))
-{
-
-    $keresztnev = $nev_reszek[1];
-
-}
-else
-{
-
-    $keresztnev = "";
-
-}
-
 if ($dveg != "") // MYSQL lekérés igazítása időpontokhoz.
 {
-    $sql = "SELECT Vezeteknev, Keresztnev, Datum_Be, Datum_Ki FROM csekkolasok 
-            WHERE (Vezeteknev LIKE '%$vezeteknev%' OR Keresztnev LIKE '%$keresztnev%')
+    $sql = "SELECT az_id, Vezeteknev, Keresztnev, Datum_Be, Datum_Ki FROM csekkolasok 
+            WHERE az_id = '$adott_id'
             AND Datum_Be >= '$dkezd' 
             AND Datum_Ki <= '$dveg'
             ORDER BY Datum_Be ASC";
 } 
 else 
 {
-    $sql = "SELECT Vezeteknev, Keresztnev, Datum_Be, Datum_Ki FROM csekkolasok 
-            WHERE (Vezeteknev LIKE '%$vezeteknev%' OR Keresztnev LIKE '%$keresztnev%')
+    $sql = "SELECT az_id, Vezeteknev, Keresztnev, Datum_Be, Datum_Ki FROM csekkolasok 
+            WHERE az_id = '$adott_id'
             AND Datum_Be >= '$dkezd'
             ORDER BY Datum_Be ASC";
 }
