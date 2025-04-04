@@ -62,8 +62,6 @@ Route::get('/worktime', function () {
 
 Route::get('/payroll-calculation', [BerszamfejtesController::class, 'keres'])->middleware(['auth', 'verified'])->name('payroll-calculation');
 Route::get('/payroll-calculation/search', [BerszamfejtesController::class, 'keres'])->name('dolgozo.kereso');
-Route::match(['get', 'post'], '/payroll-calculation/create', [BerszamfejtesController::class, 'create'])->name('payroll-calculation.create');
-
 // Kamera //
 
 Route::get('/camera', function () {
