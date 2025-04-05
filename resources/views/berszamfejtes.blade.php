@@ -149,6 +149,7 @@
                                 </tr>
                             </thead>
                             <tbody id="csekkolasokTbody">
+                                <!-- A csekkolások itt jelennek meg JavaScript segítségével -->
                             </tbody>
                         </table>
                         <div class="form-group">
@@ -172,8 +173,10 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Az összes csekkolás adatainak tárolása
     const osszesCsekkolas = @json($osszescsekkolasok);
     
+    // Modal megnyitásakor a dolgozó adatainak beállítása
     const ujSzamfejtesModal = document.getElementById('ujSzamfejtesModal');
     ujSzamfejtesModal.addEventListener('show.bs.modal', function (event) {
         const button = event.relatedTarget;
@@ -181,10 +184,16 @@ document.addEventListener('DOMContentLoaded', function() {
         const vezeteknev = button.getAttribute('data-vezeteknev');
         const keresztnev = button.getAttribute('data-keresztnev');
         
+        // Dolgozó nevének megjelenítése a modal címében
         document.getElementById('dolgozoNev').textContent = vezeteknev + ' ' + keresztnev;
         
+        // Dolgozó ID tárolása a form-ban
         document.getElementById('selectedDolgozoID').value = dolgozoID;
+        
+        // Csekkolások szűrése a kiválasztott dolgozó alapján
         const dolgozoCsekkolasok = osszesCsekkolas.filter(csekkolas => csekkolas.az_id == dolgozoID);
+        
+        // Csekkolások megjelenítése a táblázatban
         const csekkolasokTbody = document.getElementById('csekkolasokTbody');
         csekkolasokTbody.innerHTML = '';
         
@@ -208,6 +217,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 `;
                 csekkolasokTbody.appendChild(row);
                 
+                // Végösszeg számítása
                 osszeg += parseFloat(csekkolas.Vegosszeg || 0);
             });
         } else {
@@ -215,7 +225,7 @@ document.addEventListener('DOMContentLoaded', function() {
             row.innerHTML = `<td colspan="11" class="text-center">Nincs nem számfejtett csekkolás ehhez a dolgozóhoz.</td>`;
             csekkolasokTbody.appendChild(row);
         }
-
+        
         // Végösszeg megjelenítése
         document.getElementById('vegosszeg_osszeg').value = osszeg.toFixed(2);
         document.getElementById('selectedBer').value = osszeg.toFixed(2);
