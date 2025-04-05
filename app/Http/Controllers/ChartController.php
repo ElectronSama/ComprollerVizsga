@@ -39,7 +39,12 @@ class ChartController extends Controller
     }
     public function getJobTitles()
     {
-        $jobTitles = Dolgozo::pluck('munkakor');
+        $jobTitles = Dolgozo::select('munkakor')
+                        ->selectRaw('COUNT(*) as count')
+                        ->groupBy('munkakor')
+                        ->get();
+    
         return response()->json($jobTitles);
     }
+    
 }

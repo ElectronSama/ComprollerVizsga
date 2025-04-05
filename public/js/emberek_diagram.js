@@ -51,18 +51,18 @@ $(document).ready(function() {
     });
 });
 
-const xArray = [];
-const yArray = [];
-
 fetch('/get-job-titles')
     .then(response => response.json())
     .then(data => {
-        data.forEach((item, index) => {
-            xArray.push(item);
-            yArray.push(Math.floor(Math.random() * 100));
-        });
-        const layout = {title: "Cég összetétele", height: 400, width: 400};
+        const xArray = [];
+        const yArray = [];
 
+        data.forEach(item => {
+            xArray.push(item.munkakor);
+            yArray.push(item.count);
+        });
+
+        const layout = {title: "Cég összetétele", height: 400, width: 400};
         const plotData = [{labels: xArray, values: yArray, type: "pie"}];
 
         Plotly.newPlot("myPlot", plotData, layout);
