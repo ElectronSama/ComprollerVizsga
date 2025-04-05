@@ -1,16 +1,24 @@
+let felvitel_gomb = document.getElementById("felvitel_gomb");
+
+felvitel_gomb.disabled = true;
+
+let nyform = document.getElementById("nyform");
+
+nyform.reset();
+
 function ures_e() 
 {
-    let Keresztnev = document.getElementById("Keresztnev").value.trim();
-    let Vezeteknev = document.getElementById("Vezeteknev").value.trim();
-    let Szuletesi_datum = document.getElementById("Szuletesi_datum").value.trim();
-    let Anyja_neve = document.getElementById("Anyja_neve").value.trim();
-    let Tajszam = document.getElementById("Tajszam").value.trim();
-    let Adoszam = document.getElementById("Adoszam").value.trim();
-    let Bankszamlaszam = document.getElementById("Bankszamlaszam").value.trim();
-    let Alapber = document.getElementById("Alapber").value.trim();
-    let Email = document.getElementById("Email").value.trim();
-    let Telefonszam = document.getElementById("Telefonszam").value.trim();
-    let Munkakor = document.getElementById("Munkakor").value.trim(); /* Az összes adattipus lekezelése. */
+    let Keresztnev = document.getElementById("Keresztnev").value;
+    let Vezeteknev = document.getElementById("Vezeteknev").value;
+    let Szuletesi_datum = document.getElementById("Szuletesi_datum").value;
+    let Anyja_neve = document.getElementById("Anyja_neve").value;
+    let Tajszam = document.getElementById("Tajszam").value;
+    let Adoszam = document.getElementById("Adoszam").value;
+    let Bankszamlaszam = document.getElementById("Bankszamlaszam").value;
+    let Alapber = document.getElementById("Alapber").value;
+    let Email = document.getElementById("Email").value;
+    let Telefonszam = document.getElementById("Telefonszam").value;
+    let Munkakor = document.getElementById("Munkakor").value; /* Az összes adattipus lekezelése. */
 
     if (Keresztnev !== "" && Vezeteknev !== "" && Szuletesi_datum !== "" && Anyja_neve !== "" && Tajszam !== "" && Adoszam !== "" &&
         Bankszamlaszam !== "" && Alapber !== "" && Email !== "" && /* Vizsgáljuk hogy üresek e a változók. */
@@ -39,7 +47,42 @@ function ures_e()
             width: 200,
             height: 200
         });
+
+        felvitel_gomb = document.getElementById("felvitel_gomb");
+
+        felvitel_gomb.disabled = false;
     }
+    else
+    {
+
+        felvitel_gomb = document.getElementById("felvitel_gomb");
+        felvitel_gomb.disabled = true;
+
+        qrcode_nyilvantartas = document.getElementById("qrcode_nyilvantartas");
+        qrcode_nyilvantartas.innerHTML = "";
+    }
+}
+
+function email_e()
+{
+
+    let email = document.getElementById("Email");
+
+    if (!email.value.includes('@'))
+    {
+
+        alert("Hiányos!");
+
+        email.value = "";
+
+        felvitel_gomb = document.getElementById("felvitel_gomb");
+        felvitel_gomb.disabled = true;
+
+        qrcode_nyilvantartas = document.getElementById("qrcode_nyilvantartas");
+        qrcode_nyilvantartas.innerHTML = "";
+
+    }
+
 }
 
 function modal_qrcode() 
@@ -66,30 +109,80 @@ function megnez()
 {
 
     let Alapber = document.getElementById("Alapber");
+    let Tajszam = document.getElementById("Tajszam");
+    let Adoszam = document.getElementById("Adoszam");
+    let Bank = document.getElementById("Bankszamlaszam");
+    let modal_alapber = document.getElementById("modal_alapber");
 
     if (isNaN(Alapber.value))
     {
 
         alert("Csak számok!");
 
-        Alapber.value = "";
+        Alapber.value = "";     
+
+        felvitel_gomb = document.getElementById("felvitel_gomb");
+        felvitel_gomb.disabled = true;
+
+        qrcode_nyilvantartas = document.getElementById("qrcode_nyilvantartas");
+        qrcode_nyilvantartas.innerHTML = "";
         
     }
+    else if (isNaN(Tajszam.value))
+    {
 
-}
+        alert("Csak számok!");
 
-function megnez_modal()
-{
+        Tajszam.value = "";
 
-    let modal_alapber = document.getElementById("modal_alapber");
+        felvitel_gomb = document.getElementById("felvitel_gomb");
+        felvitel_gomb.disabled = true;
 
-    if (isNaN(modal_alapber.value))
+        qrcode_nyilvantartas = document.getElementById("qrcode_nyilvantartas");
+        qrcode_nyilvantartas.innerHTML = "";
+
+    }
+    else if (isNaN(Adoszam.value))
+    {
+
+        alert("Csak számok!");
+
+        Adoszam.value = "";
+
+        felvitel_gomb = document.getElementById("felvitel_gomb");
+        felvitel_gomb.disabled = true;
+
+        qrcode_nyilvantartas = document.getElementById("qrcode_nyilvantartas");
+        qrcode_nyilvantartas.innerHTML = "";
+
+    }
+    else if (isNaN(Bank.value))
+    {
+
+        alert("Csak számok!");
+
+        Bank.value = "";
+
+        felvitel_gomb = document.getElementById("felvitel_gomb");
+        felvitel_gomb.disabled = true;
+
+        qrcode_nyilvantartas = document.getElementById("qrcode_nyilvantartas");
+        qrcode_nyilvantartas.innerHTML = "";
+
+    }
+    else if (isNaN(modal_alapber.value))
     {
 
         alert("Csak számok!");
 
         modal_alapber.value = "";
-        
+
+        felvitel_gomb = document.getElementById("felvitel_gomb");
+        felvitel_gomb.disabled = true;
+
+        qrcode_nyilvantartas = document.getElementById("qrcode_nyilvantartas");
+        qrcode_nyilvantartas.innerHTML = "";
+
     }
 
 }
@@ -113,22 +206,14 @@ function datum()
     {
         alert("Az érték nem lehet a jövőben!");
         Szuletesi_datum.value = "";
+
+        felvitel_gomb = document.getElementById("felvitel_gomb");
+        felvitel_gomb.disabled = true;
+
+        qrcode_nyilvantartas = document.getElementById("qrcode_nyilvantartas");
+        qrcode_nyilvantartas.innerHTML = "";
     }
 
-}
-
-function hossz() 
-{
-
-    let Bankszamlaszam = document.getElementById("Bankszamlaszam");
-    let hossz = Bankszamlaszam.value.length;
-
-    if (hossz !== 12 && hossz !== 24)
-    {
-        alert("Túl rövid! A bankszámlaszám vagy 12 vagy 24 karakter!");
-        Bankszamlaszam.value = "";
-    }
-    
 }
 
 function torles(id) 
@@ -240,52 +325,63 @@ function mentes() // Rámentük a dolgozó összes adatára ha valamit el akarun
     let bankszamlaszam = document.getElementById("modal_bankszamlaszam").value;
     let qrcode = document.getElementById("modal_qrcode").value;
 
-    fetch('/dolgozok/update', 
-    
-    {
-        method: "POST",
-        headers: 
+    if (vezeteknev != "" && keresztnev != "" && email.includes('@') && email != "" && telefonszam != "" 
+    && !isNaN(telefonszam) && munkakor != "" && alapber != "" && !isNaN(alapber) && szuletesi_datum != "" && 
+    anyja_neve != "" && tajszam != "" && !isNaN(tajszam) && adoszam != "" && !isNaN(adoszam) && bankszamlaszam != "" && !isNaN(bankszamlaszam))
+    {    
+        fetch('/dolgozok/update', 
+        
         {
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            id: id,
-            vezeteknev: vezeteknev,
-            keresztnev: keresztnev,
-            email: email,
-            telefonszam: telefonszam,
-            munkakor: munkakor,
-            alapber: alapber,
-            szuletesi_datum: szuletesi_datum,
-            anyja_neve: anyja_neve,
-            tajszam: tajszam,
-            adoszam: adoszam,
-            bankszamlaszam: bankszamlaszam,
-            qrcode: qrcode
+            method: "POST",
+            headers: 
+            {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                id: id,
+                vezeteknev: vezeteknev,
+                keresztnev: keresztnev,
+                email: email,
+                telefonszam: telefonszam,
+                munkakor: munkakor,
+                alapber: alapber,
+                szuletesi_datum: szuletesi_datum,
+                anyja_neve: anyja_neve,
+                tajszam: tajszam,
+                adoszam: adoszam,
+                bankszamlaszam: bankszamlaszam,
+                qrcode: qrcode
+            })
         })
-    })
-    .then(function(valasz) 
-    {
-        return valasz.json();
-    })
-    .then(function(adat) 
-    {
-        if (adat.success) 
+        .then(function(valasz) 
         {
-            alert("Adatok sikeresen frissítve!");
-            document.getElementById("modal").classList.add("hidden");
-            window.location.href = '/registry';
-        } 
-        else 
+            return valasz.json();
+        })
+        .then(function(adat) 
         {
-            alert("Hiba történt: " + adat.error);
-        }
-    })
-    .catch(function(hiba) 
+            if (adat.success) 
+            {
+                alert("Adatok sikeresen frissítve!");
+                document.getElementById("modal").classList.add("hidden");
+                window.location.href = '/registry';
+            } 
+            else 
+            {
+                alert("Hiba történt: " + adat.error);
+            }
+        })
+        .catch(function(hiba) 
+        {
+            console.error("Hiba:", hiba);
+        });
+    }
+    else
     {
-        console.error("Hiba:", hiba);
-    });
+
+        alert("Hiányos adatok!");
+
+    }
 }
 
 function bezaras() 
