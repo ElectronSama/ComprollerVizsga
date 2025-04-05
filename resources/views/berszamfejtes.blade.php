@@ -18,17 +18,13 @@
             <div class="diagram_fejlec">
                 <div class="diagram_cim">Bérszámfejtés</div>
             </div>
-
-            <!-- Keresési forma -->
-            <form action="{{ route('dolgozo.kereso') }}" method="get">
+            <form action="{{ route('payroll-calculation') }}" method="get">
                 <div class="kereses_resz col">
                     <input type="text" name="query" placeholder="Keresés dolgozó ID, név vagy munkakör alapján">
                     <button class="btn btn-success" type="submit">Keresés</button>
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#elozmenyekModal">Előzmények</button>
                 </div>
             </form>
-
-            <!-- Találatok -->
             @if($dolgozok->isEmpty() && request('query'))
                 <div id="talalati_stat" class="bg-light p-3">Nincs találat...</div>
             @else
@@ -149,7 +145,6 @@
                                 </tr>
                             </thead>
                             <tbody id="csekkolasokTbody">
-                                <!-- A csekkolások itt jelennek meg JavaScript segítségével -->
                             </tbody>
                         </table>
                         <div class="form-group">
@@ -160,7 +155,7 @@
             </div>
             <div class="modal-footer d-flex justify-content-between">
                 <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Bezárás</button>
-                <form action="" method="">
+                <form action="{{ route('payroll.create') }}" method="POST">
                     @csrf
                     <input type="hidden" name="dolgozoID" id="selectedDolgozoID">
                     <input type="hidden" name="ber" id="selectedBer">
@@ -202,7 +197,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (dolgozoCsekkolasok.length > 0) {
             dolgozoCsekkolasok.forEach(csekkolas => {
                 const row = document.createElement('tr');
-                row.innerHTML = `
+                row.innerHTML = ` 
                     <td>${csekkolas.az_id}</td>
                     <td>${csekkolas.Vezeteknev}</td>
                     <td>${csekkolas.Keresztnev}</td>

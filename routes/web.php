@@ -60,8 +60,15 @@ Route::get('/worktime', function () {
 
 // Bérszámfejtés //
 
-Route::get('/payroll-calculation', [BerszamfejtesController::class, 'keres'])->middleware(['auth', 'verified'])->name('payroll-calculation');
-Route::get('/payroll-calculation/search', [BerszamfejtesController::class, 'keres'])->name('dolgozo.kereso');
+Route::get('/payroll-calculation', [BerszamfejtesController::class, 'keres'])
+    ->middleware(['auth', 'verified'])
+    ->name('payroll-calculation');
+
+// Számfejtés létrehozása (POST kérelem)
+Route::post('/payroll-calculation', [BerszamfejtesController::class, 'create'])
+    ->middleware(['auth', 'verified'])
+    ->name('payroll.create');
+
 // Kamera //
 
 Route::get('/camera', function () {
