@@ -59,7 +59,7 @@
                                 
                                 <div class="input-par">
                                     <p><strong>Email:</strong> <input type="email" id="modal_email"></p>
-                                    <p><strong>Telefonszám:</strong> <input type="text" id="modal_telefonszam"></p>
+                                    <p><strong>Telefonszám:</strong> <input type="text" id="modal_telefonszam" minlength="11" maxlength="12"></p>
                                 </div>
                                 
                                 <div class="input-par">
@@ -73,16 +73,16 @@
                                 </div>
                                                                 
                                 <div class="input-par">
-                                    <p><strong>Tajszám:</strong> <input type="text" id="modal_tajszam"></p>
+                                    <p><strong>Tajszám:</strong> <input type="text" id="modal_tajszam" maxlength="9"></p>
                                 </div>
                             </div>
                             
                             <div class="input-sor">
                                 <div class="input-par">
-                                    <p><strong>Adószám:</strong> <input type="text" id="modal_adoszam"></p>
+                                    <p><strong>Adószám:</strong> <input type="text" id="modal_adoszam" maxlength="10"></p>
                                 </div>
                                 <div class="input-par">
-                                    <p><strong>Bankszámlaszám:</strong> <input type="text" id="modal_bankszamlaszam"></p>
+                                    <p><strong>Bankszámlaszám:</strong> <input type="text" id="modal_bankszamlaszam" minlength="12" maxlength="24"></p>
                                     <p><strong>Qr kód:</strong> <input type="text" id="modal_qrcode" onclick="modal_qrcode()" onblur="qrcode_bezar()"></p>
                                 </div>
                                 
@@ -106,7 +106,7 @@
                             <h5 class="card-title mb-0"><i class="bi bi-person-plus-fill me-2"></i>Új dolgozó regisztrálása</h5>
                         </div>
                         <div class="card-body">
-                            <form method="POST" action="{{ route('dolgozo.store') }}" class="needs-validation" novalidate>
+                            <form method="POST" action="{{ route('dolgozo.store') }}" class="needs-validation" id="nyform" novalidate>
                                 @csrf
                                 <div class="row g-4">
                                     <!-- Személyes adatok -->
@@ -131,11 +131,11 @@
                                                     </div>
                                                     <div class="col-12">
                                                         <label for="Email" class="form-label text-gray-600">Email cím</label>
-                                                        <input type="email" class="form-control" id="Email" name="Email" placeholder="kovacs.janos@example.com" required oninput="ures_e()">
+                                                        <input type="email" class="form-control" id="Email" name="Email" placeholder="kovacs.janos@example.com" required oninput="ures_e()" onblur="email_e()">
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label for="Telefonszam" class="form-label text-gray-600">Telefonszám</label>
-                                                        <input type="tel" class="form-control" id="Telefonszam" name="Telefonszam" placeholder="+36 30 123 4567" required oninput="ures_e()" maxlength="12">
+                                                        <input type="tel" class="form-control" id="Telefonszam" name="Telefonszam" placeholder="+36 30 123 4567" required oninput="ures_e()" minlength="11" maxlength="12">
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label for="Munkakor" class="form-label text-gray-600">Munkakör</label>
@@ -167,15 +167,15 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label for="Tajszam" class="form-label text-gray-600">TAJ szám</label>
-                                                        <input type="text" class="form-control" id="Tajszam" name="Tajszam" placeholder="123-456-789" required oninput="ures_e()" maxlength="9">
+                                                        <input type="text" class="form-control" id="Tajszam" name="Tajszam" placeholder="123-456-789" required oninput="ures_e()" maxlength="9" onkeyup="megnez()">
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label for="Adoszam" class="form-label text-gray-600">Adószám</label>
-                                                        <input type="text" class="form-control" id="Adoszam" name="Adoszam" placeholder="8123456789" required oninput="ures_e()" maxlength="10">
+                                                        <input type="text" class="form-control" id="Adoszam" name="Adoszam" placeholder="8123456789" required oninput="ures_e()" maxlength="10" onkeyup="megnez()">
                                                     </div>
                                                     <div class="col-12">
                                                         <label for="Bankszamlaszam" class="form-label text-gray-600">Bankszámlaszám</label>
-                                                        <input type="text" class="form-control" id="Bankszamlaszam" name="Bankszamlaszam" placeholder="11773377-12345678" required onblur="hossz()" oninput="ures_e()" maxlength="24">
+                                                        <input type="text" class="form-control" id="Bankszamlaszam" name="Bankszamlaszam" placeholder="11773377-12345678" required oninput="ures_e()" minlength="12" maxlength="24" onkeyup="megnez()">
                                                     </div>
                                                     <div class="col-12">
                                                         <label for="qrcode_mezo" class="form-label text-gray-600">QR kód</label>
@@ -189,7 +189,7 @@
                                 </div>
                                 <!-- Gombok a regisztrálás-->
                                 <div class="text-start mt-4 d-flex gap-3">
-                                    <button type="submit" class="btn btn-dark text-white d-flex align-items-center px-3">
+                                    <button type="submit" id="felvitel_gomb" class="btn btn-dark text-white d-flex align-items-center px-3">
                                         <i class="bi bi-person-plus-fill me-2"></i>Dolgozó regisztrálása
                                     </button>
                                 </div>
