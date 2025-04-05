@@ -77,9 +77,6 @@ if ($eredmeny->num_rows > 0) // Lekérdezés megformázása.
     {
         if (isset($kijelentkezesek[$i])) 
         {
-            $be_ido = strtotime($bejelentkezesek[$i]['Datum_Be']);
-            $ki_ido = strtotime($kijelentkezesek[$i]['Datum_Ki']);
-
             $adatok[] = [
                 'teljes_nev' => $bejelentkezesek[$i]['teljes_nev'],
                 'Datum_Be' => $bejelentkezesek[$i]['Datum_Be'],

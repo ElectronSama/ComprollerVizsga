@@ -17,10 +17,14 @@ hozzadas_gomb.disabled = true;
 dolgozoid_mezo.disabled = true;
 phpgomb.disabled = true;
 
-function ber_mezo()
+function validalas()
 {
 
     let ber_input = document.getElementById("ber_input");
+    let veg_input = document.getElementById("vegosszeg_input");
+    let ora_input = document.getElementById("ora_input");
+    let bonusz_input = document.getElementById("bonusz_input");
+    let szam_mezo = document.getElementById("dolgozoid_mezo");
 
     if (isNaN(ber_input.value))
     {
@@ -30,15 +34,7 @@ function ber_mezo()
         ber_input.value = "";
 
     }
-
-}
-
-function veg_mezo()
-{
-
-    let veg_input = document.getElementById("vegosszeg_input");
-
-    if (isNaN(veg_input.value))
+    else if (isNaN(veg_input.value))
     {
 
         alert("Csak számok!");
@@ -46,15 +42,7 @@ function veg_mezo()
         veg_input.value = "";
 
     }
-
-}
-
-function orak()
-{
-
-    let ora_input = document.getElementById("ora_input");
-
-    if (isNaN(ora_input.value))
+    else if (isNaN(ora_input.value))
     {
 
         alert("Csak számok!");
@@ -62,25 +50,7 @@ function orak()
         ora_input.value = "";
 
     }
-
-    if (ora_input.value < 1 || ora_input.value > 24)
-    {
-
-        alert("Csak 1-től 24 óra!");
-
-        ora_input.value = "";
-
-    }
-    
-
-}
-
-function bonusz()
-{
-
-    let bonusz_input = document.getElementById("bonusz_input");
-
-    if (isNaN(bonusz_input.value))
+    else if (isNaN(bonusz_input.value))
     {
 
         alert("Csak számok!");
@@ -88,8 +58,15 @@ function bonusz()
         bonusz_input.value = "";
 
     }
+    else if (isNaN(szam_mezo.value))
+    {
 
-    if (bonusz_input.value < 0 || bonusz_input.value > 100)
+        alert("Csak számok!");
+
+        szam_mezo.value = "";
+        
+    }
+    else if (bonusz_input.value < 0 || bonusz_input.value > 100)
     {
 
         alert("Csak 0-től 100% bónusz!");
@@ -97,22 +74,13 @@ function bonusz()
         bonusz_input.value = "";
 
     }
-    
-
-}
-
-function megnez()
-{
-
-    let szam_mezo = document.getElementById("dolgozoid_mezo");
-
-    if (isNaN(szam_mezo.value))
+    else if (ora_input.value < 1 || ora_input.value > 24)
     {
 
-        alert("Csak számok!");
+        alert("Csak 1-től 24 óra!");
 
-        szam_mezo.value = "";
-        
+        ora_input.value = "";
+
     }
 
 }
@@ -228,96 +196,46 @@ function idoszakos() // Időszakos lekérdezéshez a mezők lekezelése.
 
 }
 
-function kezd_datum() // Manuális végidő lekezelése.
+function jovo() // Manuális végidő lekezelése.
 {
     let ma = new Date();
 
     let Szuletesi_datum = document.getElementById("date");
-    let szuletes_input = Szuletesi_datum.value;
+    let Szuletesi_datum2 = document.getElementById("date2");
+    let Szuletesi_datum3 = document.getElementById("datum_kezd");
+    let Szuletesi_datum4 = document.getElementById("datum_befejez");
 
-    if (!szuletes_input) 
-    {
-        alert("Kérlek, adj meg egy dátumot!");
-        return;
-    }
-
-    let uj_datum = new Date(szuletes_input);
-
-    if (uj_datum > ma) 
-    {
-        alert("Az érték nem lehet a jövőben!");
-        Szuletesi_datum.value = "";
-    }
-
-}
-
-function veg_datum() // Manuális végidő lekezelése.
-{
-    let ma = new Date();
-
-    let Szuletesi_datum = document.getElementById("date2");
-    let szuletes_input = Szuletesi_datum.value;
-
-    if (!szuletes_input) 
-    {
-        alert("Kérlek, adj meg egy dátumot!");
-        return;
-    }
-
-    let uj_datum = new Date(szuletes_input);
+    let uj_datum = new Date(Szuletesi_datum.value);
+    let uj_datum2 = new Date(Szuletesi_datum2.value);
+    let uj_datum3 = new Date(Szuletesi_datum3.value);
+    let uj_datum4 = new Date(Szuletesi_datum4.value);
 
     if (uj_datum > ma) 
     {
         alert("Az érték nem lehet a jövőben!");
         Szuletesi_datum.value = "";
     }
-
-}
-
-function lekeres_mezo1() // Kezdeti dátum le ellenörzése.
-{
-    let ma = new Date();
-
-    let Szuletesi_datum = document.getElementById("datum_kezd");
-    let szuletes_input = Szuletesi_datum.value;
-
-    if (!szuletes_input) 
+    else if (uj_datum2 > ma)
     {
-        alert("Kérlek, adj meg egy dátumot!");
-        return;
-    }
 
-    let uj_datum = new Date(szuletes_input);
-
-    if (uj_datum > ma) 
-    {
         alert("Az érték nem lehet a jövőben!");
-        Szuletesi_datum.value = "";
+        Szuletesi_datum2.value = "";
+
     }
-
-}
-
-function lekeres_mezo2() // Vég dátum le ellenörzése.
-{
-    let ma = new Date();
-
-    let Szuletesi_datum = document.getElementById("datum_befejez");
-    let szuletes_input = Szuletesi_datum.value;
-
-    if (!szuletes_input) 
+    else if (uj_datum3 > ma)
     {
-        alert("Kérlek, adj meg egy dátumot!");
-        return;
-    }
 
-    let uj_datum = new Date(szuletes_input);
-
-    if (uj_datum > ma) 
-    {
         alert("Az érték nem lehet a jövőben!");
-        Szuletesi_datum.value = "";
-    }
+        Szuletesi_datum3.value = "";
 
+    }
+    else if (uj_datum4 > ma)
+    {
+
+        alert("Az érték nem lehet a jövőben!");
+        Szuletesi_datum4.value = "";
+
+    }
 }
 
 function ora_frissites() {

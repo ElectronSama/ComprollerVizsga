@@ -79,11 +79,11 @@
                                         <div class="card-body">
                                             <div class="mb-3">
                                                 <label for="date" class="form-label fw-bold">Dátum:</label>
-                                                <input type="date" class="form-control" id="date" class="szin" name="idopont_input" onblur="mezo_ellenorzes()" oninput="kezd_datum()" required>
+                                                <input type="date" class="form-control" id="date" class="szin" name="idopont_input" onblur="mezo_ellenorzes()" oninput="jovo()" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="date" class="form-label fw-bold">Vég Dátum:</label>
-                                                <input type="date" class="form-control" id="date2" class="szin" name="idopont_input2" onblur="mezo_ellenorzes()" oninput="veg_datum()" required>
+                                                <input type="date" class="form-control" id="date2" class="szin" name="idopont_input2" onblur="mezo_ellenorzes()" oninput="jovo()" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="time" class="form-label fw-bold">Idő:</label>
@@ -95,19 +95,19 @@
                                             </div>
                                             <div class="mb-3">
                                                 <label for="time" class="form-label fw-bold">Órák:</label>
-                                                <input type="text" class="form-control" id="ora_input" class="szin" name="ora_input" onblur="mezo_ellenorzes()" onkeyup="orak()" required>
+                                                <input type="text" class="form-control" id="ora_input" class="szin" name="ora_input" onblur="mezo_ellenorzes()" onkeyup="validalas()" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="time" class="form-label fw-bold">Bér:</label>
-                                                <input type="text" class="form-control" id="ber_input" class="szin" name="ber_input" onblur="mezo_ellenorzes()" onkeyup="ber_mezo()" required>
+                                                <input type="text" class="form-control" id="ber_input" class="szin" name="ber_input" onblur="mezo_ellenorzes()" onkeyup="validalas()" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="time" class="form-label fw-bold">Bónusz:</label>
-                                                <input type="text" class="form-control" id="bonusz_input" class="szin" name="bonusz_input" onblur="mezo_ellenorzes()" onkeyup="bonusz()" required>
+                                                <input type="text" class="form-control" id="bonusz_input" class="szin" name="bonusz_input" onblur="mezo_ellenorzes()" onkeyup="validalas()" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="time" class="form-label fw-bold">Végösszeg:</label>
-                                                <input type="text" class="form-control" id="vegosszeg_input" class="szin" name="vegosszeg_input"onblur="mezo_ellenorzes()" onkeyup="veg_mezo()" 
+                                                <input type="text" class="form-control" id="vegosszeg_input" class="szin" name="vegosszeg_input"onblur="mezo_ellenorzes()" onkeyup="validalas()" 
                                                 required>
                                             </div>
                                         </div>
@@ -154,7 +154,7 @@
                                 <div class="col-md-10">
                                     <div class="mb-3">
                                         <label for="name" class="form-label fw-bold">Név:</label>
-                                        <input type="text" class="form-control" id="dolgozoid_mezo" name="dolgozoid_mezo" onkeyup="megnez()" placeholder="Írd be az ID-t" id="szin">
+                                        <input type="text" class="form-control" id="dolgozoid_mezo" name="dolgozoid_mezo" onkeyup="validalas()" placeholder="Írd be az ID-t" id="szin">
                                     </div>
                                     <div class="d-grid gap-2 col-md-6 mx-auto">
                                         <button type="button" id="add-button" class="btn btn-lg" onclick="lezar()">Hozzáadás a táblázathoz</button>
@@ -217,11 +217,11 @@
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="date" class="form-label fw-bold">Dátum:</label>
-                                                    <input type="date" class="form-control" id="datum_kezd" name="dkezd" oninput="lekeres_mezo1()" onblur="lekeres_ellenorzes()">
+                                                    <input type="date" class="form-control" id="datum_kezd" name="dkezd" oninput="jovo()" onblur="lekeres_ellenorzes()">
                                                 </div>
                                                 <div class="mb-3">
                                                     <div class="mb-3">
-                                                        <input type="date" class="form-control" id="datum_befejez" name="dveg" oninput="lekeres_mezo2()" disabled>
+                                                        <input type="date" class="form-control" id="datum_befejez" name="dveg" oninput="jovo()" disabled>
                                                     </div>
                                                     <input class="form-check-input" type="checkbox" id="flexCheckDefault" oninput="idoszakos()">
                                                     <label class="form-check-label" for="flexCheckDefault">
