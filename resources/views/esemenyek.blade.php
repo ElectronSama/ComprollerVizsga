@@ -59,9 +59,9 @@
                             while ($sor = $eredmeny->fetch_assoc()) // Tömbként kezelés.
                             {
                                 echo '<tr>';
-                                echo '    <td data-label="Esemény Neve">' . $sor["esemeny_neve"] . '</td>';
-                                echo '    <td data-label="Dátum">' . $sor["datum"] . '</td>';
-                                echo '    <td data-label="Műveletek">';
+                                echo '    <td>' . $sor["esemeny_neve"] . '</td>';
+                                echo '    <td>' . $sor["datum"] . '</td>';
+                                echo '    <td>';
                                 echo '        <form action="php/torles.php" method="post" id="form2" target="/events">';
                                 echo '            <input type="hidden" name="esemeny_neve" value="' . $sor["esemeny_neve"] . '" >';
                                 echo '            <input type="submit" class="gomb_skin" value="Törlés" onclick="oldal_frissites()">';
