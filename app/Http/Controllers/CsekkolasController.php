@@ -44,7 +44,7 @@ class CsekkolasController extends Controller
 
                 // Éjszakai bónusz számítása (ha 18:00 és 06:00 között dolgozott)
                 $kezdIdoOra = Carbon::parse($existingEntry->Kezdido)->hour;
-                $bonusz = ($kezdIdoOra >= 18 || $kezdIdoOra <= 6) ? ($ber * 0.3) : 0;
+                $bonusz = ($kezdIdoOra >= 18 || $kezdIdoOra <= 6) ? (3000) : 0;
 
                 $vegosszeg = $ber + $bonusz;
 

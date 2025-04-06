@@ -23,13 +23,12 @@ return new class extends Migration
             $table->integer('Vegosszeg')->nullable();
             $table->boolean('Szamfejtve')->default(false);
             $table->timestamps();
-            $table->foreign('az_id')
-                  ->references('DolgozoID')
-                  ->on('nyilvantartas')
-                  ->onDelete('cascade')
-                  ->onUpdate('cascade');
+
+            $table->foreign('az_id')->references('DolgozoID')->on('nyilvantartas')
+                  ->onDelete('cascade')->onUpdate('cascade');
         });
     }
+
     public function down()
     {
         Schema::dropIfExists('csekkolasok');

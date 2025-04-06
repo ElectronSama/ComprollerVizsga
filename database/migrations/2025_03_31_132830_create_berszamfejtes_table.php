@@ -16,12 +16,11 @@ return new class extends Migration
             $table->date('honap');
             $table->integer('ber');
             $table->timestamps();
-            $table->foreign('DolgozoID')
-                  ->references('DolgozoID')
-                  ->on('nyilvantartas')
+            $table->foreign('DolgozoID')->references('DolgozoID')->on('nyilvantartas')
                   ->onDelete('cascade');
         });
     }
+
     public function down()
     {
         Schema::dropIfExists('berszamfejtes');
