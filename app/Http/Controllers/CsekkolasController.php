@@ -40,7 +40,7 @@ class CsekkolasController extends Controller
             if ($existingEntry) {
                 // Ha van nyitott belépés, akkor most kilépés történik
                 $ora = Carbon::parse($existingEntry->Kezdido)->diffInHours(Carbon::now());
-                $ber = $dolgozo->alapber * $ora;
+                $ber = $dolgozo->Alapber * $ora;
 
                 // Éjszakai bónusz számítása (ha 18:00 és 06:00 között dolgozott)
                 $kezdIdoOra = Carbon::parse($existingEntry->Kezdido)->hour;
