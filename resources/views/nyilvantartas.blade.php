@@ -127,7 +127,7 @@
                                                     </div>
                                                     <div class="col">
                                                         <label for="Anyja_neve" class="form-label text-gray-600">Anyja neve</label>
-                                                        <input type="text" class="form-control" id="Anyja_neve" name="Anyja_neve" placeholder="Papp Zsuzsanna" required oninput="ures_e()">
+                                                        <input type="text" class="form-control" id="Anyja_neve" name="Anyja_neve" placeholder="Papp Zsuzsanna" required oninput="ures_e()" onblur="ervenyes_nev()">
                                                     </div>
                                                     <div class="col-12">
                                                         <label for="Email" class="form-label text-gray-600">Email cím</label>
@@ -135,7 +135,7 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label for="Telefonszam" class="form-label text-gray-600">Telefonszám</label>
-                                                        <input type="tel" class="form-control" id="Telefonszam" name="Telefonszam" placeholder="+36 30 123 4567" required oninput="ures_e()" minlength="11" maxlength="12">
+                                                        <input type="tel" class="form-control" id="Telefonszam" name="Telefonszam" placeholder="+36 30 123 4567" required oninput="ures_e()" minlength="11" maxlength="12" onblur="telefonszam()">
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label for="Munkakor" class="form-label text-gray-600">Munkakör</label>
@@ -175,7 +175,7 @@
                                                     </div>
                                                     <div class="col-12">
                                                         <label for="Bankszamlaszam" class="form-label text-gray-600">Bankszámlaszám</label>
-                                                        <input type="text" class="form-control" id="Bankszamlaszam" name="Bankszamlaszam" placeholder="11773377-12345678" required oninput="ures_e()" minlength="12" maxlength="24" onkeyup="megnez()">
+                                                        <input type="text" class="form-control" id="Bankszamlaszam" name="Bankszamlaszam" placeholder="11773377-12345678" required oninput="ures_e()" minlength="16" maxlength="24" onkeyup="megnez()">
                                                     </div>
                                                     <div class="col-12">
                                                         <label for="qrcode_mezo" class="form-label text-gray-600">QR kód</label>
