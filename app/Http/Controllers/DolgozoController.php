@@ -77,12 +77,12 @@ class DolgozoController extends Controller
             'Munkakor' => 'required|string|max:255',
             'Szuletesi_datum' => 'required|date',
             'Anyja_neve' => 'nullable|string|max:255',
-            'Tajszam' => 'nullable|string|max:11',
-            'Adoszam' => 'nullable|string|max:20',
+            'Tajszam' => 'nullable|string|max:9',
+            'Adoszam' => 'nullable|string|max:10',
             'Bankszamlaszam' => 'nullable|string|max:24',
             'Alapber' => 'required|numeric|min:0',
             'Email' => 'nullable|email|max:255',
-            'Telefonszam' => 'nullable|string|max:20',
+            'Telefonszam' => 'nullable|string|max:12',
             'Qrcode' => 'nullable|string',
         ]);
     
