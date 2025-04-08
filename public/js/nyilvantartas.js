@@ -6,10 +6,13 @@ let nyform = document.getElementById("nyform");
 
 nyform.reset();
 
+let hibas_bank = [17,18,19,20,21,22,23];
+let jo_hossz = [1,2];
+
 function ures_e() 
 {
-    let Keresztnev = document.getElementById("Keresztnev").value;
-    let Vezeteknev = document.getElementById("Vezeteknev").value;
+    let Keresztnev = document.getElementById("Keresztnev").value.trim();
+    let Vezeteknev = document.getElementById("Vezeteknev").value.trim();
     let Szuletesi_datum = document.getElementById("Szuletesi_datum").value;
     let Anyja_neve = document.getElementById("Anyja_neve").value;
     let Tajszam = document.getElementById("Tajszam").value;
@@ -20,9 +23,13 @@ function ures_e()
     let Telefonszam = document.getElementById("Telefonszam").value;
     let Munkakor = document.getElementById("Munkakor").value; /* Az összes adattipus lekezelése. */
 
+    let khossz = Keresztnev.split(' ');
+    let vhossz = Vezeteknev.split(' ');
+
     if (Keresztnev !== "" && Vezeteknev !== "" && Szuletesi_datum !== "" && Anyja_neve !== "" && Tajszam !== "" && Adoszam !== "" &&
         Bankszamlaszam !== "" && Alapber !== "" && Email !== "" && /* Vizsgáljuk hogy üresek e a változók. */
-        Telefonszam !== "" && Munkakor !== "") {
+        Telefonszam !== "" && Munkakor !== "" && Tajszam.length === 9 && Adoszam.length === 10 && Bankszamlaszam.length >= 16 && Bankszamlaszam.length <= 24 
+    && !hibas_bank.includes(Bankszamlaszam.length) && khossz.length == 1 && jo_hossz.includes(vhossz.length)) {
 
         let lista = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", 
                     "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", 
@@ -61,6 +68,106 @@ function ures_e()
         qrcode_nyilvantartas = document.getElementById("qrcode_nyilvantartas");
         qrcode_nyilvantartas.innerHTML = "";
     }
+}
+
+function telefonszam()
+{
+
+    let Telefonszam = document.getElementById("Telefonszam");
+    
+    if (Telefonszam.value.length == 11 && Telefonszam.value.includes('06'))
+    {
+
+        if (isNaN(Telefonszam.value))
+        {
+
+            alert("Csak számok!");
+
+            Telefonszam.value = "";
+
+            felvitel_gomb = document.getElementById("felvitel_gomb");
+            felvitel_gomb.disabled = true;
+
+            qrcode_nyilvantartas = document.getElementById("qrcode_nyilvantartas");
+            qrcode_nyilvantartas.innerHTML = "";
+
+        }
+
+    }
+    else if (Telefonszam.value.length == 12)
+    {
+
+        if (!Telefonszam.value.includes('+36'))
+        {
+
+            alert("Hibás formátum!");
+
+            Telefonszam.value = "";
+
+            felvitel_gomb = document.getElementById("felvitel_gomb");
+            felvitel_gomb.disabled = true;
+
+            qrcode_nyilvantartas = document.getElementById("qrcode_nyilvantartas");
+            qrcode_nyilvantartas.innerHTML = "";
+
+        }
+        else if (isNaN(Telefonszam.value))
+        {
+
+            alert("Csak számok!");
+
+            Telefonszam.value = "";
+
+            felvitel_gomb = document.getElementById("felvitel_gomb");
+            felvitel_gomb.disabled = true;
+
+            qrcode_nyilvantartas = document.getElementById("qrcode_nyilvantartas");
+            qrcode_nyilvantartas.innerHTML = "";
+
+        }
+
+    }
+    else
+    {
+
+        alert("Hiányos!");
+
+        Telefonszam.value = "";
+
+        felvitel_gomb = document.getElementById("felvitel_gomb");
+        felvitel_gomb.disabled = true;
+
+        qrcode_nyilvantartas = document.getElementById("qrcode_nyilvantartas");
+        qrcode_nyilvantartas.innerHTML = "";
+
+    }
+
+}
+
+function ervenyes_nev()
+{
+
+    let Anyja_neve = document.getElementById("Anyja_neve");
+
+    let a_nev = Anyja_neve.value.trim();
+
+    let hossz = a_nev.split(' ');
+
+    if (hossz.length != 2 && hossz.length != 3)
+    {
+
+        alert("Érvénytelen név!");
+
+        Anyja_neve.value = "";
+
+        felvitel_gomb = document.getElementById("felvitel_gomb");
+        felvitel_gomb.disabled = true;
+
+        qrcode_nyilvantartas = document.getElementById("qrcode_nyilvantartas");
+        qrcode_nyilvantartas.innerHTML = "";
+
+    }
+
 }
 
 function email_e()
@@ -325,9 +432,14 @@ function mentes() // Rámentük a dolgozó összes adatára ha valamit el akarun
     let bankszamlaszam = document.getElementById("modal_bankszamlaszam").value;
     let qrcode = document.getElementById("modal_qrcode").value;
 
+    let mkhossz = keresztnev.split(' ');
+    let mvhossz = vezeteknev.split(' ');
+
     if (vezeteknev != "" && keresztnev != "" && email.includes('@') && email != "" && telefonszam != "" 
     && !isNaN(telefonszam) && munkakor != "" && alapber != "" && !isNaN(alapber) && szuletesi_datum != "" && 
-    anyja_neve != "" && tajszam != "" && !isNaN(tajszam) && adoszam != "" && !isNaN(adoszam) && bankszamlaszam != "" && !isNaN(bankszamlaszam))
+    anyja_neve != "" && tajszam != "" && !isNaN(tajszam) && adoszam != "" && !isNaN(adoszam) && bankszamlaszam != "" && !isNaN(bankszamlaszam)
+    && tajszam.length === 9 && adoszam.length === 10 && bankszamlaszam.length >= 16 && bankszamlaszam.length <= 24 
+    && !hibas_bank.includes(bankszamlaszam.length) && mkhossz.length == 1 && jo_hossz.includes(mvhossz.length))
     {    
         fetch('/dolgozok/update', 
         
