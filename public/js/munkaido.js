@@ -66,14 +66,6 @@ function validalas()
         szam_mezo.value = "";
         
     }
-    else if (bonusz_input.value < 0 || bonusz_input.value > 100)
-    {
-
-        alert("Csak 0-től 100% bónusz!");
-
-        bonusz_input.value = "";
-
-    }
     else if (ora_input.value < 1 || ora_input.value > 24)
     {
 
