@@ -9,8 +9,7 @@ function cimfrissites()
         'Január', 'Február', 'Március', 'Április', 'Május', 'Június', 
         'Július', 'Augusztus', 'Szeptember', 'Október', 'November', 'December'
     ];
-    document.getElementById('naptar_cim').textContent = 
-        `${honapok[aktualis_honap]} ${aktualis_ev}`; /* Naptáron a dátum beállitása. */
+    document.getElementById('naptar_cim').textContent = honapok[aktualis_honap] + " " + aktualis_ev; /* Naptáron a dátum beállitása. */
 }
 
 function elozo_honap()  /* Előző hónap kiszámitása. */
