@@ -9,7 +9,7 @@
             <span class="input-group-text" id="basic-addon1">👤</span>
             <input type="text" class="form-control" placeholder="Név" id="name" name="name" value="{{ old('name') }}" required autofocus>
             @error('name')
-                <span class="invalid-feedback d-block" role="alert">{{ $message }}</span>
+                <span class="invalid-feedback d-block" role="alert">{{ __('A név mező kitöltése kötelező.') }}</span>
             @enderror
         </div>
 
@@ -17,7 +17,7 @@
             <span class="input-group-text" id="basic-addon2">@</span>
             <input type="email" class="form-control" placeholder="Email cím" id="email" name="email" value="{{ old('email') }}" required>
             @error('email')
-                <span class="invalid-feedback d-block" role="alert">{{ $message }}</span>
+                <span class="invalid-feedback d-block" role="alert">{{ __('Érvényes email címet kell megadni.') }}</span>
             @enderror
         </div>
 
@@ -25,7 +25,7 @@
             <span class="input-group-text" id="basic-addon3"><i class="bi bi-file-lock2"></i></span>
             <input type="password" class="form-control" placeholder="Jelszó" id="password" name="password" required>
             @error('password')
-                <span class="invalid-feedback d-block" role="alert">{{ $message }}</span>
+                <span class="invalid-feedback d-block" role="alert">{{ __('A jelszónak legalább 8 karakter hosszúnak kell lennie.') }}</span>
             @enderror
         </div>
 

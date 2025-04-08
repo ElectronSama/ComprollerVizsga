@@ -14,7 +14,7 @@
                     <input type="text" class="" id="b_nev" name="email" required>
                     <label for="b_nev" class="form-label">Email</label>
                     @error('email')
-                        <span class="invalid-feedback d-block" role="alert">{{ $message }}</span>
+                        <span class="invalid-feedback d-block" role="alert">{{ 'Hibás email cím!' }}</span>
                     @enderror
                 </div>
                 <div class="input-group mb-3">
@@ -22,7 +22,7 @@
                     <label for="password-signin" class="form-label">Jelszó</label>
                     <img src="{{ asset('kepek/szem_be.png') }}" onclick="megnez('password-signin', this)" class="jelszo-icon" style="cursor: pointer;">
                     @error('password')
-                        <span class="invalid-feedback d-block" role="alert">{{ $message }}</span>
+                        <span class="invalid-feedback d-block" role="alert">{{ 'Hibás jelszó!' }}</span>
                     @enderror
                 </div>
                 <div class="text-center">
