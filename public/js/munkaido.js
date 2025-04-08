@@ -66,14 +66,6 @@ function validalas()
         szam_mezo.value = "";
         
     }
-    else if (ora_input.value < 1 || ora_input.value > 24)
-    {
-
-        alert("Csak 1-től 24 óra!");
-
-        ora_input.value = "";
-
-    }
 
 }
 
@@ -113,7 +105,7 @@ function mezo_ellenorzes() // Mezők tiltása és feloldása szükség esetén.
     let vegosszeg_input = document.getElementById("vegosszeg_input");
 
     if (date.value == "" || date2.value == "" || time.value == "" || time2.value == "" || ora_input.value == "" 
-        || ber_input.value == "" || bonusz_input.value == "" || vegosszeg_input.value == "")
+        || ber_input.value == "" || bonusz_input.value == "" || vegosszeg_input.value == "" || ora_input.value < 1 || ora_input.value > 24)
     {
 
         hozzadas_gomb.disabled = true;
