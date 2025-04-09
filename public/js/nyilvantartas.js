@@ -28,7 +28,7 @@ function ures_e()
 
     if (Keresztnev !== "" && Vezeteknev !== "" && Szuletesi_datum !== "" && Anyja_neve !== "" && Tajszam !== "" && Adoszam !== "" &&
         Bankszamlaszam !== "" && Alapber !== "" && Email !== "" && /* Vizsgáljuk hogy üresek e a változók. */
-        Telefonszam !== "" && Munkakor !== "" && Tajszam.length === 9 && Adoszam.length === 10 && Bankszamlaszam.length >= 16 && Bankszamlaszam.length <= 24 
+        Telefonszam !== "" && Munkakor !== "" && Tajszam.length === 9 && Adoszam.length === 11 && Bankszamlaszam.length >= 16 && Bankszamlaszam.length <= 24 
     && !hibas_bank.includes(Bankszamlaszam.length) && khossz.length == 1 && jo_hossz.includes(vhossz.length)) {
 
         let lista = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", 
@@ -438,7 +438,7 @@ function mentes() // Rámentük a dolgozó összes adatára ha valamit el akarun
     if (vezeteknev != "" && keresztnev != "" && email.includes('@') && email != "" && telefonszam != "" 
     && !isNaN(telefonszam) && munkakor != "" && alapber != "" && !isNaN(alapber) && szuletesi_datum != "" && 
     anyja_neve != "" && tajszam != "" && !isNaN(tajszam) && adoszam != "" && !isNaN(adoszam) && bankszamlaszam != "" && !isNaN(bankszamlaszam)
-    && tajszam.length === 9 && adoszam.length === 10 && bankszamlaszam.length >= 16 && bankszamlaszam.length <= 24 
+    && tajszam.length === 9 && adoszam.length === 11 && bankszamlaszam.length >= 16 && bankszamlaszam.length <= 24 
     && !hibas_bank.includes(bankszamlaszam.length) && mkhossz.length == 1 && jo_hossz.includes(mvhossz.length))
     {    
         fetch('/dolgozok/update', 
