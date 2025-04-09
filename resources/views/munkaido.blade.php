@@ -14,7 +14,7 @@
                 <button class="btn btn-primary active" id="home-tab" data-bs-toggle="pill" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true"><i class="bi bi-arrow-left-right"></i> Csekkolások</button>
             </li>
             <li class="nav-item p-2" role="presentation">
-                <button class="btn btn-primary" id="profile-tab" data-bs-toggle="pill" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false"><i class="bi bi-pencil-fill"></i> Manuális rögzítés</button>
+                <button class="btn btn-primary d-none d-sm-none d-md-block" id="profile-tab" data-bs-toggle="pill" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false"><i class="bi bi-pencil-fill"></i> Manuális rögzítés</button>
             </li>
             <li class="nav-item p-2" role="presentation">
                 <button class="btn btn-primary" id="contact-tab" data-bs-toggle="pill" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false"><i class="bi bi-search"></i> Lekérdezés</button>
@@ -37,6 +37,7 @@
                                                     <th class="text-center fw-bold px-3 py-3">ID</th>
                                                     <th class="text-center fw-bold px-3 py-3">Vezetéknév</th>
                                                     <th class="text-center fw-bold px-3 py-3">Keresztnév</th>
+                                                    <th class="text-center fw-bold px-3 py-3">Dátum</th>
                                                     <th class="text-center fw-bold px-3 py-3">Érkezés</th>
                                                     <th class="text-center fw-bold px-3 py-3">Távozás</th>
                                                 </tr>
@@ -48,7 +49,8 @@
                                                     <td class="text-center py-2">{{ $Csekkolas->Vezeteknev }}</td>
                                                     <td class="text-center py-2">{{ $Csekkolas->Keresztnev }}</td>
                                                     <td class="text-center py-2">{{ $Csekkolas->Datum_Be }}</td>
-                                                    <td class="text-center py-2">{{ $Csekkolas->Datum_Ki }}</td>
+                                                    <td class="text-center py-2">{{ $Csekkolas->Kezdido }}</td>
+                                                    <td class="text-center py-2">{{ $Csekkolas->Vegido }}</td>
                                                 </tr>
                                                 @endforeach
                                             </tbody>

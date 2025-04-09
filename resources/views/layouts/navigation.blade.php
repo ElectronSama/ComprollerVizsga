@@ -35,7 +35,7 @@
                         {{ __('Munkaidő') }}
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item d-none d-sm-none d-md-block">
                     <a class="nav-link {{ request()->routeIs('customers') ? 'active' : '' }}" 
                        href="{{ route('payroll-calculation') }}">
                         {{ __('Bérszámfejtés') }}

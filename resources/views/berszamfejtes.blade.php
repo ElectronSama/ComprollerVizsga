@@ -13,7 +13,7 @@
     @endif
 
 
-    <div class="berszamfejtes_tarolo">
+    <div class="berszamfejtes_tarolo d-none d-sm-none d-md-block">
         <div class="diagram">
             <div class="diagram_fejlec">
                 <div class="diagram_cim">Bérszámfejtés</div>

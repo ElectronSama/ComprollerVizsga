@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/emberek_diagram.css">
 </head>
 <body>
-<div class="container my-4">
+<div class="container my-4 d-none d-md-block">
     <div class="card">
         <div class="card-header">
             <h5 class="kartya_ertek">Áttekintés</h5>
@@ -16,7 +16,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-7">
-                    <canvas id="myChart" class="d-none d-md-block"></canvas>
+                    <canvas id="myChart" class=""></canvas>
                 </div>
                 <div class="col">
                     <div id="myPlot"></div>
