@@ -27,13 +27,3 @@ A **Comproller** működéséhez az alábbiak szükségesek:
 ---
 
 Köszönjük, hogy használja a Comproller alkalmazást! A fejlesztésekkel kapcsolatos javaslatokat és hibajelentéseket örömmel fogadjuk.
-
----
-
-<div align="center">
-<a href="https://drive.google.com/drive/folders/1L6zySRzp45_Y8vorld54O9FlnvdPsgSC">
-<b>BEMUTATÓ</b>
-</a>
-</div>
-
----
