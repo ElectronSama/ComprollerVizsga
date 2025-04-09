@@ -16,10 +16,10 @@
                         <thead class="bg-dark text-white">
                             <tr>
                                 <th scope="col" style="width: 10%" class="py-3">ID</th>
-                                <th scope="col" style="width: 25%" class="py-3">Vezetéknév</th>
-                                <th scope="col" style="width: 25%" class="py-3">Keresztnév</th>
+                                <th scope="col" style="width: 20%" class="py-3">Vezetéknév</th>
+                                <th scope="col" style="width: 20%" class="py-3">Keresztnév</th>
                                 <th scope="col" style="width: 20%" class="py-3">Munkakör</th>
-                                <th scope="col" style="width: 20%" class="py-3 d-none d-md-block">Műveletek</th>
+                                <th scope="col" style="width: 30%" class="py-3 d-none d-md-table-cell text-end">Műveletek</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white" style="box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)">
@@ -29,8 +29,8 @@
                                     <td class="text-dark">{{ $Dolgozo->Vezeteknev }}</td>
                                     <td class="text-dark">{{ $Dolgozo->Keresztnev }}</td>
                                     <td><span class="badge bg-secondary text-white">{{ $Dolgozo->Munkakor }}</span></td>
-                                    <td class="d-none d-md-block">
-                                        <div class="d-flex justify-content-center gap-3">
+                                    <td class="d-none d-md-table-cell">
+                                        <div class="d-flex justify-content-end gap-3">
                                             <button class="btn btn-danger btn-sm" onclick="torles({{ $Dolgozo->DolgozoID }})">
                                                 <i class="bi bi-trash3-fill"></i> Törlés
                                             </button>
