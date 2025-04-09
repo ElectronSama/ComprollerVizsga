@@ -76,14 +76,14 @@ class DolgozoController extends Controller
             'Keresztnev' => 'required|string|max:255',
             'Munkakor' => 'required|string|max:255',
             'Szuletesi_datum' => 'required|date',
-            'Anyja_neve' => 'nullable|string|max:255',
-            'Tajszam' => 'nullable|string|max:9',
-            'Adoszam' => 'nullable|string|max:10',
-            'Bankszamlaszam' => 'nullable|string|max:24',
+            'Anyja_neve' => 'required|string|max:255',
+            'Tajszam' => 'required|string|max:9',
+            'Adoszam' => 'required|string|max:11',
+            'Bankszamlaszam' => 'required|string|max:24',
             'Alapber' => 'required|numeric|min:0',
-            'Email' => 'nullable|email|max:255',
-            'Telefonszam' => 'nullable|string|max:12',
-            'Qrcode' => 'nullable|string',
+            'Email' => 'required|email|max:255',
+            'Telefonszam' => 'required|string|max:12',
+            'Qrcode' => 'required|string',
         ]);
     
         try {
