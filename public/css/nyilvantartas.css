@@ -19,7 +19,7 @@
 
 .modal-content 
 {
-    background-color: #fff;
+    background-color: lightblue;  /*régi szín #fff*/
     padding: 30px;
     border-radius: 10px;
     width: 80%;
