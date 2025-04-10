@@ -20,6 +20,8 @@ class BerszamfejtesController extends Controller
                          ->orWhere('Vezeteknev', 'like', "%$keres%")
                          ->orWhere('Keresztnev', 'like', "%$keres%")
                          ->orWhere('Munkakor', 'like', "%$keres%");
+        }, function ($query) {
+            return $query->limit(5);
         })->get();
 
         $osszescsekkolasok = DB::table('csekkolasok')
