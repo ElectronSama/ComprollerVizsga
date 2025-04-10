@@ -44,7 +44,7 @@
                                 placeholder="{{ __('Jelszó') }}"
                             >
                             @error('password', 'userDeletion')
-                                <div class="invalid-feedback d-block">{{ $message }}</div>
+                                <div class="invalid-feedback d-block">{{ __('Hibás jelszó. Kérjük, próbálja újra.') }}</div>
                             @enderror
                         </div>
                     </div>

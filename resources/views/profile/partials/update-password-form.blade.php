@@ -16,19 +16,19 @@
         <div class="mb-3">
             <x-input-label for="update_password_current_password" :value="__('Jelenlegi jelszó')" class="form-label" />
             <x-text-input id="update_password_current_password" name="current_password" type="password" class="form-control" autocomplete="current-password" />
-            <x-input-error :messages="$errors->updatePassword->get('current_password')" class="invalid-feedback d-block" />
+            <x-input-error :messages="$errors->updatePassword->get('current_password') ? ['A jelenlegi jelszó helytelen.'] : []" class="invalid-feedback d-block" />
         </div>
 
         <div class="mb-3">
             <x-input-label for="update_password_password" :value="__('Új jelszó')" class="form-label" />
             <x-text-input id="update_password_password" name="password" type="password" class="form-control" autocomplete="new-password" />
-            <x-input-error :messages="$errors->updatePassword->get('password')" class="invalid-feedback d-block" />
+            <x-input-error :messages="$errors->updatePassword->get('password') ? ['Az új jelszó nem megfelelő.'] : []" class="invalid-feedback d-block" />
         </div>
 
         <div class="mb-3">
             <x-input-label for="update_password_password_confirmation" :value="__('Jelszó megerősítése')" class="form-label" />
             <x-text-input id="update_password_password_confirmation" name="password_confirmation" type="password" class="form-control" autocomplete="new-password" />
-            <x-input-error :messages="$errors->updatePassword->get('password_confirmation')" class="invalid-feedback d-block" />
+            <x-input-error :messages="$errors->updatePassword->get('password_confirmation') ? ['A jelszó megerősítése nem egyezik.'] : []" class="invalid-feedback d-block" />
         </div>
 
         <div class="d-flex align-items-center gap-3">
