@@ -91,7 +91,7 @@
                                     </li>
                                     <li class="list-group-item d-flex align-items-center">
                                         <strong class="me-2">Email:</strong>
-                                        <a href="mailto:info@pumpkinstudio.com" class="text-decoration-none">info@pumpkinstudio.com</a>
+                                        <a href="mailto:comprollerinfo@gmail.com" class="text-decoration-none">comprollerinfo@gmail.com</a>
                                     </li>
                                     <li class="list-group-item d-flex align-items-center">
                                         <strong class="me-2">Telefon:</strong>
