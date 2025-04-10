@@ -12,7 +12,9 @@
         </div>
     @endif
 
-
+    <div class="d-block d-md-none text-center bg-warning p-3">
+        Ezen képernyőn nem megtekinthető
+    </div>
     <div class="berszamfejtes_tarolo d-none d-sm-none d-md-block">
         <div class="diagram">
             <div class="diagram_fejlec">
